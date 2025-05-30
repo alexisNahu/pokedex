@@ -1,0 +1,24 @@
+// 1. Importar funciones de Bootstrap ANTES de usar mapas
+@import "../../node_modules/bootstrap/scss/functions";
+
+// 2. Tus colores personalizados (Paleta Pokémon)
+$poke-red: #FF1C1C;        // Rojo Pokéball
+$poke-yellow: #FFCB05;     // Amarillo Pikachu
+$poke-blue: #3B4CCA;       // Azul clásico
+$poke-light: #F5F5F5;      // Fondo claro
+$poke-dark: #2E2E2E;       // Texto oscuro
+
+$custom-theme-colors: (
+  "poke-red": $poke-red,
+  "poke-yellow": $poke-yellow,
+  "poke-blue": $poke-blue,
+  "poke-light": $poke-light,
+  "poke-dark": $poke-dark
+);
+
+// 3. Merge con $theme-colors DESPUÉS de definir los colores pero ANTES del resto
+@import "../../node_modules/bootstrap/scss/variables";
+$theme-colors: map-merge($theme-colors, $custom-theme-colors);
+
+// 4. Finalmente, importar el resto de Bootstrap
+@import "../../node_modules/bootstrap/scss/bootstrap";
