@@ -5,10 +5,10 @@ import Dropdown from './components/Dropdown'
 function Sidebar() {
   return (
     <div className='sidebar'>
-      <NavLink icon="pokedex" description="Dashboard" />
-      <NavLink icon="pokeball" description="Posts" />
-      <NavLink icon="pokeball" description="Notifications" />
-      <Dropdown icon="pokeball" description="Projects" id="submenu"/>
+      <NavLink icon="bulbasaur" description="Dashboard" />
+      <NavLink icon="charmander" description="Posts" />
+      <NavLink icon="squirtle" description="Notifications" />
+      <Dropdown icon="ditto" description="Projects" id="submenu" items=['s']/>
     </div>
   )
 }

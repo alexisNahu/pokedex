@@ -6,7 +6,8 @@ export const sidebarItems: SidebarItemsType = [
   },
   {
     text: 'Pokédex',
-    icon: '/poke-icons/pokedex.png',
+    icon: 'charizard',
+    bootstrapIcon: 'bi-journal-bookmark',
     items: [
       { text: 'Todos los Pokémon' },
       { text: 'Por tipo' },
@@ -15,7 +16,8 @@ export const sidebarItems: SidebarItemsType = [
   },
   {
     text: 'Entrenadores',
-    icon: '/poke-icons/game.png',
+    icon: 'tyranitar',
+    bootstrapIcon: 'bi-person-lines-fill',
     items: [
       { text: 'Mis Pokémon' },
       { text: 'Medallas' },
@@ -24,7 +26,8 @@ export const sidebarItems: SidebarItemsType = [
   },
   {
     text: 'Minijuegos',
-    icon: '/poke-icons/battle.png',
+    icon: 'gengar',
+    bootstrapIcon: 'bi bi-controller',
     items: [
       { text: 'Adivina el Pokémon' },
       { text: 'Batalla rápida' },
@@ -33,7 +36,8 @@ export const sidebarItems: SidebarItemsType = [
   },
   {
     text: 'Exploración',
-    icon: 'poke-icons/medalla.png',
+    icon: 'venusaur',
+    bootstrapIcon: 'bi bi-compass',
     items: [
       { text: 'Regiones' },
       { text: 'Pokémon por región' },

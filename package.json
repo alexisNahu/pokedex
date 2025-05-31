@@ -11,7 +11,9 @@
   },
   "dependencies": {
     "bootstrap": "^5.3.5",
+    "bootstrap-icons": "^1.13.1",
     "pokesprite": "^1.5.1",
+    "pokesprite-images": "^2.7.0",
     "react": "^19.0.0",
     "react-bootstrap": "^2.10.9",
     "react-dom": "^19.0.0",
