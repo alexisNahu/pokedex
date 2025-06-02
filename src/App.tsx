@@ -1,16 +1,17 @@
-import "bootstrap/dist/css/bootstrap.min.css";
 
-import {Header} from './components'
-import {Sidebar} from "./components";
-import { sidebarItems } from "./components/layout/sidebar/sidebar.items";
+import { CardComponent, Layout } from "./components";
 import { SidebarProvider } from "./components/layout/sidebar/sidebar.context";
 
 function App() {
 
   return (
-    <SidebarProvider>
-      <Sidebar items={sidebarItems}/>
-    </ SidebarProvider>
+    <>
+      <SidebarProvider>
+        <Layout>
+          <CardComponent />
+        </Layout>
+      </SidebarProvider>
+    </>
   )
 }
 

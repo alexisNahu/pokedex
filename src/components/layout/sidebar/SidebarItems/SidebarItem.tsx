@@ -1,7 +1,7 @@
 import React from 'react'
 import type { DropdownItem, SingleItem } from '../model'
-import SingleComponent from './SingleComponent'
-import AccordeonComponent from './AccordeonComponent'
+import SingleComponent from './SingeComponent/SingleComponent'
+import AccordeonComponent from './AccordeonComponent/AccordeonComponent'
 
 
 function SidebarItem({item}: {item: DropdownItem | SingleItem}) {

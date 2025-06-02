@@ -22,7 +22,7 @@ function Sidebar({ items }: { items: SidebarItemsType }) {
     text: 'white',
     top: 0,
     left: 0,
-    zIndex: 1000 // asegura que esté por encima del resto
+    zIndex: 1000
   }
 
   const arrowStyles = {
@@ -36,7 +36,7 @@ function Sidebar({ items }: { items: SidebarItemsType }) {
     borderRadius: '50%',
     zIndex: 1001 // encima del sidebar
   }
-  
+
   return (
       <div className={`sidebar bg-poke-blue`} style={sidebarStyles}>
         <i className={`${activo ? 'bi bi-arrow-left' : 'bi bi-list'} bg-white text-dark p-1 d-flex justify-content-center align-items-center`} style={arrowStyles} onClick={() => setActivo(prev => !prev)}></i>

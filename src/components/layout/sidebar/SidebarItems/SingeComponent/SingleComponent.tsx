@@ -1,7 +1,7 @@
 import React from 'react'
-import type { SingleItem } from '../model'
-import { useSidebarContext } from '../sidebar.context'
-import { getHidingTransition } from '../Sidebar'
+import type { SingleItem } from '../../model'
+import { useSidebarContext } from '../../sidebar.context'
+import { getHidingTransition } from '../../Sidebar'
 
 function SingleComponent({item}: {item: SingleItem}) {
   const {activo} = useSidebarContext()
