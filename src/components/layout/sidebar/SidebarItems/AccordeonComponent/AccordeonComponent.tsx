@@ -7,10 +7,12 @@ import SidebarItem from '../SidebarItem';
 import { useEffect, useRef, useState } from 'react';
 import { useSidebarContext } from '../../sidebar.context';
 import { getHidingTransition } from '../../Sidebar';
+import * as spriteService from '../../../../../services/pokemonSprites.service';
 
 function AccordeonComponent({ item }: { item: DropdownItem }) {
   const safeId = item.text.replace(/\s+/g, '-').toLowerCase();
-  const animatedSpriteUrl = `https://img.pokemondb.net/sprites/black-white/anim/normal/${item.icon}.gif`
+
+  const animatedSprite = spriteService.getAnimatedFrontwardsSprite(item.icon, false)
 
   const {activo} = useSidebarContext()
   const [clicked, setClickedState] = useState<boolean>(false)
@@ -62,7 +64,7 @@ function AccordeonComponent({ item }: { item: DropdownItem }) {
               </div>
               <div className='col-md d-flex justify-content-between align-items-center' style={getHidingTransition(activo)}>
                 <span className='fw-bold'>{item.text}</span>
-                <img src={animatedSpriteUrl} className={`${clicked ? 'bouncing' : 'not-bouncing'}`} alt="item" width={70}  />
+                <img src={animatedSprite} className={`${clicked ? 'bouncing' : 'not-bouncing'}`} alt="item" width={70}  />
               </div>
             </div>
           </a>

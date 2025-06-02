@@ -5,7 +5,7 @@ export interface SingleItem {
 
 export interface DropdownItem {
     text: string
-    icon?: string
+    icon: string
     bootstrapIcon: string,
     items: Array<DropdownItem | SingleItem>
 }

@@ -1,4 +1,4 @@
-import { carouselSize } from "./CardComponent"
+import { carouselSize } from "./CardCarousel"
 
 function SingleCard() {
   return (
