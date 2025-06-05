@@ -1,5 +1,5 @@
 import React from 'react'
-import type { DropdownItem, SingleItem } from '../model'
+import type { DropdownItem, SingleItem } from '../../../../models/sidebar.model'
 import SingleComponent from './SingeComponent/SingleComponent'
 import AccordeonComponent from './AccordeonComponent/AccordeonComponent'
 

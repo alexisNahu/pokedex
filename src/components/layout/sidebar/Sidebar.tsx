@@ -1,8 +1,8 @@
-import React, { useContext, useEffect, useState } from 'react'
-import type { DropdownItem, SingleItem, SidebarItemsType } from './model'
-import SidebarItem from './SidebarItems/SidebarItem';
 import './sidebar.css'
-import { SidebarProvider, useSidebarContext } from './sidebar.context';
+
+import type { SidebarItemsType } from '@models/sidebar.model'
+import SidebarItem from './SidebarItems/SidebarItem';
+import { useSidebarContext } from './sidebar.context';
 
 export const getHidingTransition = (activo: boolean) => {
   return {
@@ -38,7 +38,7 @@ function Sidebar({ items }: { items: SidebarItemsType }) {
   }
 
   return (
-      <div className={`sidebar bg-poke-blue`} style={sidebarStyles}>
+      <div className={`sidebar bg-poke-blue`} style={sidebarStyles} onMouseEnter={() => setActivo(true)} onMouseLeave={() => setActivo(false)}>
         <i className={`${activo ? 'bi bi-arrow-left' : 'bi bi-list'} bg-white text-dark p-1 d-flex justify-content-center align-items-center`} style={arrowStyles} onClick={() => setActivo(prev => !prev)}></i>
 
         <nav className='d-flex flex-column h-100'>

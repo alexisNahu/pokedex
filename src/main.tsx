@@ -4,12 +4,15 @@ import './App.css'
 import './scss/Custom.css'
 import App from './App.tsx'
 import 'bootstrap-icons/font/bootstrap-icons.css';
+import AppContext from './AppContext.tsx'
 
 
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <App />
+    <AppContext>
+      <App />
+    </AppContext>
   </StrictMode>,
 )
 

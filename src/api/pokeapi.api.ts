@@ -1,0 +1,39 @@
+import { PokemonChainEvolutionDAO, PokemonDAO, PokemonSpeciesDAO } from "@models/dao";
+import { POKEMON_API_ENDPOINTS, POKEMON_API_URL } from "../config/pokeapi.endpoints";
+
+export async function fetchPokemonByIdOrName(id: number | string): Promise<PokemonDAO> {
+    try {
+        const response = await fetch(`${POKEMON_API_URL}/${POKEMON_API_ENDPOINTS.POKEMON}/${id}`)
+
+        if (!response.ok) throw new Error(`Pokemon not found: ${response.status}`)
+        
+        return await response.json()
+    } catch(error){
+        throw new Error(`Error while fetching: ${error}`)
+    }
+}
+
+export async function fetchPokemonSpecies(name: string): Promise<PokemonSpeciesDAO> {
+    try {
+        const response = await fetch(`${POKEMON_API_URL}/${POKEMON_API_ENDPOINTS.POKEMON_SPECIES}/${name}`)
+
+        if (!response.ok) throw new Error(`Species not found: ${response.status}`)
+
+        return await response.json()
+    } catch(error) {
+        throw new Error(`Error while fetching: ${error}`)
+    }
+}
+
+export async function fetchPokemonChanEvolution(pokemonChainUrl: string): Promise<PokemonChainEvolutionDAO> {
+    try {
+        const response = await fetch(pokemonChainUrl)
+
+        if (!response.ok) throw new Error(`Chain Evolution not found: ${response.status}`)
+
+        return await response.json()
+    } catch(error) {
+        throw new Error(`Error while fetching: ${error}`)
+    }
+}
+

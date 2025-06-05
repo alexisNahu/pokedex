@@ -1,4 +1,4 @@
-import type { SidebarItemsType } from "./model";
+import type { SidebarItemsType } from "../../../models/sidebar.model";
 
 export const sidebarItems: SidebarItemsType = [
   {

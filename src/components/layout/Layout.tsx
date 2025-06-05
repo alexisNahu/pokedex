@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect } from 'react'
+import React, { forwardRef, ReactNode, useEffect, useRef } from 'react'
 import Sidebar from './sidebar/Sidebar'
 import { SidebarProvider, useSidebarContext } from './sidebar/sidebar.context'
 import { sidebarItems } from './sidebar/sidebar.items'
@@ -12,7 +12,7 @@ function Layout({children}:Props) {
 
   return (
     <>
-        <Sidebar items={sidebarItems}/>
+        <Sidebar items={sidebarItems} />
         <main 
             className='d-flex justify-content-center align-items-center h-100'
             style={{

@@ -8,7 +8,7 @@ interface SidebarContextType {
 const SidebarContext = createContext<SidebarContextType | undefined>(undefined);
 
 export const SidebarProvider = ({ children }: { children: React.ReactNode }) => {
-  const [activo, setActivo] = useState<boolean>(true);
+  const [activo, setActivo] = useState<boolean>(false);
 
   return (
     <SidebarContext.Provider value = {{activo, setActivo}}>

@@ -7,7 +7,6 @@ export enum SPRITE_STYLE {
   FRONT_SHINY_STATIC = 'shiny',
   BACK_NORMAL_STATIC = 'back-normal',
   BACK_SHINY_STATIC = 'back-shiny',
-
   FRONT_NORMAL_ANIMATED = 'anim/normal',
   FRONT_SHINY_ANIMATED = 'anim/shiny',
   BACK_NORMAL_ANIMATED = 'anim/back-normal',

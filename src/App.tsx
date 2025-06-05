@@ -1,17 +1,15 @@
 
-import { CardComponent, Layout } from "./components";
-import { SidebarProvider } from "./components/layout/sidebar/sidebar.context";
+import LandingPage  from "@pages/public";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { RoutesWithNotFound } from "./utilities/RoutesWIthNotFound";
 
 function App() {
-
   return (
-    <>
-      <SidebarProvider>
-        <Layout>
-          <CardComponent />
-        </Layout>
-      </SidebarProvider>
-    </>
+    <BrowserRouter>
+      <RoutesWithNotFound>
+        <Route path='/' element={<LandingPage />} />
+      </RoutesWithNotFound>
+    </BrowserRouter>
   )
 }
 

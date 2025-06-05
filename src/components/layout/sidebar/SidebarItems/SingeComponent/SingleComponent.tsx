@@ -1,5 +1,5 @@
 import React from 'react'
-import type { SingleItem } from '../../model'
+import type { SingleItem } from '../../../../../models/sidebar.model'
 import { useSidebarContext } from '../../sidebar.context'
 import { getHidingTransition } from '../../Sidebar'
 

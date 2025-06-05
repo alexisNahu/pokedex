@@ -1,0 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+.pokemon-type {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 10px; /* Tamaño típico GBA */
+  letter-spacing: 0.5px;
+  border-radius: 10%;
+}

@@ -2,15 +2,16 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle';
 import './AccordeonComponent.css'
 
-import type { DropdownItem } from '../../model';
+import type { DropdownItem } from '@models/sidebar.model';
+import { generateSafeId } from '@utilities/safeId';
+import * as spriteService from '@services/pokemonSprites.service';
 import SidebarItem from '../SidebarItem';
 import { useEffect, useRef, useState } from 'react';
 import { useSidebarContext } from '../../sidebar.context';
 import { getHidingTransition } from '../../Sidebar';
-import * as spriteService from '../../../../../services/pokemonSprites.service';
 
 function AccordeonComponent({ item }: { item: DropdownItem }) {
-  const safeId = item.text.replace(/\s+/g, '-').toLowerCase();
+  const safeId = generateSafeId(item.text).toLowerCase();
 
   const animatedSprite = spriteService.getAnimatedFrontwardsSprite(item.icon, false)
 
