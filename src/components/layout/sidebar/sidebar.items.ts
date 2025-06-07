@@ -5,7 +5,7 @@ import { PUBLIC } from "@models/routes/routes";
 export const sidebarItems: SidebarItemsType = [
   {
     text: 'Inicio',
-    url: `/${POKEMON_API_URL}/${PUBLIC.LANDING_PAGE}`
+    url: `/${PUBLIC.LANDING_PAGE}`
   },
   {
     text: 'Pokédex',
