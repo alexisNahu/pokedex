@@ -53,6 +53,7 @@ export function mapToPokemonDTO (
           animated_shiny_front_2d: sprites.animated.shiny.front,
           animated_normal_back_2d: sprites.animated.normal.back,
           animated_shiny_back_2d: sprites.animated.shiny.back
-        }
+        },
+        isMega: false
     }
 }

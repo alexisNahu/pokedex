@@ -41,9 +41,6 @@ export function getAllSprites(pokemonName: string) {
     }
 }
 
-export function getAll3dSprites(pokemonName: string) {
-    return {
-        shiny: get3dSprite(pokemonName, true),
-        normal: get3dSprite(pokemonName, false)
-    }
+export function getAll3dSprites(pokemonName: string, isShiny: boolean) {
+    return get3dSprite(pokemonName, isShiny)
 }

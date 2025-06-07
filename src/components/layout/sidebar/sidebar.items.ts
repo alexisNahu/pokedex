@@ -1,8 +1,11 @@
+import { POKEMON_API_URL } from "../../../config/pokeapi.endpoints";
 import type { SidebarItemsType } from "../../../models/sidebar.model";
+import { PUBLIC } from "@models/routes/routes";
 
 export const sidebarItems: SidebarItemsType = [
   {
-    text: 'Inicio'
+    text: 'Inicio',
+    url: `/${POKEMON_API_URL}/${PUBLIC.LANDING_PAGE}`
   },
   {
     text: 'Pokédex',

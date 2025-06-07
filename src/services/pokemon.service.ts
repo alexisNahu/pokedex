@@ -19,6 +19,8 @@ export async function getPokemonDTOByNameOrId(name: string): Promise<PokemonDTO>
     }
     });
 
+    console.log('pre',species)
+
     const megas: PokemonDAO[] = await Promise.all(megaPromises);
 
     return mapToPokemonDTO(species, chainEvolution, pokemon, allSprites, megas)

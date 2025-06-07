@@ -16,6 +16,7 @@ export interface MegaPokemonDTO {
     shiny: string,
     normal: string
   };
+  isMega: true
 }
 
 export interface PokemonDTO {
@@ -40,7 +41,8 @@ export interface PokemonDTO {
         animated_shiny_front_2d: string,
         animated_normal_back_2d: string,
         animated_shiny_back_2d: string,
-    }
+    },
+    isMega: false
 }
 
 export type PokemonStat = 'hp' | 'attack' | 'defense' | 'specialattack' | 'specialdefense' | 'speed';

@@ -1,14 +1,25 @@
-import { MegaPokemonDTO } from '@models/pokemon.model'
+import { MegaPokemonDTO, PokemonDTO } from '@models/pokemon.model'
+import { useDescriptionContext } from '../../contexts/description.context'
 
 interface Props {
-    megas: MegaPokemonDTO[]
+    megas: MegaPokemonDTO[],
+    basePokemon: PokemonDTO
 }
 
-function PokemonMegas({megas}: Props) {
+function PokemonMegas({megas, basePokemon}: Props) {
+  const {setPokemon} = useDescriptionContext()
+
   return (
-    <div>
-        {megas.map((mega) => <p className='text-center align-self-center'>{mega.name}</p> )}
+    <div className="d-flex flex-wrap gap-2 flex-column">
+      {megas.map((mega) => (
+        <button key={mega.name} type="button" className="btn btn-outline-primary" onClick={() => setPokemon(mega)}>
+          {mega.name}
+        </button>
+      ))}
+      <button type='button' className='btn btn-outline-primary' onClick={() => setPokemon(basePokemon)}>normal</button>
     </div>
+
+
   )
 }
 

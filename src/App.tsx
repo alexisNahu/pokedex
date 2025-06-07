@@ -5,7 +5,6 @@ import * as ROUTES from "@models/routes/routes";
 
 function App() {
   return (
-    <BrowserRouter>
       <RoutesWithNotFound>
         <Route 
           path='/' 
@@ -22,7 +21,6 @@ function App() {
         >
         </Route>
       </RoutesWithNotFound>
-    </BrowserRouter>
   );
 }
 export default App

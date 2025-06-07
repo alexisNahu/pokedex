@@ -1,7 +1,7 @@
 
 export const POKEMON_SPRITES_URL = 'https://img.pokemondb.net/sprites/black-white'
 
-export const POKEMON_3D_SPRITES_URL = 'https://img.pokemondb.net/sprites/home/'
+export const POKEMON_3D_SPRITES_URL = 'https://img.pokemondb.net/sprites/home'
 
 
 export enum SPRITE_STYLE {
@@ -16,6 +16,6 @@ export enum SPRITE_STYLE {
   BACK_SHINY_ANIMATED = 'anim/back-shiny',
 
   // 3D sprites (Pokémon Home)
-  FRONT_NORMAL_3D = 'front',   
-  FRONT_SHINY_3D = 'front-shiny' 
+  NORMAL_3D = 'normal',   
+  SHINY_3D = 'shiny' 
 }

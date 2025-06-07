@@ -23,6 +23,6 @@ export function getAnimatedSprite(pokemonName: string, isShiny: boolean, isBack:
 }
 
 export function get3dSprite(pokemonName: string, isShiny: boolean) {
-  return `${POKEMON_3D_SPRITES_URL}/${isShiny ? SPRITE_STYLE.FRONT_SHINY_3D : SPRITE_STYLE.FRONT_NORMAL_3D}/${pokemonName}.png`
+  return `${POKEMON_3D_SPRITES_URL}/${isShiny ? SPRITE_STYLE.SHINY_3D : SPRITE_STYLE.NORMAL_3D}/${pokemonName}.png`
 }
 
