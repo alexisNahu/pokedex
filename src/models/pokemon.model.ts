@@ -22,7 +22,7 @@ export interface MegaPokemonDTO {
 export interface PokemonDTO {
     id: number,
     name: string,
-    evolutionChain: string[]
+    evolutionChain: {name: string, sprite: string}[]
     types: POKEMON_TYPES[]
     descriptions: {game: string, description: string, lang: string}[]
     abilities: string[]

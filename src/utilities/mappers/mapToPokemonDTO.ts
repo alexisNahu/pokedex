@@ -1,19 +1,25 @@
-import { AllSpritesDAO, PokemonChainEvolutionDAO, PokemonDAO, PokemonSpeciesDAO } from "@models/dao";
+import { AllSpritesDAO, BasicChain, PokemonChainEvolutionDAO, PokemonDAO, PokemonSpeciesDAO } from "@models/dao";
 import { MegaPokemonDTO, PokemonDTO } from "@models/pokemon.model";
 import { filterMegaPokemon } from "../filterMegaPokemon";
 import { mapToMegaPokemonDTO } from "./mapToMegaPokemon";
 
-function flattenEvolutionChain(chain: any): string[] {
-  const result: string[] = [];
+
+function getEvolutionChainWithSprites(
+  chain: PokemonChainEvolutionDAO,
+  getSprite: (pokemonName: string, isShiny: false) => string // Ahora es síncrono
+): {name: string, sprite: string}[] {
+  const result: {name: string, sprite: string}[] = [];
   
-  function traverse(node: any) {
-    result.push(node.species.name);
-    if (node.evolves_to?.length > 0) {
-      node.evolves_to.forEach(traverse);
-    }
+  function traverse(node: BasicChain) {
+    result.push({
+      name: node.species.name,
+      sprite: getSprite(node.species.name, false) // Llamada síncrona
+    });
+    
+    node.evolves_to.forEach(traverse);
   }
 
-  traverse(chain);
+  traverse(chain.chain);
   return result;
 }
 
@@ -23,12 +29,13 @@ export function mapToPokemonDTO (
     chain: PokemonChainEvolutionDAO,
     pokemon: PokemonDAO,
     sprites: AllSpritesDAO,
-    megas: PokemonDAO[]
+    megas: PokemonDAO[],
+    getSprite: (name: string, isShiny: boolean) => string // Función síncrona
 ): PokemonDTO {
     return {
         id: pokemon.id,
         name: pokemon.name,
-        evolutionChain: flattenEvolutionChain(chain.chain),
+        evolutionChain: getEvolutionChainWithSprites(chain, getSprite),
         types: pokemon.types.map(type => type.type.name),
         descriptions: species.flavor_text_entries
           .map(entry => ({

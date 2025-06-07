@@ -1,5 +1,5 @@
 import PokedexEntrySlider from '@components/card/PokedexEntrySlider/PokedexEntrySlider';
-import { PokeTypes } from '@components/index';
+import { EvolutionChain, PokeTypes } from '@components/index';
 import useFetch from '@hooks/useFetch';
 import { useParams } from 'react-router-dom';
 import * as spriteService from '@services/pokemonSprites.service'
@@ -68,6 +68,7 @@ function PokemonDescription() {
             </div>
 
           <PokedexEntrySlider pokemon={pokemon} />
+          <EvolutionChain evolutionChain={pokemon.evolutionChain}/>
         </div>
       </div>
     }
