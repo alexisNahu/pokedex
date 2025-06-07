@@ -1,18 +1,19 @@
 import { carouselSize } from "./CardCarousel"
 import { useEffect, useRef, useState } from "react"
-import * as spriteService from "@services/pokemonSprites.service"
-import useFetch from "../../hooks/useFetch";
-import { Navigation } from "swiper/modules";
-import { Swiper, SwiperSlide } from "swiper/react";
+import useFetch from "@hooks/useFetch";
 import PokeTypes from "@components/PokeTypes/PokeTypes";
-import PokemonSlide from "./PokemonSlide/PokemonSlide";
+import PokedexEntrySlider from "./PokedexEntrySlider/PokedexEntrySlider";
+import { useNavigate } from "react-router-dom";
+import * as Routes from '@models/routes/routes'
 
-function SingleCard({ pokemon_name }: { pokemon_name: string }) {
-  const { loading, pokemon, errors } = useFetch({ nameOrId: pokemon_name })
+function SingleCard({ pokedexNumber }: { pokedexNumber: string }) {
+  const { loading, pokemon, errors } = useFetch({ nameOrId: pokedexNumber })
 
   const [isShiny, setIsShiny] = useState<boolean>(false)
 
   const starRef = useRef<HTMLIFrameElement | null>(null)
+
+  const navigator = useNavigate()
   useEffect(() => {
     const starIcon = starRef.current
   
@@ -42,22 +43,22 @@ function SingleCard({ pokemon_name }: { pokemon_name: string }) {
           </h5>
         </div>
         
-        <div className="card-body d-flex flex-column align-items-center p-3 bg-transparent">
+        <div className="card-body d-flex flex-column align-items-center p-3 bg-transparent g-3">
           <div className="pokemon-sprite-container mb-3">
             <i className={`bi bi-star position-absolute fs-2 text-poke-yellow`}  ref={starRef} onClick={() => setIsShiny(prevState => !prevState)}></i>
             <img
-              src={`${spriteService.getAnimatedFrontwardsSprite(pokemon_name, isShiny ? true : false)}`}
+              src={`${isShiny ? pokemon.sprites.animated_shiny_front_2d : pokemon.sprites.animated_normal_front_2d}`}
               alt="pokemon_3d_animation_gif"
               style={{ imageRendering: 'pixelated' }}
               className="img-fluid"
               width={200}
             />
-            
             <PokeTypes pokemonTypes={pokemon.types}/>
             
           </div>
 
-          <PokemonSlide pokemon={pokemon} />
+          <PokedexEntrySlider pokemon={pokemon} />
+          <button className='btn bg-poke-blue mt-4 mb-4 text-white h-75' onClick={() => navigator(`/${Routes.PUBLIC.DESCRIPTION}/${pokemon.name}`)}>See more about him</button>
         </div>
       </div>
     )

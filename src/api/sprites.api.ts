@@ -1,4 +1,4 @@
-import { POKEMON_SPRITES_URL, SPRITE_STYLE } from "../config/sprites.endpoints"
+import { POKEMON_SPRITES_URL, SPRITE_STYLE, POKEMON_3D_SPRITES_URL } from "../config/sprites.endpoints"
 
 export function getStaticSprite(pokemonName: string, isShiny: boolean, isBack: boolean): string {
   let style: SPRITE_STYLE
@@ -20,5 +20,9 @@ export function getAnimatedSprite(pokemonName: string, isShiny: boolean, isBack:
   else style = SPRITE_STYLE.FRONT_NORMAL_ANIMATED
 
   return `${POKEMON_SPRITES_URL}/${style}/${pokemonName}.gif`
+}
+
+export function get3dSprite(pokemonName: string, isShiny: boolean) {
+  return `${POKEMON_3D_SPRITES_URL}/${isShiny ? SPRITE_STYLE.FRONT_SHINY_3D : SPRITE_STYLE.FRONT_NORMAL_3D}/${pokemonName}.png`
 }
 

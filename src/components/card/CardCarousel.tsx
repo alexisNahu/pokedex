@@ -1,15 +1,17 @@
-import React from 'react'
 import SingleCard from './SingleCard'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation } from 'swiper/modules'
 import 'swiper/swiper-bundle.css';
+import { generateRandomPokedexNumber } from '@utilities/generateRandomPokedexNumber';
 
 export const carouselSize = {
   width: '100%',
-  height: '900px'
+  height: 'auto'
 }
 
-function CardComponent() {
+function CardComponent(pokemonCards: number) {
+  const randomPokedexNumbers = generateRandomPokedexNumber(649, 10)
+
   return (
     <div style={carouselSize}>
       <Swiper
@@ -22,15 +24,13 @@ function CardComponent() {
         slidesPerView={1}
         className="h-100 mw-80 bg-poke-blue p-4 rounded-3 shadow bg-opacity-25"
       >
-        <SwiperSlide className='d-flex justify-content-center'>
-          <SingleCard pokemon_name="charizard" />
-        </SwiperSlide>
-        <SwiperSlide className='d-flex justify-content-center'>
-          <SingleCard pokemon_name="meganium" />
-        </SwiperSlide>
-        <SwiperSlide className='d-flex justify-content-center'>
-          <SingleCard pokemon_name="zekrom" />
-        </SwiperSlide>
+        {
+          randomPokedexNumbers.map(pokedexNumber => {
+            return <SwiperSlide className='d-flex justify-content-center'>
+              <SingleCard pokedexNumber={`${pokedexNumber}`} />
+            </SwiperSlide>
+          }) 
+        }
 
         {/* Custom navigation buttons */}
         <div className="swiper-button-prev">

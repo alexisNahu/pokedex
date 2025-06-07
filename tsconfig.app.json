@@ -30,6 +30,7 @@
       "@models/*": ["src/models/*"],
       "@services/*": ["src/services/*"],
       "@utilities/*": ["src/utilities/*"],
+      "@hooks/*": ["src/hooks/*"]
     }
   },
 }

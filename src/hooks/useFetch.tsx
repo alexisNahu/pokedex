@@ -22,12 +22,10 @@ function useFetch({nameOrId}:Props) {
     useEffect(() => {
         const getPokemon = async () => {
             try {
-                const pokemon = await pokemonService.getPokemonByNameOrId(nameOrId)
+                const pokemon = await pokemonService.getPokemonDTOByNameOrId(nameOrId)
 
-                setTimeout(() => {
-                    setpokemon(pokemon)
-                    console.log(pokemon)
-                }, 1000)
+                setpokemon(pokemon)
+                console.log(pokemon)
             } catch (error) {
                 if (error instanceof Error) {
                     setErrors(error)
@@ -35,9 +33,7 @@ function useFetch({nameOrId}:Props) {
                     setErrors(new Error('Unknown error occurred'))
                 }
             } finally {
-                setTimeout(() => {
-                    setLoading(false)
-                }, 1000)
+                setLoading(false)
             }
         }
 

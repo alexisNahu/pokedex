@@ -6,7 +6,7 @@ interface Name {
   };
 }
 
-interface Variety {
+export interface Variety {
   is_default: boolean;
   pokemon: {
     name: string;

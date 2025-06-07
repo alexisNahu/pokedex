@@ -1,16 +1,28 @@
-
-import LandingPage  from "@pages/public";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route } from "react-router-dom";
 import { RoutesWithNotFound } from "./utilities/RoutesWIthNotFound";
+import {DescriptionPage, LandingPage} from "@pages/public"; // Asegúrate de importar este componente
+import * as ROUTES from "@models/routes/routes";
 
 function App() {
   return (
     <BrowserRouter>
       <RoutesWithNotFound>
-        <Route path='/' element={<LandingPage />} />
+        <Route 
+          path='/' 
+          element={<Navigate to={`${ROUTES.PUBLIC.LANDING_PAGE}`} replace />} 
+        />
+        <Route
+          path="/landingPage"
+          element={<LandingPage />}
+        >
+        </Route>
+        <Route
+          path={`${ROUTES.PUBLIC.DESCRIPTION}/:pokemonName`}
+          element={<DescriptionPage />}
+        >
+        </Route>
       </RoutesWithNotFound>
     </BrowserRouter>
-  )
+  );
 }
-
 export default App
