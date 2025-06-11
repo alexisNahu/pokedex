@@ -7,8 +7,8 @@ interface Props {
 }
 
 function PokemonMegas({megas, basePokemon}: Props) {
-  const {setPokemon} = useDescriptionContext()
-
+  const {setPokemon, poke} = useDescriptionContext()
+  console.log('sñakldjfñalkjdf', poke)
   return (
     <div className="d-flex flex-wrap gap-2 flex-column">
       {megas.map((mega) => (

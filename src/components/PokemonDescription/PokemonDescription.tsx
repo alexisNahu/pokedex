@@ -48,10 +48,11 @@ function PokemonDescription() {
               <i className={`bi position-absolute fs-2 text-poke-yellow ${isShiny ? 'bi-star-fill' : 'bi-star'}`}  ref={starRef} onClick={() => setIsShiny(prevState => !prevState)}></i>
               <span className='text-center'>
                 <img
-                  src={isShiny ? poke.sprites.animated.shiny.d2.front : poke.sprites.animated.normal.d2.front}
+                  src={isShiny ? (poke.isMega ? poke.sprites?.static?.shiny?.d3 : poke.sprites.static.shiny.d3) : (poke.isMega ? poke.sprites.static.normal.d3 : poke.sprites.animated.normal.d2.front)}
                   onError={(e) => {
+                    console.log('jkadsjfñlajdsfñlkañskkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk')
                     const img = e.currentTarget;
-                    img.src = isShiny ? poke.sprites.static.shiny.d3 : poke.sprites.static.normal.d3;
+                    img.src = isShiny ? (poke.isMega ? poke.sprites?.static?.shiny?.d3 : poke.sprites.static.shiny.d3) : (poke.isMega ? poke.sprites.static.normal.d3 : poke.sprites.animated.normal.d2.front);
                   }}
                   alt={`${poke.name} ${isShiny ? 'shiny' : 'normal'} sprite`}
                   style={{ 
@@ -70,7 +71,7 @@ function PokemonDescription() {
             </div>
 
           <PokedexEntrySlider pokemon={pokemon} />
-          <EvolutionChain evolutionChain={pokemon.evolutionChain}/>
+          <EvolutionChain evolutionChain={pokemon.evolutionChain} />
         </div>
       </div>
     }
