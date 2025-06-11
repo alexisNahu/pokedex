@@ -1,4 +1,4 @@
-import PokedexEntrySlider from '@components/card/PokedexEntrySlider/PokedexEntrySlider';
+import PokedexEntrySlider from '@components/CardComponent/PokedexEntrySlider/PokedexEntrySlider';
 import { EvolutionChain, PokeTypes } from '@components/index';
 import useFetch from '@hooks/useFetch';
 import { useParams } from 'react-router-dom';

@@ -16,12 +16,23 @@ export interface MegaPokemonDTO {
   isMega: true
 }
 
+export interface GameDescriptions {
+  description: string,
+  game: string
+}
+
+export interface Descriptions {
+  en: GameDescriptions[],
+  es: GameDescriptions[],
+  jp: GameDescriptions[],
+}
+
 export interface PokemonDTO {
     id: number,
     name: string,
     evolutionChain: {name: string, sprite: AllSpritesDAO}[]
     types: POKEMON_TYPES[]
-    descriptions: {game: string, description: string, lang: string}[]
+    descriptions:Descriptions
     abilities: string[]
     isLegendary: boolean
     isMythical: boolean

@@ -1,4 +1,4 @@
-import CardCarousel from '@components/card/CardCarousel'
+import CardCarousel from '@components/CardComponent/CardCarousel'
 
 function LandingPage() {
   return (

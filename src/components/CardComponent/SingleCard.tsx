@@ -1,7 +1,7 @@
 import { carouselSize } from "./CardCarousel"
 import { useEffect, useRef, useState } from "react"
 import useFetch from "@hooks/useFetch";
-import PokeTypes from "@components/PokeTypes/PokeTypes";
+import PokeTypes from "@components/PokeTypesComponent/PokeTypes";
 import PokedexEntrySlider from "./PokedexEntrySlider/PokedexEntrySlider";
 import { useNavigate } from "react-router-dom";
 import * as Routes from '@models/routes/routes'

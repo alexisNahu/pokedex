@@ -1,5 +1,5 @@
-import { AllSpritesDAO, BasicChain, PokemonChainEvolutionDAO, PokemonDAO, PokemonSpeciesDAO } from "@models/dao";
-import { PokemonDTO } from "@models/pokemon.model";
+import { AllSpritesDAO, BasicChain, DescriptionDAO, PokemonChainEvolutionDAO, PokemonDAO, PokemonSpeciesDAO } from "@models/dao";
+import { DescriptionLanguages, Descriptions, PokemonDTO } from "@models/pokemon.model";
 import { filterMegaPokemon } from "../filterMegaPokemon";
 import { mapToMegaPokemonDTO } from "./mapToMegaPokemon";
 
@@ -23,6 +23,10 @@ function getEvolutionChainWithSprites(
   return result;
 }
 
+function filterDescriptionsByLanguage(lang: DescriptionLanguages, descriptions: DescriptionDAO[]) {
+  return descriptions.filter((entry) => entry.language.name === lang)
+}
+
 
 export function mapToPokemonDTO (
     species: PokemonSpeciesDAO,
@@ -39,12 +43,20 @@ export function mapToPokemonDTO (
         name: pokemon.name,
         evolutionChain: getEvolutionChainWithSprites(chain, getSprite),
         types: pokemon.types.map(type => type.type.name),
-        descriptions: species.flavor_text_entries
-          .map(entry => ({
-            lang: entry.language.name,
-            game: entry.version.name,
-            description: entry.flavor_text.replace(/\n|\f/g, ' ')
+        descriptions: {
+          en: filterDescriptionsByLanguage('en', species.flavor_text_entries).map(description => ({
+            game: description.version.name,
+            description: description.flavor_text
           })),
+          es: filterDescriptionsByLanguage('es', species.flavor_text_entries).map(description => ({
+            game: description.version.name,
+            description: description.flavor_text
+          })),
+          jp: filterDescriptionsByLanguage('jp', species.flavor_text_entries).map(description => ({
+            game: description.version.name,
+            description: description.flavor_text
+          }))
+        },
         megas: megas.map(mega => mapToMegaPokemonDTO(mega)),
         abilities: pokemon.abilities.map((ability) => ability.ability.name),
         isLegendary: species.is_legendary,

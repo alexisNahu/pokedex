@@ -26,6 +26,19 @@ export interface Stat {
   };
 }
 
+export interface DescriptionDAO {
+  flavor_text: string;
+  language: {
+    name: string;
+    url: string;
+  };
+  version: {
+    name: string;
+    url: string;
+  };
+}
+
+
 export interface PokemonDAO {
   id: number;
   name: string;
@@ -39,5 +52,6 @@ export interface PokemonDAO {
   evolution_chain: {
     url: string;
     name: string
-  }
+  },
+  descriptions: DescriptionDAO[]
 }
