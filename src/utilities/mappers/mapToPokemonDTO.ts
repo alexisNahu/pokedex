@@ -1,14 +1,14 @@
 import { AllSpritesDAO, BasicChain, PokemonChainEvolutionDAO, PokemonDAO, PokemonSpeciesDAO } from "@models/dao";
-import { MegaPokemonDTO, PokemonDTO } from "@models/pokemon.model";
+import { PokemonDTO } from "@models/pokemon.model";
 import { filterMegaPokemon } from "../filterMegaPokemon";
 import { mapToMegaPokemonDTO } from "./mapToMegaPokemon";
 
 
 function getEvolutionChainWithSprites(
   chain: PokemonChainEvolutionDAO,
-  getSprite: (pokemonName: string, isShiny: false) => string // Ahora es síncrono
-): {name: string, sprite: string}[] {
-  const result: {name: string, sprite: string}[] = [];
+  getSprite: (pokemonName: string, isShiny: false) => AllSpritesDAO // Ahora es síncrono
+): {name: string, sprite: AllSpritesDAO}[] {
+  const result: {name: string, sprite: AllSpritesDAO}[] = [];
   
   function traverse(node: BasicChain) {
     result.push({
@@ -30,8 +30,10 @@ export function mapToPokemonDTO (
     pokemon: PokemonDAO,
     sprites: AllSpritesDAO,
     megas: PokemonDAO[],
-    getSprite: (name: string, isShiny: boolean) => string // Función síncrona
+    getSprite: (name: string, isShiny: boolean) => AllSpritesDAO // Función síncrona
 ): PokemonDTO {
+    console.log('sprite: ',sprites)
+
     return {
         id: pokemon.id,
         name: pokemon.name,
@@ -50,17 +52,7 @@ export function mapToPokemonDTO (
         stats: pokemon.stats.map((stat) => ({stat: stat.stat.name.trim(), value: stat.base_stat})),
         forms: filterMegaPokemon(species.varieties, false).map(variety => variety.pokemon.name),
         generation: species.generation.name,
-        sprites: {
-          static_normal_front_2d: sprites.static.normal.front,
-          static_shiny_front_2d: sprites.static.shiny.front,
-          static_normal_back_2d: sprites.static.normal.back,
-          static_shiny_back_2d: sprites.static.shiny.back,
-
-          animated_normal_front_2d: sprites.animated.normal.front,
-          animated_shiny_front_2d: sprites.animated.shiny.front,
-          animated_normal_back_2d: sprites.animated.normal.back,
-          animated_shiny_back_2d: sprites.animated.shiny.back
-        },
+        sprites: sprites,
         isMega: false
     }
 }

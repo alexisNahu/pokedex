@@ -47,7 +47,7 @@ function SingleCard({ pokedexNumber }: { pokedexNumber: string }) {
           <div className="pokemon-sprite-container mb-3">
             <i className={`bi bi-star position-absolute fs-2 text-poke-yellow`}  ref={starRef} onClick={() => setIsShiny(prevState => !prevState)}></i>
             <img
-              src={`${isShiny ? pokemon.sprites.animated_shiny_front_2d : pokemon.sprites.animated_normal_front_2d}`}
+              src={`${isShiny ? pokemon.sprites.animated.normal.d2.front : pokemon.sprites.animated.shiny.d2.front}`}
               alt="pokemon_3d_animation_gif"
               style={{ imageRendering: 'pixelated' }}
               className="img-fluid"

@@ -12,6 +12,7 @@ export async function getPokemonDTOByNameOrId(name: string): Promise<PokemonDTO>
     const allSprites: AllSpritesDAO = spritesService.getAllSprites(pokemon.name)
     const megaPromises: Promise<PokemonDAO>[] = filterMegaPokemon(species.varieties, true).map(async (mega) => {
 
+
     try {
         return await pokeApiService.getPokemonByNameOrId(mega.pokemon.name);
     } catch (e) {
@@ -21,5 +22,5 @@ export async function getPokemonDTOByNameOrId(name: string): Promise<PokemonDTO>
 
     const megas: PokemonDAO[] = await Promise.all(megaPromises);
 
-    return mapToPokemonDTO(species, chainEvolution, pokemon, allSprites, megas, spritesService.getAnimatedFrontwardsSprite)
+    return mapToPokemonDTO(species, chainEvolution, pokemon, allSprites, megas, spritesService.getAllSprites)
 }

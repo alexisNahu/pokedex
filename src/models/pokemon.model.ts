@@ -1,4 +1,4 @@
-import { PokemonDAO } from "./dao"
+import { AllSpritesDAO } from "./dao";
 import { POKEMON_TYPES } from "./pokemonTypes.model"
 
 export interface Stat {
@@ -9,20 +9,17 @@ export interface Stat {
 export interface MegaPokemonDTO {
   id: number;
   name: string;
-  types: POKEMON_TYPES[];
-  abilities: string[];
-  stats: Stat[];
-  sprites: {
-    shiny: string,
-    normal: string
-  };
+  types: POKEMON_TYPES[]
+  abilities: string[]
+  stats: Stat[]
+  sprites: AllSpritesDAO
   isMega: true
 }
 
 export interface PokemonDTO {
     id: number,
     name: string,
-    evolutionChain: {name: string, sprite: string}[]
+    evolutionChain: {name: string, sprite: AllSpritesDAO}[]
     types: POKEMON_TYPES[]
     descriptions: {game: string, description: string, lang: string}[]
     abilities: string[]
@@ -32,17 +29,11 @@ export interface PokemonDTO {
     megas: MegaPokemonDTO[]
     forms: string[]
     generation: string
-    sprites: {
-        static_normal_front_2d: string,
-        static_shiny_back_2d: string,
-        static_normal_back_2d: string,
-        static_shiny_front_2d: string,
-        animated_normal_front_2d: string,
-        animated_shiny_front_2d: string,
-        animated_normal_back_2d: string,
-        animated_shiny_back_2d: string,
-    },
+    sprites: AllSpritesDAO
     isMega: false
 }
 
 export type PokemonStat = 'hp' | 'attack' | 'defense' | 'specialattack' | 'specialdefense' | 'speed';
+
+export type DescriptionLanguages = 'jp' | 'es' | 'en' 
+

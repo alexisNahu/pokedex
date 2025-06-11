@@ -1,3 +1,4 @@
+import { AllSpritesDAO } from '@models/dao'
 import {getStaticSprite, getAnimatedSprite, get3dSprite} from '../api/sprites.api'
 
 export function getStaticFrontwardsSprite(pokemonName: string, isShiny: boolean) {
@@ -16,28 +17,40 @@ export function getAnimatedBackwardsSprite(pokemonName: string, isShiny: boolean
     return getAnimatedSprite(pokemonName,isShiny, true)
 }
 
-export function getAllSprites(pokemonName: string) {
+export function getAllSprites(pokemonName: string): AllSpritesDAO {
     return {
         static: {
             shiny: {
-                front: getStaticSprite(pokemonName, true, false),
-                back: getStaticSprite(pokemonName, true, true)
+                d2: {
+                    front: getStaticSprite(pokemonName, true, false),
+                    back: getStaticSprite(pokemonName, true, true)
+                },
+                d3: get3dSprite(pokemonName, true)
             },
             normal: {
-                front: getStaticSprite(pokemonName, false, false),
-                back: getStaticSprite(pokemonName, false, true)
+                d2: {
+                    front: getStaticSprite(pokemonName, false, false),
+                    back: getStaticSprite(pokemonName, false, true)
+                },
+                d3: get3dSprite(pokemonName, false)
             }
         },
         animated: {
             shiny: {
-                front: getAnimatedSprite(pokemonName, true, false),
-                back: getAnimatedSprite(pokemonName, true, true)
+                d2: {
+                    front: getAnimatedSprite(pokemonName, true, false),
+                    back: getAnimatedSprite(pokemonName, true, true)
+                },
+                d3: get3dSprite(pokemonName, true)
             },
             normal: {
-                front: getAnimatedSprite(pokemonName, false, false),
-                back: getAnimatedSprite(pokemonName, false, true)
+                d2: {
+                    front: getAnimatedSprite(pokemonName, false, false),
+                    back: getAnimatedSprite(pokemonName, false, true)
+                },
+                d3: get3dSprite(pokemonName, false)
             }
-        }
+    }
     }
 }
 

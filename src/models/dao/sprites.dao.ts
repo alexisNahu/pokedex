@@ -1,16 +1,36 @@
-interface SpritePosition {
-    front: string,
-    back: string
-}
 
 
 export interface AllSpritesDAO {
-    static: {
-        shiny: SpritePosition
-        normal: SpritePosition
-    },
-    animated: {
-        shiny: SpritePosition
-        normal: SpritePosition
+      static: {
+        shiny: {
+          d2: {
+            front: string,
+            back: string,
+          },
+          d3: string
+        },
+        normal: {
+          d2: {
+            front: string,
+            back: string,
+          },
+          d3: string
+        },
+      },
+      animated: {
+        shiny: {
+          d2: {
+            front: string,
+            back: string,
+          },
+          d3?: string
+        },
+        normal: {
+          d2: {
+            front: string,
+            back: string,
+          },
+          d3?: string
+        },
+      }
     }
-}

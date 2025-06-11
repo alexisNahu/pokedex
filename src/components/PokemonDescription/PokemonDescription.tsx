@@ -2,7 +2,6 @@ import PokedexEntrySlider from '@components/card/PokedexEntrySlider/PokedexEntry
 import { EvolutionChain, PokeTypes } from '@components/index';
 import useFetch from '@hooks/useFetch';
 import { useParams } from 'react-router-dom';
-import * as spriteService from '@services/pokemonSprites.service'
 import { useEffect, useRef, useState } from 'react';
 import PokemonStatsComponent from '@components/PokemonStatsComponent/PokemonStatsComponent';
 import PokemonMegas from '@components/PokemonMegasComponent/PokemonMegas';
@@ -49,15 +48,20 @@ function PokemonDescription() {
               <i className={`bi position-absolute fs-2 text-poke-yellow ${isShiny ? 'bi-star-fill' : 'bi-star'}`}  ref={starRef} onClick={() => setIsShiny(prevState => !prevState)}></i>
               <span className='text-center'>
                 <img
-                src={
-                  poke.isMega
-                    ? spriteService.getAll3dSprites(poke.name, isShiny)
-                    : spriteService.getAnimatedFrontwardsSprite(poke.name, isShiny)
-                }
-                alt="pokemon_3d_animation_gif"
-                style={{ imageRendering: 'pixelated' }}
-                className="img align-self-center"
-                width={200}
+                  src={isShiny ? poke.sprites.animated.shiny.d2.front : poke.sprites.animated.normal.d2.front}
+                  onError={(e) => {
+                    const img = e.currentTarget;
+
+                    img.src = isShiny ? poke.sprites.static.shiny.d3 : poke.sprites.static.normal.d3;
+                    
+                  }}
+                  alt={`${poke.name} ${isShiny ? 'shiny' : 'normal'} sprite`}
+                  style={{ 
+                    imageRendering: 'pixelated',
+                    width: '200px',
+                    height: 'auto'
+                  }}
+                  className="img align-self-center"
                 />
                 <PokeTypes pokemonTypes={poke.types}/>
               </span>
