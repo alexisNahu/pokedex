@@ -9,8 +9,8 @@ export const carouselSize = {
   height: 'auto'
 }
 
-function CardComponent(pokemonCards: number) {
-  const randomPokedexNumbers = generateRandomPokedexNumber(649, 10)
+function CardComponent({pokemonCards}: {pokemonCards: number}) {
+  const randomPokedexNumbers = generateRandomPokedexNumber(pokemonCards, 10)
 
   return (
     <div style={carouselSize}>

@@ -2,7 +2,7 @@ import CardCarousel from '@components/card/CardCarousel'
 
 function LandingPage() {
   return (
-      <CardCarousel />
+      <CardCarousel pokemonCards={1025}/>
     )
 }
 

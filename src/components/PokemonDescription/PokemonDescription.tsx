@@ -51,9 +51,7 @@ function PokemonDescription() {
                   src={isShiny ? poke.sprites.animated.shiny.d2.front : poke.sprites.animated.normal.d2.front}
                   onError={(e) => {
                     const img = e.currentTarget;
-
                     img.src = isShiny ? poke.sprites.static.shiny.d3 : poke.sprites.static.normal.d3;
-                    
                   }}
                   alt={`${poke.name} ${isShiny ? 'shiny' : 'normal'} sprite`}
                   style={{ 
