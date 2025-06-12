@@ -27,10 +27,15 @@ export interface Descriptions {
   jp: GameDescriptions[],
 }
 
+export interface EvolutionChainDTO {
+  name: string,
+  sprite: AllSpritesDAO
+}
+
 export interface PokemonDTO {
     id: number,
     name: string,
-    evolutionChain: {name: string, sprite: AllSpritesDAO}[]
+    evolutionChain: EvolutionChainDTO[]
     types: POKEMON_TYPES[]
     descriptions:Descriptions
     abilities: string[]
