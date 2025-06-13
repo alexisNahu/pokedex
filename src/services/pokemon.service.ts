@@ -4,6 +4,7 @@ import * as pokeApiService from '@services/index'
 import * as spritesService from '@services/index' 
 import { mapToPokemonDTO } from '../utilities/mappers/mapToPokemonDTO';
 import { filterMegaPokemon } from '@utilities/filterMegaPokemon';
+import { filterVariantPokemon } from '@utilities/filters';
 
 export async function getPokemonDTOByNameOrId(name: string): Promise<PokemonDTO> {
     const pokemon: PokemonDAO = await pokeApiService.getPokemonByNameOrId(name)
@@ -11,16 +12,23 @@ export async function getPokemonDTOByNameOrId(name: string): Promise<PokemonDTO>
     const chainEvolution: PokemonChainEvolutionDAO = await pokeApiService.getPokemonChainEvolution(species.evolution_chain.url)
     const allSprites: AllSpritesDAO = spritesService.getAllSprites(pokemon.name)
     const megaPromises: Promise<PokemonDAO>[] = filterMegaPokemon(species.varieties, true).map(async (mega) => {
-
-
     try {
         return await pokeApiService.getPokemonByNameOrId(mega.pokemon.name);
     } catch (e) {
         throw new Error('error fetching mega pokemon');
     }
     });
+    const variantPromises: Promise<PokemonDAO>[] = filterVariantPokemon(species.varieties).map(async (variant) => {
+    try {
+        return await pokeApiService.getPokemonByNameOrId(variant.pokemon.name);
+    } catch (e) {
+        throw new Error('error fetching mega pokemon');
+    }
+    });
+
 
     const megas: PokemonDAO[] = await Promise.all(megaPromises);
+    const variants: PokemonDAO[] = await Promise.all(variantPromises);
 
-    return mapToPokemonDTO(species, chainEvolution, pokemon, allSprites, megas, spritesService.getAllSprites)
+    return mapToPokemonDTO(species, chainEvolution, pokemon, allSprites, megas, variants, spritesService.getAllSprites)
 }

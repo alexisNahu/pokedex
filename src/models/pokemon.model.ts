@@ -6,14 +6,22 @@ export interface Stat {
     value: number,
 }
 
-export interface MegaPokemonDTO {
+export enum RegionalVariants {
+  ALOLA = "alola",
+  GALAR = "galar",
+  HISUI = "hisui",
+  PALDEA = "paldea",
+}
+
+
+export interface VariantPokemonDTO {
   id: number;
   name: string;
   types: POKEMON_TYPES[]
   abilities: string[]
   stats: Stat[]
   sprites: AllSpritesDAO
-  isMega: true
+  isMega: boolean
 }
 
 export interface GameDescriptions {
@@ -42,8 +50,8 @@ export interface PokemonDTO {
     isLegendary: boolean
     isMythical: boolean
     stats: Array<Stat>
-    megas: MegaPokemonDTO[]
-    forms: string[]
+    megas: VariantPokemonDTO[]
+    variants: VariantPokemonDTO[]
     generation: string
     sprites: AllSpritesDAO
     isMega: false

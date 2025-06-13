@@ -24,7 +24,7 @@ function PokemonStatsComponent({stats, maxStat}: Props) {
           style={{minWidth: '500px', overflow: 'visible', flexShrink: 0}}
           >
             {
-              stats.map((stat, i) => <div key={i}>
+              stats.map((stat, i) => <div key={stat.stat}>
                  <span>{stat.stat}: </span> <PokemonStatBar 
                   stat={stat} 
                   maxStat={maxStat} 

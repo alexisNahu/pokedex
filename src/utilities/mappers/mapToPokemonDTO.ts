@@ -1,7 +1,6 @@
 import { AllSpritesDAO, BasicChain, DescriptionDAO, PokemonChainEvolutionDAO, PokemonDAO, PokemonSpeciesDAO } from "@models/dao";
 import { DescriptionLanguages, Descriptions, PokemonDTO } from "@models/pokemon.model";
-import { filterMegaPokemon } from "../filterMegaPokemon";
-import { mapToMegaPokemonDTO } from "./mapToMegaPokemon";
+import { mapToVariantPokemonDTO } from "./mapToVariantPokemon";
 
 
 function getEvolutionChainWithSprites(
@@ -34,6 +33,7 @@ export function mapToPokemonDTO (
     pokemon: PokemonDAO,
     sprites: AllSpritesDAO,
     megas: PokemonDAO[],
+    variants: PokemonDAO[],
     getSprite: (name: string, isShiny: boolean) => AllSpritesDAO // Función síncrona
 ): PokemonDTO {
     console.log('sprite: ',sprites)
@@ -57,12 +57,12 @@ export function mapToPokemonDTO (
             description: description.flavor_text
           }))
         },
-        megas: megas.map(mega => mapToMegaPokemonDTO(mega)),
+        megas: megas.map(mega => mapToVariantPokemonDTO(mega, true)),
+        variants: variants.map(variant => mapToVariantPokemonDTO(variant, false)),
         abilities: pokemon.abilities.map((ability) => ability.ability.name),
         isLegendary: species.is_legendary,
         isMythical: species.is_mythical,
         stats: pokemon.stats.map((stat) => ({stat: stat.stat.name.trim(), value: stat.base_stat})),
-        forms: filterMegaPokemon(species.varieties, false).map(variety => variety.pokemon.name),
         generation: species.generation.name,
         sprites: sprites,
         isMega: false
