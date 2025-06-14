@@ -1,4 +1,4 @@
-import { PokemonSpeciesDAO, PokemonDAO, PokemonChainEvolutionDAO } from '@models/dao'
+import { PokemonSpeciesDAO, PokemonDAO, PokemonChainEvolutionDAO, AbilityDAO } from '@models/dao'
 import * as pokemonApi from '../api/pokeapi.api.ts'
 
 export async function getPokemonByNameOrId(param: string | number): Promise<PokemonDAO> {
@@ -11,4 +11,8 @@ export async function getPokemonSpecies(name: string): Promise<PokemonSpeciesDAO
 
 export async function getPokemonChainEvolution(pokemonChainUrl: string): Promise<PokemonChainEvolutionDAO> {
     return await pokemonApi.fetchPokemonChanEvolution(pokemonChainUrl)
+}
+
+export async function getPokemonAbility(pokemonAbilityUrl: string): Promise<AbilityDAO> {
+    return await pokemonApi.fetchPokemonAbility(pokemonAbilityUrl)
 }

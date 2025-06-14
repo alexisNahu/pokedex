@@ -15,9 +15,12 @@ export enum RegionalVariants {
 
 
 export const RegionalVersionsRecord: Record<string, string> = {
-    'galar': 'galarian',
-    'alola': 'alolan'
+  galar: 'galarian',
+  alola: 'alolan',
+  hisui: 'hisuian',
+  paldea: 'paldean'
 }
+
 
 
 export interface VariantPokemonDTO {
@@ -41,6 +44,25 @@ export interface Descriptions {
   jp: GameDescriptions[],
 }
 
+export interface AbilityDTO {
+  en: {
+    name: string,
+    pokedex_description: string,
+    in_game_effect: string,
+  }[],
+  es: {
+    name: string,
+    pokedex_description: string,
+    in_game_effect: string,
+  }[],
+  jp: {
+    name: string
+    pokedex_description: string,
+    in_game_effect: string
+  }[]
+}
+
+
 export interface EvolutionChainDTO {
   name: string,
   sprite: AllSpritesDAO
@@ -52,12 +74,13 @@ export interface PokemonDTO {
     evolutionChain: EvolutionChainDTO[]
     types: POKEMON_TYPES[]
     descriptions:Descriptions
-    abilities: string[]
+    abilities: AbilityDTO[]
     isLegendary: boolean
     isMythical: boolean
     stats: Array<Stat>
     megas: VariantPokemonDTO[]
     variants: VariantPokemonDTO[]
+    gigamax: VariantPokemonDTO[]
     generation: string
     sprites: AllSpritesDAO
     isMega: false

@@ -1,10 +1,9 @@
-import { AllSpritesDAO, PokemonChainEvolutionDAO, PokemonDAO, PokemonSpeciesDAO } from '@models/dao';
+import { AbilityDAO, AllSpritesDAO, PokemonChainEvolutionDAO, PokemonDAO, PokemonSpeciesDAO } from '@models/dao';
 import { PokemonDTO } from '@models/pokemon.model';
 import * as pokeApiService from '@services/index'
 import * as spritesService from '@services/index' 
 import { mapToPokemonDTO } from '../utilities/mappers/mapToPokemonDTO';
-import { filterMegaPokemon } from '@utilities/filterMegaPokemon';
-import { filterVariantPokemon } from '@utilities/filters';
+import { filterRegionalPokemon, filterGigamaxPokemon, filterMegaPokemon } from '@utilities/filters';
 
 export async function getPokemonDTOByNameOrId(name: string): Promise<PokemonDTO> {
     const pokemon: PokemonDAO = await pokeApiService.getPokemonByNameOrId(name)
@@ -18,17 +17,33 @@ export async function getPokemonDTOByNameOrId(name: string): Promise<PokemonDTO>
         throw new Error('error fetching mega pokemon');
     }
     });
-    const variantPromises: Promise<PokemonDAO>[] = filterVariantPokemon(species.varieties).map(async (variant) => {
+    const variantPromises: Promise<PokemonDAO>[] = filterRegionalPokemon(species.varieties).map(async (variant) => {
     try {
         return await pokeApiService.getPokemonByNameOrId(variant.pokemon.name);
     } catch (e) {
-        throw new Error('error fetching mega pokemon');
+        throw new Error('error fetching regional pokemon');
     }
     });
+    const gigamaxesPromises: Promise<PokemonDAO>[] = filterGigamaxPokemon(species.varieties).map(async (gmax) => {
+        try {
+            return await pokeApiService.getPokemonByNameOrId(gmax.pokemon.name)
+        } catch(e) {
+            throw new Error ('error fetching gigamax pokemon')
+        }
+    })
+    const abilitiesPromises: Promise<AbilityDAO>[] = pokemon.abilities.map(async (ability) => {
+        try {
+            return await pokeApiService.getPokemonAbility(ability.ability.url)
+        } catch(e) {
+            throw new Error ('error fetching ability')
+        }
+    })
 
 
     const megas: PokemonDAO[] = await Promise.all(megaPromises);
     const variants: PokemonDAO[] = await Promise.all(variantPromises);
+    const gmaxs: PokemonDAO[] = await Promise.all(gigamaxesPromises);
+    const abilities: AbilityDAO[] = await Promise.all(abilitiesPromises);
 
-    return mapToPokemonDTO(species, chainEvolution, pokemon, allSprites, megas, variants, spritesService.getAllSprites)
+    return mapToPokemonDTO(species, chainEvolution, pokemon, allSprites, megas, variants, gmaxs, abilities, spritesService.getAllSprites)
 }

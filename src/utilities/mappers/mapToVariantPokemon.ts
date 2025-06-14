@@ -1,8 +1,7 @@
 import {PokemonDAO} from "@models/dao";
-import {  PossibleVariants, RegionalVariants, VariantPokemonDTO } from "@models/pokemon.model";
+import {  PossibleVariants, VariantPokemonDTO } from "@models/pokemon.model";
 import { POKEMON_TYPES } from "@models/pokemonTypes.model";
 import * as spritesService from '@services/index'
-
 
 export function mapToVariantPokemonDTO(variant: PokemonDAO, type: PossibleVariants): VariantPokemonDTO {
   return {

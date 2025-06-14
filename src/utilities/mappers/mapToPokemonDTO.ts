@@ -1,7 +1,7 @@
-import { AllSpritesDAO, BasicChain, DescriptionDAO, PokemonChainEvolutionDAO, PokemonDAO, PokemonSpeciesDAO } from "@models/dao";
-import { DescriptionLanguages, Descriptions, PokemonDTO, PossibleVariants, RegionalVersionsRecord } from "@models/pokemon.model";
+import { Ability, AbilityDAO, AllSpritesDAO, BasicChain, DescriptionDAO, EffectEntries, PokemonChainEvolutionDAO, PokemonDAO, PokemonSpeciesDAO } from "@models/dao";
+import { DescriptionLanguages, PokemonDTO, PossibleVariants } from "@models/pokemon.model";
 import { mapToVariantPokemonDTO } from "./mapToVariantPokemon";
-import { type } from "os";
+import { mapToAbilityDTO } from "./mapToAbilityDTO";
 
 
 function getEvolutionChainWithSprites(
@@ -36,6 +36,8 @@ export function mapToPokemonDTO (
     sprites: AllSpritesDAO,
     megas: PokemonDAO[],
     variants: PokemonDAO[],
+    gmax: PokemonDAO[],
+    abilities: AbilityDAO[],
     getSprite: (name: string, isShiny: boolean) => AllSpritesDAO // Función síncrona
 ): PokemonDTO {
     console.log('sprite: ',sprites)
@@ -61,7 +63,8 @@ export function mapToPokemonDTO (
         },
         megas: megas.map(mega => mapToVariantPokemonDTO(mega, PossibleVariants.MEGA)),
         variants: variants.map(variant => mapToVariantPokemonDTO(variant, PossibleVariants.REGIONAL_VARIANT)),
-        abilities: pokemon.abilities.map((ability) => ability.ability.name),
+        gigamax: gmax.map(gmax => mapToVariantPokemonDTO(gmax, PossibleVariants.GIGAMAX)),
+        abilities: abilities.map(ability => mapToAbilityDTO(ability)),
         isLegendary: species.is_legendary,
         isMythical: species.is_mythical,
         stats: pokemon.stats.map((stat) => ({stat: stat.stat.name.trim(), value: stat.base_stat})),

@@ -65,7 +65,7 @@ function PokemonDescription() {
               </span>
               <PokemonStatsComponent stats={poke.stats} maxStat={255}/>
               
-              { pokemon.megas.length > 0 || pokemon.variants.length > 0 ? <PokemonVariants megas={pokemon.megas} regional_versions={pokemon.variants} basePokemon={pokemon}/> : ''}
+              { pokemon.megas.length > 0 || pokemon.variants.length > 0 ? <PokemonVariants megas={pokemon.megas} regional_versions={pokemon.variants} basePokemon={pokemon} gmaxs={pokemon.gigamax} /> : ''}
 
             </div>
 

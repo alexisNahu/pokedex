@@ -9,6 +9,36 @@ export interface Ability {
   slot: number;
 }
 
+export interface EffectEntries {
+    effect: string;
+    short_effect: string;
+    language: {
+      name: string;
+      url: string;
+    }
+  }
+
+export interface AbilityDAO {
+  id: number;
+  name: string;
+  is_main_series: boolean;
+  generation: {
+    name: string;
+    url: string;
+  };
+  effect_entries: EffectEntries[];
+  flavor_text_entries: DescriptionDAO[];
+  pokemon: {
+    is_hidden: boolean;
+    slot: number;
+    pokemon: {
+      name: string;
+      url: string;
+    };
+  }[];
+}
+
+
 export interface Type {
   slot: number;
   type: {
