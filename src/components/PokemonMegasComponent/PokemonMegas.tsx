@@ -1,8 +1,8 @@
-import { MegaPokemonDTO, PokemonDTO } from '@models/pokemon.model'
+import { PokemonDTO, VariantPokemonDTO } from '@models/pokemon.model'
 import { useDescriptionContext } from '../../contexts/description.context'
 
 interface Props {
-    megas: MegaPokemonDTO[],
+    megas: VariantPokemonDTO[],
     basePokemon: PokemonDTO
 }
 

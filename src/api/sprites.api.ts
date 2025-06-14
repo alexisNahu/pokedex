@@ -1,4 +1,15 @@
+import { RegionalVersionsRecord } from "@models/pokemon.model"
 import { POKEMON_SPRITES_URL, SPRITE_STYLE, POKEMON_3D_SPRITES_URL } from "../config/sprites.endpoints"
+
+function transformRegionalVersionName(pokemonName: string) {
+    const regional_part = pokemonName.split("-")[1]
+
+    if (regional_part === 'mega') return pokemonName
+
+    const regional_part_transformed = RegionalVersionsRecord[regional_part]
+    
+    return pokemonName.replace(regional_part, regional_part_transformed)
+}
 
 export function getStaticSprite(pokemonName: string, isShiny: boolean, isBack: boolean): string {
   let style: SPRITE_STYLE
@@ -23,6 +34,6 @@ export function getAnimatedSprite(pokemonName: string, isShiny: boolean, isBack:
 }
 
 export function get3dSprite(pokemonName: string, isShiny: boolean) {
-  return `${POKEMON_3D_SPRITES_URL}/${isShiny ? SPRITE_STYLE.SHINY_3D : SPRITE_STYLE.NORMAL_3D}/${pokemonName}.png`
+  return `${POKEMON_3D_SPRITES_URL}/${isShiny ? SPRITE_STYLE.SHINY_3D : SPRITE_STYLE.NORMAL_3D}/${transformRegionalVersionName(pokemonName)}.png`
 }
 

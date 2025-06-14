@@ -1,6 +1,7 @@
 import { AllSpritesDAO, BasicChain, DescriptionDAO, PokemonChainEvolutionDAO, PokemonDAO, PokemonSpeciesDAO } from "@models/dao";
-import { DescriptionLanguages, Descriptions, PokemonDTO } from "@models/pokemon.model";
+import { DescriptionLanguages, Descriptions, PokemonDTO, PossibleVariants, RegionalVersionsRecord } from "@models/pokemon.model";
 import { mapToVariantPokemonDTO } from "./mapToVariantPokemon";
+import { type } from "os";
 
 
 function getEvolutionChainWithSprites(
@@ -25,6 +26,7 @@ function getEvolutionChainWithSprites(
 function filterDescriptionsByLanguage(lang: DescriptionLanguages, descriptions: DescriptionDAO[]) {
   return descriptions.filter((entry) => entry.language.name === lang)
 }
+
 
 
 export function mapToPokemonDTO (
@@ -57,8 +59,8 @@ export function mapToPokemonDTO (
             description: description.flavor_text
           }))
         },
-        megas: megas.map(mega => mapToVariantPokemonDTO(mega, true)),
-        variants: variants.map(variant => mapToVariantPokemonDTO(variant, false)),
+        megas: megas.map(mega => mapToVariantPokemonDTO(mega, PossibleVariants.MEGA)),
+        variants: variants.map(variant => mapToVariantPokemonDTO(variant, PossibleVariants.REGIONAL_VARIANT)),
         abilities: pokemon.abilities.map((ability) => ability.ability.name),
         isLegendary: species.is_legendary,
         isMythical: species.is_mythical,

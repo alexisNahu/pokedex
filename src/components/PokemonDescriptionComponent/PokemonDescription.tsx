@@ -1,5 +1,5 @@
 import PokedexEntrySlider from '@components/CardComponent/PokedexEntrySlider/PokedexEntrySlider';
-import { EvolutionChain, PokeTypes } from '@components/index';
+import { EvolutionChain, PokemonVariants, PokeTypes } from '@components/index';
 import useFetch from '@hooks/useFetch';
 import { useParams } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
@@ -64,8 +64,8 @@ function PokemonDescription() {
                 <PokeTypes pokemonTypes={poke.types}/>
               </span>
               <PokemonStatsComponent stats={poke.stats} maxStat={255}/>
-
-              <PokemonMegas megas={pokemon.megas} basePokemon={pokemon} />
+              
+              { pokemon.megas.length > 0 || pokemon.variants.length > 0 ? <PokemonVariants megas={pokemon.megas} regional_versions={pokemon.variants} basePokemon={pokemon}/> : ''}
 
             </div>
 

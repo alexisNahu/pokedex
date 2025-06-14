@@ -14,6 +14,12 @@ export enum RegionalVariants {
 }
 
 
+export const RegionalVersionsRecord: Record<string, string> = {
+    'galar': 'galarian',
+    'alola': 'alolan'
+}
+
+
 export interface VariantPokemonDTO {
   id: number;
   name: string;
@@ -21,7 +27,7 @@ export interface VariantPokemonDTO {
   abilities: string[]
   stats: Stat[]
   sprites: AllSpritesDAO
-  isMega: boolean
+  variant_type: PossibleVariants
 }
 
 export interface GameDescriptions {
@@ -58,6 +64,13 @@ export interface PokemonDTO {
 }
 
 export type PokemonStat = 'hp' | 'attack' | 'defense' | 'specialattack' | 'specialdefense' | 'speed';
+
+export enum PossibleVariants {
+  REGIONAL_VARIANT = 'regional_variant',
+  MEGA = 'mega',
+  GIGAMAX = 'gigamax'
+} 
+
 
 export type DescriptionLanguages = 'jp' | 'es' | 'en' 
 

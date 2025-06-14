@@ -4,5 +4,6 @@ export {default as EvolutionChain} from './EvolutionChainComponent/EvolutionChai
 export {default as PokemonMegas} from './PokemonMegasComponent/PokemonMegas'
 export {default as CardCarousel} from './CardComponent/CardCarousel'
 export {default as PokeTypes} from './PokeTypesComponent/PokeTypes'
+export {default as PokemonVariants} from './PokemonVariantsComponent/PokemonVariants'
 
 export * from './layout';
