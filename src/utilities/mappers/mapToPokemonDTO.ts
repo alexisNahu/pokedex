@@ -29,7 +29,7 @@ function filterDescriptionsByLanguage(lang: DescriptionLanguages, descriptions: 
 
 
 
-export function mapToPokemonDTO (
+export async function mapToPokemonDTO (
     species: PokemonSpeciesDAO,
     chain: PokemonChainEvolutionDAO,
     pokemon: PokemonDAO,
@@ -39,8 +39,13 @@ export function mapToPokemonDTO (
     gmax: PokemonDAO[],
     abilities: AbilityDAO[],
     getSprite: (name: string, isShiny: boolean) => AllSpritesDAO // Función síncrona
-): PokemonDTO {
+): Promise<PokemonDTO> {
     console.log('sprite: ',sprites)
+
+    const megasResolved = await Promise.all(megas.map(mega => mapToVariantPokemonDTO(mega, PossibleVariants.MEGA)));
+    const variantsResolved = await Promise.all(variants.map(variant => mapToVariantPokemonDTO(variant, PossibleVariants.REGIONAL_VARIANT)));
+    const gigamaxResolved = await Promise.all(gmax.map(gmax => mapToVariantPokemonDTO(gmax, PossibleVariants.GIGAMAX)));
+
 
     return {
         id: pokemon.id,
@@ -61,15 +66,18 @@ export function mapToPokemonDTO (
             description: description.flavor_text
           }))
         },
-        megas: megas.map(mega => mapToVariantPokemonDTO(mega, PossibleVariants.MEGA)),
-        variants: variants.map(variant => mapToVariantPokemonDTO(variant, PossibleVariants.REGIONAL_VARIANT)),
-        gigamax: gmax.map(gmax => mapToVariantPokemonDTO(gmax, PossibleVariants.GIGAMAX)),
+        height: `${pokemon.height/10}m`,
+        weight: `${pokemon.weight/10}kg`,
+        megas: megasResolved,
+        variants: variantsResolved,
+        gigamax: gigamaxResolved,
         abilities: abilities.map(ability => mapToAbilityDTO(ability)),
         isLegendary: species.is_legendary,
         isMythical: species.is_mythical,
         stats: pokemon.stats.map((stat) => ({stat: stat.stat.name.trim(), value: stat.base_stat})),
         generation: species.generation.name,
         sprites: sprites,
+        variant_type: PossibleVariants.BASE_POKEMON,
         isMega: false
     }
 }

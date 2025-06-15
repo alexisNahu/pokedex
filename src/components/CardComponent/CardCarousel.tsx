@@ -6,7 +6,7 @@ import { generateRandomPokedexNumber } from '@utilities/generateRandomPokedexNum
 
 export const carouselSize = {
   width: '100%',
-  height: 'auto'
+  height: 'auto',
 }
 
 function CardComponent({pokemonCards}: {pokemonCards: number}) {

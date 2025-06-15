@@ -27,10 +27,12 @@ export interface VariantPokemonDTO {
   id: number;
   name: string;
   types: POKEMON_TYPES[]
-  abilities: string[]
+  abilities: AbilityDTO[] | []
   stats: Stat[]
   sprites: AllSpritesDAO
   variant_type: PossibleVariants
+  height: string,
+  weight: string,
 }
 
 export interface GameDescriptions {
@@ -74,16 +76,20 @@ export interface PokemonDTO {
     evolutionChain: EvolutionChainDTO[]
     types: POKEMON_TYPES[]
     descriptions:Descriptions
-    abilities: AbilityDTO[]
+    abilities: AbilityDTO[] | []
     isLegendary: boolean
     isMythical: boolean
     stats: Array<Stat>
     megas: VariantPokemonDTO[]
     variants: VariantPokemonDTO[]
     gigamax: VariantPokemonDTO[]
+    height: string,
+    weight: string,
     generation: string
     sprites: AllSpritesDAO
     isMega: false
+    variant_type: PossibleVariants
+
 }
 
 export type PokemonStat = 'hp' | 'attack' | 'defense' | 'specialattack' | 'specialdefense' | 'speed';
@@ -91,7 +97,8 @@ export type PokemonStat = 'hp' | 'attack' | 'defense' | 'specialattack' | 'speci
 export enum PossibleVariants {
   REGIONAL_VARIANT = 'regional_variant',
   MEGA = 'mega',
-  GIGAMAX = 'gigamax'
+  GIGAMAX = 'gigamax',
+  BASE_POKEMON = 'base_pokemon'
 } 
 
 
