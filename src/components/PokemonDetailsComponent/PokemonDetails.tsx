@@ -2,6 +2,7 @@ import { useModalContext } from '@components/Modal/context/UseModalContext'
 import { useDescriptionContext } from '../../contexts/description.context'
 import { Modal } from '@components/Modal/CustomModal'
 import { useState } from 'react'
+import PokeTypes from '@components/PokeTypesComponent/PokeTypes'
 
 function PokemonDetails() {
     const { poke } = useDescriptionContext()
@@ -50,6 +51,16 @@ function PokemonDetails() {
                                 </span>
                             )))}
                         </p></span>
+                </div>
+            </div>
+            <div className='row'>
+                <div className="col">
+                    {poke?.weaknesses.x0?.length && <div>No damage from: <PokeTypes pokemonTypes={poke?.weaknesses.x0 ?? []}/></div>}
+                    {poke?.weaknesses.x025?.length  && <div>Almost no damage from: <PokeTypes pokemonTypes={poke?.weaknesses.x025 ?? []}/></div>}
+                    {poke?.weaknesses.x05?.length  && <div>Little damage from: <PokeTypes pokemonTypes={poke?.weaknesses.x05 ?? []}/></div>}
+                    {poke?.weaknesses.x1?.length  && <div>Normal damage from: <PokeTypes pokemonTypes={poke?.weaknesses.x1 ?? []}/></div>}
+                    {poke?.weaknesses.x2?.length  && <div>Weak to: <PokeTypes pokemonTypes={poke?.weaknesses.x2 ?? []}/></div>}
+                    {poke?.weaknesses.x4?.length  && <div>Too weak to: <PokeTypes pokemonTypes={poke?.weaknesses.x4 ?? []}/></div>}
                 </div>
             </div>
 

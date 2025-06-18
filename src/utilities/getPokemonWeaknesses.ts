@@ -51,15 +51,14 @@
 
     types_damage_table.push({type: typeDAO.name, table: types_damage_data});
 });
-    console.log(types_damage_table)
 
 
-        const x0: {name: string}[] = []
-        const x05: {name: string}[] = []
-        const x025: {name: string}[] = []
-        const x1: {name: string}[] = []
-        const x2: {name: string}[] = []
-        const x4: {name: string}[] = []
+        const x0: POKEMON_TYPES[] = []
+        const x05: POKEMON_TYPES[] = []
+        const x025: POKEMON_TYPES[] = []
+        const x1: POKEMON_TYPES[] = []
+        const x2: POKEMON_TYPES[] = []
+        const x4: POKEMON_TYPES[] = []
 
 
         
@@ -71,44 +70,26 @@
     
     
                 const total = mult1 * mult2;
+
     
-                if (total === 0) {
-                    x0.push({
-                        name: attack
-                    })
-                }
+                if (total === 0) x0.push(POKEMON_TYPES[attack.toUpperCase() as keyof typeof POKEMON_TYPES])
+        
     
-                if (total === 1) {
-                    x1.push({
-                        name: attack
-                    })
-                }
+                if (total === 1) x1.push(POKEMON_TYPES[attack.toUpperCase() as keyof typeof POKEMON_TYPES])
+
     
-                if (total === 0.5) {
-                    x05.push({
-                        name: attack
-                    })
-                }
+                if (total === 0.5) x05.push(POKEMON_TYPES[attack.toUpperCase() as keyof typeof POKEMON_TYPES])
+
     
-                if (total === 0.25) {
-                    x025.push({
-                        name: attack
-                    })
-                }
+                if (total === 0.25) x025.push(POKEMON_TYPES[attack.toUpperCase() as keyof typeof POKEMON_TYPES])
+
     
-                if (total === 2) {
-                    x2.push({
-                        name: attack
-                    })
-                }
+                if (total === 2) x2.push(POKEMON_TYPES[attack.toUpperCase() as keyof typeof POKEMON_TYPES])
+
     
-                if (total === 4) {
-                    x4.push({
-                        name: attack 
-                    })
-                }
-    
+                if (total === 4) x4.push(POKEMON_TYPES[attack.toUpperCase() as keyof typeof POKEMON_TYPES])
             }
+
 
 
         response.x0 = x0

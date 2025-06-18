@@ -19,12 +19,12 @@ export enum POKEMON_TYPES {
     FAIRY = 'fairy'
 }
 export interface pokemonWeaknesses {
-    x0?: {name: POKEMON_TYPES}; // Inmunidad
-    x05?: {name: POKEMON_TYPES}; // Resistencia
-    x025?: {name: POKEMON_TYPES};
-    x1?: {name: POKEMON_TYPES};
-    x2?: {name: POKEMON_TYPES}; // Debilidades
-    x4?: {name: POKEMON_TYPES}; // Por si reciben 4x
+    x0?: POKEMON_TYPES[] | []; // Inmunidad
+    x05?: POKEMON_TYPES[] | []; // Resistencia
+    x025?: POKEMON_TYPES[] | [];
+    x1?: POKEMON_TYPES[] | [];
+    x2?: POKEMON_TYPES[] | []; // Debilidades
+    x4?: POKEMON_TYPES[] | []; // Por si reciben 4x
 }
 
 
