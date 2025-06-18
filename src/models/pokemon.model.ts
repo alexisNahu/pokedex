@@ -1,5 +1,5 @@
 import { AllSpritesDAO } from "./dao";
-import { POKEMON_TYPES } from "./pokemonTypes.model"
+import { POKEMON_TYPES, pokemonWeaknesses } from "./pokemonTypes.model"
 
 export interface Stat {
     stat: string,
@@ -33,6 +33,7 @@ export interface VariantPokemonDTO {
   variant_type: PossibleVariants
   height: string,
   weight: string,
+  weaknesses: pokemonWeaknesses
 }
 
 export interface GameDescriptions {
@@ -89,6 +90,7 @@ export interface PokemonDTO {
     sprites: AllSpritesDAO
     isMega: false
     variant_type: PossibleVariants
+    weaknesses: pokemonWeaknesses
 
 }
 

@@ -53,7 +53,6 @@ function PokemonDetails() {
                 </div>
             </div>
 
-            {/* Aquí hardcodeamos el modal para que aparezca algo cuando esté abierto */}
             <Modal>
                 <div>
                     {showingAbility?.name.toUpperCase()}

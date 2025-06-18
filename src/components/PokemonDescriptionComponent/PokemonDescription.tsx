@@ -36,7 +36,7 @@ function PokemonDescription() {
         return (
     <div
         className="card d-flex bg-white bg-opacity-50 border-0 shadow-sm z-index-0"
-        style={{ width: '90%', height: '100%' }}
+        style={{ width: '90%', height: 'auto' }}
     >
 
         {/* Header first */}

@@ -18,6 +18,15 @@ export enum POKEMON_TYPES {
     STEEL = 'steel',
     FAIRY = 'fairy'
 }
+export interface pokemonWeaknesses {
+    x0?: {name: POKEMON_TYPES}; // Inmunidad
+    x05?: {name: POKEMON_TYPES}; // Resistencia
+    x025?: {name: POKEMON_TYPES};
+    x1?: {name: POKEMON_TYPES};
+    x2?: {name: POKEMON_TYPES}; // Debilidades
+    x4?: {name: POKEMON_TYPES}; // Por si reciben 4x
+}
+
 
 export const POKEMON_TYPE_COLORS: Record<POKEMON_TYPES, string> = {
     [POKEMON_TYPES.NORMAL]: '#A8A878',

@@ -47,6 +47,20 @@ export interface Type {
   };
 }
 
+export interface TypeDAO {
+    name: string;
+    damage_relations: {
+        double_damage_from: { name: string; url: string }[];
+        half_damage_from: { name: string; url: string }[];
+        no_damage_from: { name: string; url: string }[];
+        double_damage_to: { name: string; url: string }[];
+        half_damage_to: { name: string; url: string }[];
+        no_damage_to: { name: string; url: string }[];
+    };
+    // Hay más información en el Type de PokéAPI, pero aquí incluimos lo más relevante
+}
+
+
 export interface Stat {
   base_stat: number;
   effort: number;
@@ -67,7 +81,6 @@ export interface DescriptionDAO {
     url: string;
   };
 }
-
 
 export interface PokemonDAO {
   id: number;

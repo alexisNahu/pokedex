@@ -4,6 +4,7 @@ import { POKEMON_TYPES } from "@models/pokemonTypes.model";
 import * as spritesService from '@services/index'
 import * as pokeApiService from '@services/index'
 import { mapToAbilityDTO } from "./mapToAbilityDTO";
+import { getPokemonWeaknesses } from "@utilities/getPokemonWeaknesses";
 
 export async function mapToVariantPokemonDTO(variant: PokemonDAO, type: PossibleVariants): Promise<VariantPokemonDTO> {
 
@@ -30,6 +31,7 @@ export async function mapToVariantPokemonDTO(variant: PokemonDAO, type: Possible
     sprites: spritesService.getAllSprites(variant.name),
     height: `${variant.height/10}m`,
     weight: `${variant.weight/10}kg`,
+    weaknesses: await getPokemonWeaknesses(variant.types),
     variant_type: type
   };
 }

@@ -2,6 +2,7 @@ import { Ability, AbilityDAO, AllSpritesDAO, BasicChain, DescriptionDAO, EffectE
 import { DescriptionLanguages, PokemonDTO, PossibleVariants } from "@models/pokemon.model";
 import { mapToVariantPokemonDTO } from "./mapToVariantPokemon";
 import { mapToAbilityDTO } from "./mapToAbilityDTO";
+import { getPokemonWeaknesses } from "@utilities/getPokemonWeaknesses";
 
 
 function getEvolutionChainWithSprites(
@@ -41,7 +42,7 @@ export async function mapToPokemonDTO (
     getSprite: (name: string, isShiny: boolean) => AllSpritesDAO // Función síncrona
 ): Promise<PokemonDTO> {
     console.log('sprite: ',sprites)
-
+    const weaknessesResolved = await getPokemonWeaknesses(pokemon.types);
     const megasResolved = await Promise.all(megas.map(mega => mapToVariantPokemonDTO(mega, PossibleVariants.MEGA)));
     const variantsResolved = await Promise.all(variants.map(variant => mapToVariantPokemonDTO(variant, PossibleVariants.REGIONAL_VARIANT)));
     const gigamaxResolved = await Promise.all(gmax.map(gmax => mapToVariantPokemonDTO(gmax, PossibleVariants.GIGAMAX)));
@@ -71,6 +72,7 @@ export async function mapToPokemonDTO (
         megas: megasResolved,
         variants: variantsResolved,
         gigamax: gigamaxResolved,
+        weaknesses: weaknessesResolved,
         abilities: abilities.map(ability => mapToAbilityDTO(ability)),
         isLegendary: species.is_legendary,
         isMythical: species.is_mythical,
