@@ -41,7 +41,7 @@ function PokemonDescription() {
 
         {/* Header first */}
         <div className="card-body d-flex flex-column align-items-center p-3 bg-transparent g-3 w-100 h-auto">
-            <div className="card-header bg-primary bg-opacity-75 text-center py-2 border-0 w-100">
+            <div className="card-header bg-primary bg-opacity-75 text-center border-0 w-100">
                 <h5 className="card-title text-white text-uppercase mb-0 fw-bold">
                     {poke.name}
                 </h5>

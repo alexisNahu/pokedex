@@ -14,14 +14,19 @@ function Layout({children}:Props) {
     <>
         <Sidebar items={sidebarItems} />
         <main 
-            className='d-flex justify-content-center align-items-center h-100'
-            style={{
+          className="d-flex justify-content-center"
+          style={{
             marginLeft: activo ? 360 : 140,
-            transition: 'margin-left 0.3s ease'
-            }}
+            transition: 'margin-left 0.3s ease',
+            minHeight: '100vh', // Asegura que ocupe toda la altura visible
+            paddingTop: '2rem' // Para separación superior opcional
+          }}
         >
+          <div style={{ width: '100%', maxWidth: '1300px' }}>
             {children}
-        </main>    
+          </div>
+        </main>
+          
     </>
   )
 }
