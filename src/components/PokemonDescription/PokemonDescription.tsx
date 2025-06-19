@@ -63,7 +63,7 @@ function PokemonDescription() {
               </span>
               <PokemonStatsComponent stats={poke.stats} maxStat={255}/>
 
-              <PokemonMegas megas={pokemon.megas} basePokemon={pokemon} />
+              <PokemonMegas megas={pokemon.megas} />
 
             </div>
 
