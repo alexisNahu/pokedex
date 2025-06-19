@@ -3,6 +3,7 @@ import { SidebarProvider } from './components/layout/sidebar/sidebar.context'
 import { Layout } from './components'
 import { DescriptionProvider } from './contexts/description.context'
 import { BrowserRouter } from 'react-router-dom'
+import { ModalProvider } from '@components/Modal/context/ModalContext'
 
 interface Props {
     children: ReactNode
@@ -11,13 +12,15 @@ interface Props {
 function AppContext({children}: Props) {
   return (
     <BrowserRouter>
-        <DescriptionProvider>
-            <SidebarProvider>
-                <Layout>
-                    {children}
-                </Layout>
-            </SidebarProvider>
-        </DescriptionProvider>
+        <ModalProvider>
+            <DescriptionProvider>
+                <SidebarProvider>
+                    <Layout>
+                        {children}
+                    </Layout>
+                </SidebarProvider>
+            </DescriptionProvider>
+        </ModalProvider>
     </BrowserRouter>
 )
 }

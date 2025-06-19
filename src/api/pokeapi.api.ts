@@ -37,3 +37,26 @@ export async function fetchPokemonChanEvolution(pokemonChainUrl: string): Promis
     }
 }
 
+export async function fetchPokemonAbility(pokemonAbilityUrl: string) {
+    try {
+        const response = await fetch(pokemonAbilityUrl)
+
+        if (!response.ok) throw new Error(`Pokemon ability not found: ${response.status}`)
+
+        return await response.json()
+    } catch(error) {
+        throw new Error(`Error while fetching: ${error}`)
+    }
+}
+
+export async function fetchPokemonTypeWeaknesses(pokemonTypeUrl: string) {
+    try {
+        const response = await fetch(pokemonTypeUrl)
+
+        if (!response.ok) throw new Error(`Pokemon type not found: ${response.status}`)
+
+        return await response.json()
+    } catch(error) {
+        throw new Error(`Error while fetching: ${error}`)
+    }
+}

@@ -9,6 +9,36 @@ export interface Ability {
   slot: number;
 }
 
+export interface EffectEntries {
+    effect: string;
+    short_effect: string;
+    language: {
+      name: string;
+      url: string;
+    }
+  }
+
+export interface AbilityDAO {
+  id: number;
+  name: string;
+  is_main_series: boolean;
+  generation: {
+    name: string;
+    url: string;
+  };
+  effect_entries: EffectEntries[];
+  flavor_text_entries: DescriptionDAO[];
+  pokemon: {
+    is_hidden: boolean;
+    slot: number;
+    pokemon: {
+      name: string;
+      url: string;
+    };
+  }[];
+}
+
+
 export interface Type {
   slot: number;
   type: {
@@ -17,10 +47,36 @@ export interface Type {
   };
 }
 
+export interface TypeDAO {
+    name: string;
+    damage_relations: {
+        double_damage_from: { name: string; url: string }[];
+        half_damage_from: { name: string; url: string }[];
+        no_damage_from: { name: string; url: string }[];
+        double_damage_to: { name: string; url: string }[];
+        half_damage_to: { name: string; url: string }[];
+        no_damage_to: { name: string; url: string }[];
+    };
+    // Hay más información en el Type de PokéAPI, pero aquí incluimos lo más relevante
+}
+
+
 export interface Stat {
   base_stat: number;
   effort: number;
   stat: {
+    name: string;
+    url: string;
+  };
+}
+
+export interface DescriptionDAO {
+  flavor_text: string;
+  language: {
+    name: string;
+    url: string;
+  };
+  version: {
     name: string;
     url: string;
   };
@@ -39,5 +95,6 @@ export interface PokemonDAO {
   evolution_chain: {
     url: string;
     name: string
-  }
+  },
+  descriptions: DescriptionDAO[]
 }

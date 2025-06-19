@@ -6,11 +6,11 @@ import { generateRandomPokedexNumber } from '@utilities/generateRandomPokedexNum
 
 export const carouselSize = {
   width: '100%',
-  height: 'auto'
+  height: 'auto',
 }
 
-function CardComponent(pokemonCards: number) {
-  const randomPokedexNumbers = generateRandomPokedexNumber(649, 10)
+function CardComponent({pokemonCards}: {pokemonCards: number}) {
+  const randomPokedexNumbers = generateRandomPokedexNumber(pokemonCards, 10)
 
   return (
     <div style={carouselSize}>

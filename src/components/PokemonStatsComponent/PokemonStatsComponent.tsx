@@ -20,11 +20,11 @@ function PokemonStatsComponent({stats, maxStat}: Props) {
 
 
   return (
-        <ProgressBar className='d-flex flex-column h-auto bg-transparent' 
+        <ProgressBar className='d-flex flex-column h-auto bg-transparent mt-4' 
           style={{minWidth: '500px', overflow: 'visible', flexShrink: 0}}
           >
             {
-              stats.map((stat) => <div>
+              stats.map((stat, i) => <div key={stat.stat}>
                  <span>{stat.stat}: </span> <PokemonStatBar 
                   stat={stat} 
                   maxStat={maxStat} 

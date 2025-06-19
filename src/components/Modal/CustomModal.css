@@ -1,0 +1,39 @@
+.overlay {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background:rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    color: #ffffff;
+}
+
+.modal {
+    background: blue;
+    padding: 24px;
+    border-radius: 12px;
+    min-width: 250px;
+    max-width: 500px;
+    position: relative;
+    text-align: center;
+}
+
+.close-button {
+    margin-top: 20px;
+    padding: 8px 16px;
+    background: #ff4d4d;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s ease;
+}
+
+.close-button:hover {
+    background: #ff1a1a;
+}

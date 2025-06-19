@@ -7,4 +7,5 @@ body {
     background-image: url('../public/background.jpg');
     background-position: center;
     background-size:cover;
+    background-attachment: fixed;
 }

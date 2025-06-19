@@ -1,7 +1,7 @@
 import { createContext, useContext, useState } from "react";
-import { MegaPokemonDTO, PokemonDTO } from "@models/pokemon.model";
+import { PokemonDTO, VariantPokemonDTO } from "@models/pokemon.model";
 
-type ContextType = PokemonDTO | null | MegaPokemonDTO
+type ContextType = null | VariantPokemonDTO | PokemonDTO
 
 interface DescriptionContextType {
   poke: ContextType;
