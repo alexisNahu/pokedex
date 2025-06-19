@@ -18,6 +18,7 @@ export function getAnimatedBackwardsSprite(pokemonName: string, isShiny: boolean
 }
 
 export function getAllSprites(pokemonName: string): AllSpritesDAO {
+
     return {
         static: {
             shiny: {

@@ -1,5 +1,5 @@
 
-export const POKEMON_SPRITES_URL = 'https://img.pokemondb.net/sprites/legend-arceus'
+export const POKEMON_SPRITES_URL = 'https://img.pokemondb.net/sprites/black-white'
 
 export const POKEMON_3D_SPRITES_URL = 'https://img.pokemondb.net/sprites/home'
 

@@ -1,4 +1,4 @@
-import { Ability, AbilityDAO, AllSpritesDAO, PokemonChainEvolutionDAO, PokemonDAO, PokemonSpeciesDAO } from '@models/dao';
+import { AbilityDAO, AllSpritesDAO, PokemonChainEvolutionDAO, PokemonDAO, PokemonSpeciesDAO } from '@models/dao';
 import { PokemonDTO } from '@models/pokemon.model';
 import * as pokeApiService from '@services/index'
 import * as spritesService from '@services/index' 
