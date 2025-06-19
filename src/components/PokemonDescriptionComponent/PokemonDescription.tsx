@@ -46,7 +46,7 @@ function PokemonDescription() {
                     {poke.name}
                 </h5>
             </div>
-            <div className='d-flex flex-row'>
+            <div className='d-flex flex-row' style={{gap: '2rem'}}>
                 <div
                     className="pokemon-sprite-container d-flex flex-column align-items-center"
                     style={{ gap:'1rem' }}
