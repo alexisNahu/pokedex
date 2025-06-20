@@ -17,6 +17,10 @@ export function getAnimatedBackwardsSprite(pokemonName: string, isShiny: boolean
     return getAnimatedSprite(pokemonName,isShiny, true)
 }
 
+export function getStatic3dSprite(pokemonName: string, isShiny: boolean) {
+    return get3dSprite(pokemonName, isShiny)
+}
+
 export function getAllSprites(pokemonName: string): AllSpritesDAO {
 
     return {

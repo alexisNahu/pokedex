@@ -1,7 +1,7 @@
 import React, { FormEvent, useEffect, useRef, useState, type KeyboardEvent } from 'react'
 import { useSidebarContext } from '../sidebar/sidebar.context'
 import { useNavigate } from 'react-router-dom'
-
+import * as spritesService from '@services/pokemonSprites.service'
 import { PUBLIC } from '@models/routes/routes'
 import { getHidingTransition } from '../sidebar/Sidebar'
 
@@ -60,11 +60,16 @@ function AutoSuggestionsInput() {
                 {suggestionsList.map(name => (
                 <li
                     key={name}
-                    className="list-group-item list-group-item-action"
+                    className="list-group-item list-group-item-action d-flex justify-content-between"
                     onClick={() => handleSuggestionClick(name)}
                     style={{ cursor: 'pointer' }}
                 >
-                    {name}
+                    <div className="pokemon-sprite-container d-flex flex-column align-items-center">
+                        <img src={`${spritesService.getStatic3dSprite(name, false)}`}  className='img-fluid' alt="mini-icon" />
+                    </div>
+                    <span className='d-flex align-items-center'>
+                        {name}
+                    </span>
                 </li>
                 ))}
             </ul>
