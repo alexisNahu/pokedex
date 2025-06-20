@@ -6,7 +6,6 @@ interface Props {
 }
 
 function PokeTypes({pokemonTypes}: Props) {
-    console.log(pokemonTypes)
     return (
         <div className='pokemon-types d-flex flex-wrap'>
             {

@@ -1,7 +1,10 @@
 export interface SingleItem {
     text: string
     icon?: string
-    url?: string
+    url?: string,
+    type?: string,
+    bootstrapIcon?: string,
+
 }
 
 export interface DropdownItem {

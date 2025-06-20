@@ -95,25 +95,18 @@ function PokemonDescription() {
                 </div>
                 <PokemonStatsComponent stats={poke.stats} maxStat={255}/>
             </div>
-            <div className='d-flex flex-row mb-3 mt-3'>
-                <PokemonVariants
-                    megas={pokemon.megas}
-                    regional_versions={pokemon.variants}
-                    basePokemon={pokemon}
-                    gmaxs={pokemon.gigamax}
-                />
+            <PokedexEntrySlider pokemon={pokemon} />
+            <div className='d-flex flex-row mb-3 mt-3' style={{gap: '1rem'}}>
+                <div>
+                    <PokemonVariants
+                        megas={pokemon.megas}
+                        regional_versions={pokemon.variants}
+                        basePokemon={pokemon}
+                        gmaxs={pokemon.gigamax}
+                    />
+                </div>
                 <PokemonDetails />
             </div>
-
-            {/* Stats immediately after the image */}
-                
-
-                {/* Variants afterwards */}
-
-
-
-            {/* Pokedex Slider, Evolution, and Details at the bottom */}
-            <PokedexEntrySlider pokemon={pokemon} />
             <EvolutionChain evolutionChain={pokemon.evolutionChain} />
         </div>
     </div>

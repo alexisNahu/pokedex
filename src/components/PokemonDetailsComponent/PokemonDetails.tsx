@@ -24,19 +24,19 @@ function PokemonDetails() {
     }
 
     return (
-        <div className='details py-4 container bg-poke-red rounded text-white bold' style={{width: 500}}>
+        <div className='details py-1 container bg-poke-red rounded text-white bold' style={{width: 500}}>
             <div className="row p-3">
                 <div className="col">
                     <span className='d-flex flex-column mb-3'>
-                        <p className='mb-0'>Height:</p> <p className='mb-0'>{poke?.height}</p>
+                        <h5 className='mb-0'>Height:</h5> <p className='mb-0'>{poke?.height}</p>
                     </span>
                     <span className='d-flex flex-column'>
-                        <p className='mb-0'>Weight:</p> <p className='mb-0'>{poke?.weight}</p>
+                        <h5 className='mb-0'>Weight:</h5> <p className='mb-0'>{poke?.weight}</p>
                     </span>
                 </div>
                 <div className="col">
                     <span className='d-flex flex-column mb-3'>
-                        <p className='mb-0'>Abilities:</p> <p className='mb-0'>
+                        <h5 className='mb-0'>Abilities:</h5> <p className='mb-0'>
                             {poke?.abilities?.map(((ability, i) => (
                                 <span key={i}>
                                    {ability.en?.map((entry, a) => (
@@ -55,12 +55,12 @@ function PokemonDetails() {
             </div>
             <div className='row'>
                 <div className="col">
-                    {poke?.weaknesses.x0?.length ? <div>No damage from {`(x0)`}: <PokeTypes pokemonTypes={poke?.weaknesses.x0 ?? []}/></div> : ''}
-                    {poke?.weaknesses.x025?.length  ? <div>Almost no damage from {`(x0.25)`}: <PokeTypes pokemonTypes={poke?.weaknesses.x025 ?? []}/></div> : ''}
-                    {poke?.weaknesses.x05?.length  ? <div>Little damage from {`(x0.5)`}: <PokeTypes pokemonTypes={poke?.weaknesses.x05 ?? []}/></div> : ''}
-                    {poke?.weaknesses.x1?.length  ? <div>Normal damage from {`(x1)`}: <PokeTypes pokemonTypes={poke?.weaknesses.x1 ?? []}/></div> : ''}
-                    {poke?.weaknesses.x2?.length  ? <div>Weak to {`(x2)`}: <PokeTypes pokemonTypes={poke?.weaknesses.x2 ?? []}/></div> : ''}
-                    {poke?.weaknesses.x4?.length  ? <div>Too weak to {`(x4)`}: <PokeTypes pokemonTypes={poke?.weaknesses.x4 ?? []}/></div> : ''}
+                    {poke?.weaknesses.x0?.length ? <div><h5>No damage from {`(x0)`}: </h5><PokeTypes pokemonTypes={poke?.weaknesses.x0 ?? []}/></div> : ''}
+                    {poke?.weaknesses.x025?.length  ? <div><h5>Almost no damage from {`(x0.25)`}: </h5><PokeTypes pokemonTypes={poke?.weaknesses.x025 ?? []}/></div> : ''}
+                    {poke?.weaknesses.x05?.length  ? <div><h5>Little damage from {`(x0.5)`}: </h5><PokeTypes pokemonTypes={poke?.weaknesses.x05 ?? []}/></div> : ''}
+                    {poke?.weaknesses.x1?.length  ? <div><h5>Normal damage from {`(x1)`}: </h5><PokeTypes pokemonTypes={poke?.weaknesses.x1 ?? []}/></div> : ''}
+                    {poke?.weaknesses.x2?.length  ? <div><h5>Weak to {`(x2)`}: </h5><PokeTypes pokemonTypes={poke?.weaknesses.x2 ?? []}/></div> : ''}
+                    {poke?.weaknesses.x4?.length  ? <div><h5>Too weak to {`(x4)`}: </h5><PokeTypes pokemonTypes={poke?.weaknesses.x4 ?? []}/></div> : ''}
                 </div>
             </div>
 

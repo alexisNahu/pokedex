@@ -1,11 +1,16 @@
-import { POKEMON_API_URL } from "../../../config/pokeapi.endpoints";
-import type { SidebarItemsType } from "../../../models/sidebar.model";
+import type { SidebarItemsType } from "@models/sidebar.model";
 import { PUBLIC } from "@models/routes/routes";
 
 export const sidebarItems: SidebarItemsType = [
   {
     text: 'Inicio',
-    url: `/${PUBLIC.LANDING_PAGE}`
+    url: `/${PUBLIC.LANDING_PAGE}`,
+    type: 'single'
+  },
+  {
+    text: 'Search pokemon',
+    type: 'input',
+    bootstrapIcon: 'bi bi-search'
   },
   {
     text: 'Pokédex',
@@ -15,7 +20,8 @@ export const sidebarItems: SidebarItemsType = [
       { text: 'Todos los Pokémon' },
       { text: 'Por tipo' },
       { text: 'Favoritos' },
-    ]
+    ],
+    type: 'accordeon'
   },
   {
     text: 'Entrenadores',
@@ -25,7 +31,8 @@ export const sidebarItems: SidebarItemsType = [
       { text: 'Mis Pokémon' },
       { text: 'Medallas' },
       { text: 'Registro de combates' },
-    ]
+    ],
+    type: 'accordeon'
   },
   {
     text: 'Minijuegos',
@@ -35,7 +42,8 @@ export const sidebarItems: SidebarItemsType = [
       { text: 'Adivina el Pokémon' },
       { text: 'Batalla rápida' },
       { text: 'Trivia Pokémon' },
-    ]
+    ],
+    type: 'accordeon'
   },
   {
     text: 'Exploración',
@@ -45,9 +53,12 @@ export const sidebarItems: SidebarItemsType = [
       { text: 'Regiones' },
       { text: 'Pokémon por región' },
       { text: 'Avistamientos' },
-    ]
+    ],
+    type: 'accordeon'
+
   },
   {
     text: 'Configuración',
+    type: 'single'
   }
 ]

@@ -21,8 +21,6 @@ export const RegionalVersionsRecord: Record<string, string> = {
   paldea: 'paldean'
 }
 
-
-
 export interface VariantPokemonDTO {
   id: number;
   name: string;

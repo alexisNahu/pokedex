@@ -47,6 +47,13 @@ export interface Type {
   };
 }
 
+export interface PokemonNamesDAO {
+  results: {
+    name: string,
+    url: string,
+  }[]
+}
+
 export interface TypeDAO {
     name: string;
     damage_relations: {

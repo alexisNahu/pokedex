@@ -2,20 +2,17 @@ import { RegionalVersionsRecord } from "@models/pokemon.model"
 import { POKEMON_SPRITES_URL, SPRITE_STYLE, POKEMON_3D_SPRITES_URL } from "../config/sprites.endpoints"
 
 
-const knownForms = ['mega', 'gmax', 'alola', 'galar', 'hisui', 'paldea', 'unova']; // expandí según necesites
+const knownForms = ['mega', 'gmax', 'alola', 'galar', 'hisui', 'paldea', 'unova'];
 
 function transformName(pokemonName: string) {
   const parts = pokemonName.split("-");
 
-  // Si no tiene guion, no necesita transformación
   if (parts.length < 2) return pokemonName;
 
   const form_name = parts[1];
 
-  // Si no es una forma conocida, no modificar (casos como mr-rime, ho-oh)
   if (!knownForms.includes(form_name)) return pokemonName;
 
-  // Casos especiales
   if (form_name === 'mega') return pokemonName;
   if (form_name === 'gmax') return pokemonName.replace('gmax', 'gigantamax');
 
