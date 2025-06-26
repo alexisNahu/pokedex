@@ -1,7 +1,8 @@
-import React, { forwardRef, ReactNode, useEffect, useRef } from 'react'
+import {ReactNode} from 'react'
 import Sidebar from './sidebar/Sidebar'
-import { SidebarProvider, useSidebarContext } from './sidebar/sidebar.context'
 import { sidebarItems } from './sidebar/sidebar.items'
+import { useSidebarContext } from './sidebar/sidebar.context'
+import ProfileIcon from './ProfileIcon/ProfileIcon'
 
 interface Props {
     children: ReactNode,
@@ -25,8 +26,8 @@ function Layout({children}:Props) {
           <div style={{ width: '100%', maxWidth: '1300px' }}>
             {children}
           </div>
-        </main>
-          
+          <ProfileIcon />
+        </main> 
     </>
   )
 }

@@ -1,9 +1,10 @@
 import React, { ReactNode } from 'react'
 import { SidebarProvider } from './components/layout/sidebar/sidebar.context'
 import { Layout } from './components'
-import { DescriptionProvider } from './contexts/description.context'
 import { BrowserRouter } from 'react-router-dom'
+import { Provider } from 'react-redux'
 import { ModalProvider } from '@components/Modal/context/ModalContext'
+import { store } from './redux/store'
 
 interface Props {
     children: ReactNode
@@ -12,15 +13,15 @@ interface Props {
 function AppContext({children}: Props) {
   return (
     <BrowserRouter>
-        <ModalProvider>
-            <DescriptionProvider>
-                <SidebarProvider>
+        <Provider store={store}>
+            <SidebarProvider>
+                <ModalProvider>
                     <Layout>
                         {children}
                     </Layout>
-                </SidebarProvider>
-            </DescriptionProvider>
-        </ModalProvider>
+                </ModalProvider>
+            </SidebarProvider>
+        </Provider>
     </BrowserRouter>
 )
 }

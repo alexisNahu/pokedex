@@ -1,20 +1,33 @@
-import { User } from "@models/user.model";
+import { Rol, User } from "@models/user.model";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { getLocalStorageUser } from "src/utilities/localStorage";
+import { getLocalStorageUser, setLocalStorageUser, clearLocalStorage } from "@utilities/localStorage";
 
 const emptyUserState: User = {
-    name: '',
-    password: '',
-    email: '',
+    name: 'alexis',
+    password: '1',
+    email: '1',
+    rol: Rol.USER
 }
 
-
-const userSlice = createSlice({
+export const userSlice = createSlice({
     name: 'user',
     initialState: getLocalStorageUser() ? JSON.parse(getLocalStorageUser() as string) : emptyUserState,
     reducers: {
-        createUser: (user: User, payload: PayloadAction<User>) => {
-            
+        createUser: (userState: User, action: PayloadAction<User>) => {
+            setLocalStorageUser(action.payload)
+            console.log(JSON.parse(localStorage.getItem('user') as string))
+            return action.payload
+        },
+        updateUser: (userState: User, action: PayloadAction<User>) => {
+            setLocalStorageUser({...userState, ...action.payload})
+            return {...userState, ...action.payload}
+        },
+        removeUser: () => {
+            clearLocalStorage()
+            return emptyUserState
         }
-    }
+    }   
 })
+
+export const {createUser, updateUser, removeUser} = userSlice.actions
+export default userSlice.reducer

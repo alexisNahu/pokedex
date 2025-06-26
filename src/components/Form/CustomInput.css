@@ -1,0 +1,10 @@
+.is_invalid {
+    border-color: red; 
+}
+
+.error {
+    color: red;
+    max-width: 200px;
+    margin-top: 0.25rem;
+}
+
