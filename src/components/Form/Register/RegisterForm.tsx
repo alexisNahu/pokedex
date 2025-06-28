@@ -2,15 +2,17 @@ import { SubmitHandler, useForm } from "react-hook-form"
 import { RegisterUserScheme, type RegisterUserType } from "../Schemas"
 import { zodResolver } from "@hookform/resolvers/zod"
 import CustomInput from "../CustomInput/CustomInput"
-import '../Form.css'
-import { useDispatch, useSelector } from "react-redux"
-import { RootState, AppDispatch } from "src/redux/store"
+import { useDispatch} from "react-redux"
+import { AppDispatch } from "../../../redux/store"
 import { Rol, User } from "@models/user.model"
 import { registerUser } from "../../../redux/slices/User"
+import { useNavigate } from "react-router-dom"
+import { PUBLIC } from "@models/routes/routes"
+import '../Form.css'
 
 function RegisterForm() {
-    const userState = useSelector((store: RootState) => store.user)
     const dispatch = useDispatch<AppDispatch>();
+    const navigator = useNavigate()
     
     const {control, handleSubmit, formState: { errors }} = useForm<RegisterUserType>({
         resolver: zodResolver(RegisterUserScheme),
@@ -25,6 +27,8 @@ function RegisterForm() {
         }
 
         dispatch(registerUser(newUser))
+        navigator(`/${PUBLIC.LANDING_PAGE}`)
+        
     }
 
     return (

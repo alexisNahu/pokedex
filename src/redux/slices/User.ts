@@ -14,7 +14,7 @@ export const initialState: {users: User[], activeUser: User | null} = {
     activeUser: null
 }
 
-interface UsersState {
+export interface UsersState {
     users: User[],
     activeUser: User | null,
 }

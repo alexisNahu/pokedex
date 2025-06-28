@@ -2,16 +2,17 @@ import { SubmitHandler, useForm } from "react-hook-form"
 import { LoginUserScheme, type LoginUserType } from "../Schemas"
 import { zodResolver } from "@hookform/resolvers/zod"
 import CustomInput from "../CustomInput/CustomInput"
-import '../Form.css'
-
 import { useSelector, useDispatch } from "react-redux"
-import { RootState, AppDispatch } from "src/redux/store"
+import { RootState, AppDispatch } from "../../../redux/store"
 import { loginUser } from "../../../redux/slices/User"
-import { User } from "@models/user.model"
+import '../Form.css'
+import { useNavigate } from "react-router-dom"
+import { PUBLIC } from "@models/routes/routes"
 
 function LoginForm() {
     const userState = useSelector((store: RootState) => store.user)
     const dispatch = useDispatch<AppDispatch>();
+    const navigator = useNavigate()
     
     const {control, handleSubmit, formState: { errors }} = useForm<LoginUserType>({
         resolver: zodResolver(LoginUserScheme),
@@ -22,6 +23,8 @@ function LoginForm() {
             username: data.username,
             password: data.password,
         }
+        navigator(`/${PUBLIC.LANDING_PAGE}`)
+
         console.log(dispatch(loginUser(user)))
     }
 

@@ -13,6 +13,7 @@ import RegisterForm from "@components/Form/Register/RegisterForm";
 import LoginForm from "@components/Form/Login/LoginForm";
 import { initializeLocalStorageUser } from "@utilities/localStorage";
 import { emptyUserState } from "./redux/slices/User";
+import Logout from "@components/Form/Logout";
 
 function App() {
   useEffect(() => {
@@ -32,22 +33,27 @@ function App() {
     console.log(userState)
   }, [userState])
 
-  return (
-        <>
-          <RoutesWithNotFound>
-            <Route path='/' element={<Navigate to={`${ROUTES.PUBLIC.LANDING_PAGE}`} />} />
-            <Route path={ROUTES.PUBLIC.REGISTER} element={<RegisterForm />}></Route>
-            <Route path={ROUTES.PUBLIC.LOGIN} element={<LoginForm />}></Route>
-            <Route path={`${ROUTES.PUBLIC.LANDING_PAGE}`} element={ <LandingPage />}/>
-            <Route
-              path={`${ROUTES.PUBLIC.DESCRIPTION}/:pokemonName`}
-              element={<DescriptionPage />}
-            />    
-            <Route element={<AuthGuard isPrivate={true} />}>
-              <Route path={`${ROUTES.PRIVATE.PRIVATE}/*`} element={<Private />} />
-            </Route>
-          </RoutesWithNotFound>
-        </>
+ return (
+    <RoutesWithNotFound>
+      {/* Redirección inicial */}
+      <Route path="/" element={<Navigate to={ROUTES.PUBLIC.LANDING_PAGE} replace />} />
+      
+      {/* Rutas públicas accesibles siempre */}
+      <Route path={ROUTES.PUBLIC.LANDING_PAGE} element={<LandingPage />} />
+      <Route path={`${ROUTES.PUBLIC.DESCRIPTION}/:pokemonName`} element={<DescriptionPage />} />
+      
+      {/* Rutas solo para NO autenticados */}
+      <Route element={<AuthGuard isPrivate={false} />}>
+        <Route path={ROUTES.PUBLIC.LOGIN} element={<LoginForm />} />
+        <Route path={ROUTES.PUBLIC.REGISTER} element={<RegisterForm />} />
+      </Route>
+      
+      {/* Rutas solo para autenticados */}
+      <Route element={<AuthGuard isPrivate={true} />}>
+        <Route path={`${ROUTES.PRIVATE.PRIVATE}/*`} element={<Private />} />
+        <Route path={ROUTES.PRIVATE.LOGOUT} element={<Logout />} />
+      </Route>
+    </RoutesWithNotFound>
   );
 }
 export default App

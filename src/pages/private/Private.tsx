@@ -1,3 +1,4 @@
+import Logout from '@components/Form/Logout'
 import Pokedex from '@components/PokedexComponent/Pokedex'
 import { PRIVATE }  from '@models/routes/routes'
 import { RoutesWithNotFound } from '@utilities/RoutesWIthNotFound'
@@ -7,7 +8,7 @@ function Private() {
   return (
     <RoutesWithNotFound> 
         <Route path='/' element={<Navigate to={PRIVATE.POKEDEX}/>} />
-        <Route path='/pokedex' element={<Pokedex />} />
+        <Route path={PRIVATE.POKEDEX} element={<Pokedex />} />
     </RoutesWithNotFound>
   )
 }

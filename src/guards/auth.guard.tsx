@@ -1,19 +1,28 @@
-import { User } from '@models/user.model'
-import { useSelector } from 'react-redux'
-import { Navigate, Outlet } from 'react-router-dom'
-import { RootState } from '../redux/store'
-import { PUBLIC } from '@models/routes/routes'
+// guards/auth.guard.tsx
+import { useSelector } from 'react-redux';
+import { Navigate, Outlet } from 'react-router-dom';
+import { RootState } from '../redux/store';
+import { PUBLIC } from '@models/routes/routes';
 
-function AuthGuard(isPrivate: {isPrivate: boolean}) { 
-  const loggedUser: User = useSelector((state: RootState) => state.user)
-  const isLogged = loggedUser.name
-
-  if (!isLogged) return <Navigate to={PUBLIC.LOGIN}/>
-
-  if (!isPrivate) return <Navigate to={PUBLIC.LANDING_PAGE} />
-
-  return <Outlet />
-
+interface AuthGuardProps {
+  isPrivate?: boolean;
 }
 
-export default AuthGuard
+function AuthGuard({ isPrivate = false }: AuthGuardProps) {
+  const { activeUser } = useSelector((state: RootState) => state.user);
+  
+  // Si la ruta es privada y no hay usuario → redirige a login
+  if (isPrivate && !activeUser) {
+    return <Navigate to={PUBLIC.LOGIN} replace />;
+  }
+  
+  // Si la ruta es pública (solo invitados) y hay usuario → redirige a home
+  if (!isPrivate && activeUser) {
+    return <Navigate to={PUBLIC.LANDING_PAGE} replace />;
+  }
+  
+  // Si pasa las validaciones → renderiza el contenido
+  return <Outlet />;
+}
+
+export default AuthGuard;
