@@ -1,0 +1,35 @@
+.auth-form {
+    background-color: rgba(59, 76, 202, 0.8);
+    padding: 10px;
+    border-radius: 5%;
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+    min-height: 700px;
+}
+
+.auth-form div.form-group {
+    display: flex;
+    justify-content: center;
+    margin: 10px 0;
+}
+
+.auth-form div.form-group input {
+    border: none;
+    border-bottom: 1px solid white;
+    background-color: transparent;
+    color: white;
+}
+
+.auth-form div.form-group input:focus {
+    border: none;
+    border-bottom: 1px solid white;
+    background-color: transparent;
+    color: white;
+}
+
+
+.auth-form div.form-group input::placeholder {
+    color: white;
+}
+

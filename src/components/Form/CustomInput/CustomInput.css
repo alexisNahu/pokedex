@@ -1,0 +1,15 @@
+.is_invalid {
+    border-color: red; 
+    font-style: italic;
+}
+
+.valid {
+    border-color: green;
+    font-style: italic;
+}
+
+.error {
+    color: #FFCB05;
+    font-style: italic;
+}
+

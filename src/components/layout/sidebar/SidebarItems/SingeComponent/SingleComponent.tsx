@@ -3,7 +3,6 @@ import { useSidebarContext } from '../../sidebar.context'
 import { getHidingTransition } from '../../Sidebar'
 import { useNavigate } from 'react-router-dom'
 import { FormEvent, useRef } from 'react'
-import { PUBLIC } from '@models/routes/routes'
 import AutoSuggestionsInput from '@components/layout/AutoSuggestionsInput/AutoSuggestionsInput'
 
 function SingleComponent({item}: {item: SingleItem}) {

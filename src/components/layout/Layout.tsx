@@ -20,10 +20,9 @@ function Layout({children}:Props) {
             marginLeft: activo ? 360 : 140,
             transition: 'margin-left 0.3s ease',
             minHeight: '100vh', // Asegura que ocupe toda la altura visible
-            paddingTop: '2rem' // Para separación superior opcional
           }}
         >
-          <div style={{ width: '100%', maxWidth: '1300px' }}>
+          <div className='d-flex align-items-center' style={{ width: '100%', maxWidth: '1300px' }}>
             {children}
           </div>
           <ProfileIcon />

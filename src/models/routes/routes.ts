@@ -3,7 +3,6 @@ export enum PUBLIC {
   DESCRIPTION = 'description',
   LOGIN = 'auth/login',
   REGISTER = 'auth/register',
-  LOGOUT = 'auth/logout'
 }
 
 export enum PRIVATE {

@@ -25,7 +25,6 @@ function useFetch({nameOrId}:Props) {
                 const pokemon = await pokemonService.getPokemonDTOByNameOrId(nameOrId)
 
                 setpokemon(pokemon)
-                console.log(pokemon)
             } catch (error) {
                 if (error instanceof Error) {
                     setErrors(error)

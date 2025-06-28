@@ -41,7 +41,6 @@ export async function mapToPokemonDTO (
     abilities: AbilityDAO[],
     getSprite: (name: string, isShiny: boolean) => AllSpritesDAO // Función síncrona
 ): Promise<PokemonDTO> {
-    console.log('sprite: ',sprites)
     const weaknessesResolved = await getPokemonWeaknesses(pokemon.types);
     const megasResolved = await Promise.all(megas.map(mega => mapToVariantPokemonDTO(mega, PossibleVariants.MEGA)));
     const variantsResolved = await Promise.all(variants.map(variant => mapToVariantPokemonDTO(variant, PossibleVariants.REGIONAL_VARIANT)));
