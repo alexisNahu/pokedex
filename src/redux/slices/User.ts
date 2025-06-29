@@ -25,18 +25,12 @@ export const userSlice = createSlice({
     reducers: {
         removeUser: () => {
             clearLocalStorage()
-            return emptyUserState
+            return initialState
         },
-        loginUser: (userState: UsersState, action: PayloadAction<{username: string, password: string}>) => {
-            const payload = action.payload
-            const users = [...userState.users]
-            const foundUser = users.find((user) => user.name === payload.username && user.password === payload.password)
-            if (foundUser) {
-                const updatedUsersState = {users: userState.users, activeUser: foundUser} 
-                persistLocalStorageUser(updatedUsersState)
-                return updatedUsersState
-            }
-            return {users: userState, activeUser: null}
+        loginUser: (userState: UsersState, action: PayloadAction<User>) => {
+            const updatedUsersState = {users: userState.users, activeUser: action.payload} 
+            persistLocalStorageUser(updatedUsersState)
+            return updatedUsersState
         },
         registerUser: (userState: UsersState, action: PayloadAction<User>) => {
             const updatedUsersState = {users: [...userState.users, action.payload], activeUser: userState.activeUser}

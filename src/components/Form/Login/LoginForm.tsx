@@ -2,17 +2,21 @@ import { SubmitHandler, useForm } from "react-hook-form"
 import { LoginUserScheme, type LoginUserType } from "../Schemas"
 import { zodResolver } from "@hookform/resolvers/zod"
 import CustomInput from "../CustomInput/CustomInput"
-import { useSelector, useDispatch } from "react-redux"
-import { RootState, AppDispatch } from "../../../redux/store"
-import { loginUser } from "../../../redux/slices/User"
 import '../Form.css'
 import { useNavigate } from "react-router-dom"
 import { PUBLIC } from "@models/routes/routes"
+import { Modal } from "@components/Modal/CustomModal"
+import { useModalContext } from "@components/Modal/context/UseModalContext"
+import * as authService from "@services/auth.service"
+import { useDispatch, useSelector } from "react-redux"
+import { AppDispatch, RootState } from "src/redux/store"
+import { UsersState } from "src/redux/slices/User"
 
 function LoginForm() {
-    const userState = useSelector((store: RootState) => store.user)
     const dispatch = useDispatch<AppDispatch>();
     const navigator = useNavigate()
+    const usersState: UsersState = useSelector((store: RootState) => store.user)
+    const {setState} = useModalContext()
     
     const {control, handleSubmit, formState: { errors }} = useForm<LoginUserType>({
         resolver: zodResolver(LoginUserScheme),
@@ -23,9 +27,13 @@ function LoginForm() {
             username: data.username,
             password: data.password,
         }
-        navigator(`/${PUBLIC.LANDING_PAGE}`)
 
-        console.log(dispatch(loginUser(user)))
+        if (!authService.login(user, dispatch, usersState)) {
+            setState(true)
+            return
+        } 
+        
+        navigator(`/${PUBLIC.LANDING_PAGE}`)
     }
 
     return (
@@ -36,6 +44,10 @@ function LoginForm() {
             <CustomInput name="username" control={control} label="Username" type="text" placeholderIcon="👤" error={errors.username}/>
             <CustomInput name="password" control={control} label="Password" type="password" placeholderIcon="🗝" error={errors.password}/>
             <button type="submit" className="btn btn-outline-light col-md-9 mx-auto">Login</button>
+            <Modal>
+                <p>User not found</p>
+                <p>Check if the password or username is wrong</p>
+            </Modal>
         </form>
     )
 }
