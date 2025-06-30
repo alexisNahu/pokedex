@@ -20,3 +20,7 @@ export async function getPokemonAbility(pokemonAbilityUrl: string): Promise<Abil
 export async function getPokemonWeaknesses(pokemonTypeUrl: string): Promise<TypeDAO> {
     return await pokemonApi.fetchPokemonTypeWeaknesses(pokemonTypeUrl)
 }
+
+export async function getPokemonNamesList() {
+    return await pokemonApi.fetchPokemonNames()
+}

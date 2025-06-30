@@ -8,6 +8,9 @@ export enum PUBLIC {
 export enum PRIVATE {
   PRIVATE = 'private',
   POKEDEX = 'pokedex',
+}
+
+export enum PROTECTED {
   LOGOUT = 'auth/logout' 
 }
 

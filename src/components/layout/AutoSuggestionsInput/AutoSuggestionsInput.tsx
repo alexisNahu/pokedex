@@ -4,21 +4,20 @@ import { useNavigate } from 'react-router-dom'
 import * as spritesService from '@services/pokemonSprites.service'
 import { PUBLIC } from '@models/routes/routes'
 import { getHidingTransition } from '../sidebar/Sidebar'
+import { usePokemonNamesContext } from '@contexts/pokemonNames.context'
 
 function AutoSuggestionsInput() {
     const {activo} = useSidebarContext()
 
     const navigator = useNavigate()
 
-    const [pokemonList, setPokemonList] = useState<string[] | []>([])
+    const {pokemonList} = usePokemonNamesContext()
+
     const [suggestionsList, setSuggestionsList] = useState<string[] | []>([])
 
     const inputRef = useRef<HTMLInputElement | null>(null)
 
-    useEffect(() => {
-        const list = localStorage.getItem('pokemonNames')
-        if (list) setPokemonList(JSON.parse(list))
-        
+    useEffect(() => {        
         if (!activo && inputRef.current) {
             inputRef.current.value = "";
             setSuggestionsList([]);

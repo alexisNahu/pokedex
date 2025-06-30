@@ -1,5 +1,5 @@
 import type { SidebarItemsType } from "@models/sidebar.model";
-import { PUBLIC } from "@models/routes/routes";
+import { PUBLIC, PRIVATE } from "@models/routes/routes";
 
 export const sidebarItems: SidebarItemsType = [
   {
@@ -17,7 +17,7 @@ export const sidebarItems: SidebarItemsType = [
     icon: 'charizard',
     bootstrapIcon: 'bi-journal-bookmark',
     items: [
-      { text: 'Todos los Pokémon' },
+      { text: 'Todos los Pokémon', url: `/private/${PRIVATE.POKEDEX}` },
       { text: 'Por tipo' },
       { text: 'Favoritos' },
     ],

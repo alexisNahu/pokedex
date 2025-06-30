@@ -11,8 +11,8 @@ export const emptyUserState: User = {
 
 export const initialState: {users: User[], activeUser: User | null} = {
     users: [emptyUserState],
-    activeUser: null
-}
+    activeUser: emptyUserState
+} //dejo que este logeado por defecto para evitar la molestia de logearse cada que elimino las cookies
 
 export interface UsersState {
     users: User[],
@@ -32,8 +32,9 @@ export const userSlice = createSlice({
             persistLocalStorageUser(updatedUsersState)
             return updatedUsersState
         },
-        registerUser: (userState: UsersState, action: PayloadAction<User>) => {
-            const updatedUsersState = {users: [...userState.users, action.payload], activeUser: userState.activeUser}
+        registerUser: (userState: UsersState, action: PayloadAction<{user: User, logUser: boolean }>) => {
+            const payload = action.payload
+            const updatedUsersState = {users: [...userState.users, payload.user], activeUser: payload.logUser ? payload.user : null}
             persistLocalStorageUser(updatedUsersState)
             return updatedUsersState
         },

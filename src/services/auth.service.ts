@@ -1,6 +1,5 @@
 import { User } from "@models/user.model";
-import { useSelector } from "react-redux";
-import { RootState, AppDispatch } from "../redux/store";
+import { AppDispatch } from "../redux/store";
 import { loginUser, registerUser, UsersState } from "../redux/slices/User"
 
 
@@ -12,10 +11,10 @@ export const login = (user: {username: string, password: string}, dispatch: AppD
     return true
 }
 
-export const register = (user: User, dispatch: AppDispatch, usersState: UsersState) => {
+export const register = (user: User, logUser: boolean, dispatch: AppDispatch, usersState: UsersState) => {
     if (usernameExists(user, [...usersState.users])) return false
     
-    dispatch(registerUser(user))
+    dispatch(registerUser({user, logUser}))
     return true
 }
 

@@ -11,8 +11,7 @@ import '../Form.css'
 import { useModalContext } from "@components/Modal/context/UseModalContext"
 import { Modal } from "@components/Modal/CustomModal"
 import * as authService from "@services/auth.service"
-import { UsersState } from "src/redux/slices/User"
-
+import { UsersState } from "../../../redux/slices/User"
 
 function RegisterForm() {
     const dispatch = useDispatch<AppDispatch>();
@@ -32,10 +31,11 @@ function RegisterForm() {
             rol: Rol.USER
         }
 
-        if (!authService.register(newUser, dispatch, usersState)) {
+        if (!authService.register(newUser, data.logUser, dispatch, usersState)) {
             setState(true)
             return
         }
+
         navigator(`/${PUBLIC.LANDING_PAGE}`)
     }
 
@@ -48,6 +48,7 @@ function RegisterForm() {
             <CustomInput name="password" control={control} label="Password" type="password" placeholderIcon="🗝" error={errors.password}/>
             <CustomInput name="confirmPassword" control={control} label="Confirm password" placeholderIcon="🗝" type="password" error={errors.confirmPassword}/>
             <CustomInput name="email" control={control} label="Email" type="email" placeholderIcon="🖂" error={errors.email}/>
+            <CustomInput name="logUser" control={control} label="logUser" text="Do you want to be logged when registered?" type="checkbox" />
             <button type="submit" className="btn btn-outline-light col-md-9 mx-auto">Register</button>
             <Modal>
                 <p>That username is already choosen</p>

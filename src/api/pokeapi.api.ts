@@ -60,3 +60,13 @@ export async function fetchPokemonTypeWeaknesses(pokemonTypeUrl: string) {
         throw new Error(`Error while fetching: ${error}`)
     }
 }
+
+export async function fetchPokemonNames() {
+    try {
+        const res = await fetch("https://pokeapi.co/api/v2/pokemon?limit=1000")
+        if (!res.ok) throw Error ('Error while fetching names 404')
+        return await res.json()
+    } catch(e) {
+        throw new Error(`Error while fetching: ${e}`)
+    }
+}

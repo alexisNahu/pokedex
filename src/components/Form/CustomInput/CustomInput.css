@@ -13,3 +13,6 @@
     font-style: italic;
 }
 
+.form-group input[type="checkbox"] {
+    max-height: 20px;
+}

@@ -3,7 +3,6 @@ import { RoutesWithNotFound } from "./utilities/RoutesWIthNotFound";
 import {DescriptionPage, LandingPage} from "@pages/public"; // Asegúrate de importar este componente
 import * as ROUTES from "@models/routes/routes";
 import { useEffect } from "react";
-import { mapToPokemonNamesDAO } from "@utilities/mappers/mapToPokemonNames";
 import AuthGuard from "./guards/auth.guard";
 import Private from "@pages/private/Private";
 import {  User } from "@models/user.model";
@@ -11,21 +10,28 @@ import {  useSelector } from "react-redux";
 import {  RootState } from "./redux/store";
 import RegisterForm from "@components/Form/Register/RegisterForm";
 import LoginForm from "@components/Form/Login/LoginForm";
-import { initializeLocalStorageUser } from "@utilities/localStorage";
-import { emptyUserState } from "./redux/slices/User";
 import Logout from "@components/Form/Logout";
+import { usePokemonNamesContext } from "@contexts/pokemonNames.context";
+import { getPokemonNames } from "@services/pokemonNames.service";
 
 function App() {
+  const {setPokemonList} = usePokemonNamesContext()
+
   useEffect(() => {
-      fetch("https://pokeapi.co/api/v2/pokemon?limit=1000")
-      .then(data => data.json())
-      .then(data => mapToPokemonNamesDAO(data))
-      .then(data => {
-        localStorage.setItem('pokemonNames', JSON.stringify(data))
-        return data;
-      })
-      
-    }, [])
+    const loadNames = async () => {
+      let names = localStorage.getItem('pokemonNames') ? JSON.parse(localStorage.getItem('pokemonNames') as string) : null
+
+      if (!names) {
+        names = await getPokemonNames()
+        localStorage.setItem('pokemonNames', JSON.stringify(names))
+      }
+
+      setPokemonList(names)
+    }
+
+    loadNames()
+  }, [])
+
 
   const userState: User[] = useSelector((state: RootState) => state.user)
   
@@ -51,7 +57,7 @@ function App() {
       {/* Rutas solo para autenticados */}
       <Route element={<AuthGuard isPrivate={true} />}>
         <Route path={`${ROUTES.PRIVATE.PRIVATE}/*`} element={<Private />} />
-        <Route path={ROUTES.PRIVATE.LOGOUT} element={<Logout />} />
+        <Route path={ROUTES.PROTECTED.LOGOUT} element={<Logout />} />
       </Route>
     </RoutesWithNotFound>
   );
