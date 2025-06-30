@@ -1,8 +1,11 @@
-import React from 'react'
+import Pokedex from '@components/PokedexComponent/Pokedex'
+import { PokedexProvider } from '@contexts/pokedex.context'
 
 function PokedexPage() {
   return (
-    <div>PokedexPage</div>
+    <PokedexProvider> 
+      <Pokedex />
+    </PokedexProvider>
   )
 }
 

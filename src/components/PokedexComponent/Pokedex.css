@@ -1,0 +1,7 @@
+.pokedex-container {
+  background-color: rgba(13, 110, 253, 0.8); /* 50% de opacidad */
+  flex-wrap: wrap;
+  display: flex;
+  justify-content: center;
+  height: 80%;
+}/*# sourceMappingURL=Pokedex.css.map */
