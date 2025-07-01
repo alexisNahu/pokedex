@@ -3,8 +3,6 @@ import { createContext, useContext, useState } from "react";
 type ContextType = number;
 
 interface PokedexContextType {
-  currentPage: ContextType;
-  setCurrentPage: React.Dispatch<React.SetStateAction<ContextType>>;
   pokedexList: string[] | []
   setPokedexList: React.Dispatch<React.SetStateAction<string[] | []>>
 }
@@ -12,11 +10,10 @@ interface PokedexContextType {
 const PokedexContext = createContext<PokedexContextType | undefined>(undefined);
 
 export const PokedexProvider = ({ children }: { children: React.ReactNode }) => {
-  const [currentPage, setCurrentPage] = useState<ContextType>(1);
   const [pokedexList, setPokedexList] = useState<string[] | []>([])
 
   return (
-    <PokedexContext.Provider value={{ currentPage, setCurrentPage, pokedexList, setPokedexList }}>
+    <PokedexContext.Provider value={{ pokedexList, setPokedexList }}>
       {children}
     </PokedexContext.Provider>
   );

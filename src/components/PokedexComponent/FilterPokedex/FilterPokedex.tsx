@@ -6,10 +6,12 @@ import { filterPokemonList } from '@services/index'
 import { usePokemonNamesContext } from '@contexts/pokemonNames.context'
 import './FilterPokedex.css'
 import GenerationFilter from './GenerationFilter/GenerationFilter'
+import { usePokedexPaginationContext } from '@contexts/pokedexPagination.context'
 
 function FilterPokedex() {
     const { setState } = useModalContext()
     const { pokemonList } = usePokemonNamesContext()
+    const {setCurrentPage} = usePokedexPaginationContext()
     const { setPokedexList } = usePokedexContext()
 
     const [generation, setGeneration] = useState<string | null>(null)
@@ -17,7 +19,9 @@ function FilterPokedex() {
     const applyFilters = async () => {
         const filter = async () => {
             const filteredList = await filterPokemonList({generationFilter: generation})
+            setCurrentPage(1)
             setPokedexList(filteredList)
+            setState(false)
         }
 
         filter()
@@ -26,6 +30,7 @@ function FilterPokedex() {
     const resetFilter = () => {
         setPokedexList(pokemonList)
         setGeneration(null)
+        setState(false)
     }
 
     return (
@@ -33,6 +38,7 @@ function FilterPokedex() {
             <i
                 className="bi bi-filter-square-fill filter-icon"
                 onClick={() => setState(true)}
+                style={{color: 'black'}}
                 title="Filter Pokémon"
             ></i>
 

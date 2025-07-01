@@ -1,8 +1,9 @@
 import { usePokedexContext } from '@contexts/pokedex.context'
 import './PaginationButtons.css'
+import { usePokedexPaginationContext } from '@contexts/pokedexPagination.context'
 
-function PaginationButtons({ lastPage }: { lastPage: number }) {
-  const { currentPage, setCurrentPage } = usePokedexContext()
+function PaginationButtons() {
+  const { currentPage, setCurrentPage, lastPage } = usePokedexPaginationContext()
 
   return (
     <div className="pagination-container">
@@ -35,7 +36,7 @@ function PaginationButtons({ lastPage }: { lastPage: number }) {
         {Array.from({ length: 4 }).map((_, i) => {
           const val = currentPage + (i + 1)
           return (
-            <button
+            val <= lastPage && <button
               key={`next-${val}`}
               className="pagination-number"
               onClick={() => setCurrentPage(val)}

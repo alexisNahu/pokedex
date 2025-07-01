@@ -1,7 +1,7 @@
 /* New specific class names for the Card component */
 .card.custom-card {
   width: 120px;
-  min-height: 150px;
+  max-height: 150px;
   background-color: rgba(13, 110, 253, 0.1); /* Azul transparente */
   border: 1px solid var(--bs-blue);
   border-radius: 0.375rem; /* .rounded */
