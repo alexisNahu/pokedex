@@ -21,6 +21,10 @@ export async function getPokemonWeaknesses(pokemonTypeUrl: string): Promise<Type
     return await pokemonApi.fetchPokemonTypeWeaknesses(pokemonTypeUrl)
 }
 
+export async function getPokemonGeneration(generation: string) {
+    return await pokemonApi.fetchGeneration(generation)
+}
+
 export async function getPokemonNamesList() {
     return await pokemonApi.fetchPokemonNames()
 }

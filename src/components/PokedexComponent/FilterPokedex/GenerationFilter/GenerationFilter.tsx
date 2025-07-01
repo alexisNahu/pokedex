@@ -1,0 +1,36 @@
+import React from 'react'
+
+interface Props {
+    generation: string | null,
+    setGeneration: React.Dispatch<React.SetStateAction<string | null>>
+}
+
+function GenerationFilter({generation, setGeneration}: Props) {
+
+    const handleGenerationsClick = (value: string) => setGeneration((prev => prev === value ? null : value))
+
+    return (
+        <div>
+            <div className="generation-buttons" role="group" aria-label="Generation Selection">
+                <span className="generation-label">Generation:</span>
+                {Array.from({ length: 9 }).map((_, index) => {
+                    const gen = `${index + 1}`
+                    return (
+                    <button
+                        key={index}
+                        type="button"
+                        className={`btn generation-btn ${generation === gen ? 'active' : 'btn-outline-light'}`}
+                        onClick={() => handleGenerationsClick(gen)}
+                        aria-pressed={generation === gen}
+                    >
+                        {gen}
+                    </button>
+                    )
+                })}
+                </div>
+
+        </div>
+    )
+}
+
+export default GenerationFilter

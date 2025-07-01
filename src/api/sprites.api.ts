@@ -5,6 +5,8 @@ import { POKEMON_SPRITES_URL, SPRITE_STYLE, POKEMON_3D_SPRITES_URL } from "../co
 const knownForms = ['mega', 'gmax', 'alola', 'galar', 'hisui', 'paldea', 'unova'];
 
 function transformName(pokemonName: string) {
+  if (!pokemonName.includes('-')) return pokemonName 
+
   const parts = pokemonName.split("-");
 
   if (parts.length < 2) return pokemonName;

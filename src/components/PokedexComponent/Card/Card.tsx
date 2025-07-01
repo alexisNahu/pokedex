@@ -9,17 +9,17 @@ function Card({ text }: { text: ReactNode }) {
 
   return (
     <div
-      className="card-container mx-2 my-2 p-2 rounded shadow-sm text-black text-center d-flex flex-column align-items-center justify-content-between"
+      className="card custom-card"
       onClick={() => navigator(`/${PUBLIC.DESCRIPTION}/${text as string}`)}
     >
-      <div className="pokemon-sprite-container d-flex justify-content-center">
+      <div className="card-image-container custom-card-image-container">
         <img
           src={getStatic3dSprite(text as string, false)}
-          className="img-fluid"
+          className="card-image custom-card-image"
           alt={`${text}`}
         />
       </div>
-      <span className="fst-italic mt-2 text-capitalize">{text}</span>
+      <span className="card-text custom-card-text">{text}</span>
     </div>
   )
 }

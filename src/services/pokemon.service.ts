@@ -4,6 +4,11 @@ import * as pokeApiService from '@services/index'
 import * as spritesService from '@services/index' 
 import { mapToPokemonDTO } from '../utilities/mappers/mapToPokemonDTO';
 import { filterRegionalPokemon, filterGigamaxPokemon, filterMegaPokemon } from '@utilities/filters';
+import { mapToPokemonNamesDAO } from '@utilities/mappers/mapToPokemonNames';
+
+interface FilterProps {
+    generationFilter: string | null
+}
 
 export async function getPokemonDTOByNameOrId(name: string): Promise<PokemonDTO> {
     const pokemon: PokemonDAO = await pokeApiService.getPokemonByNameOrId(name)
@@ -46,4 +51,17 @@ export async function getPokemonDTOByNameOrId(name: string): Promise<PokemonDTO>
     const abilities: AbilityDAO[] = await Promise.all(abilitiesPromises);
 
     return mapToPokemonDTO(species, chainEvolution, pokemon, allSprites, megas, variants, gmaxs, abilities, spritesService.getAllSprites)
+}
+
+export async function filterPokemonList(request: FilterProps) {
+    const response = []
+ 
+    let generation = request.generationFilter ? await pokeApiService.getPokemonGeneration(request.generationFilter as string) : null
+ 
+    if (generation) {
+        generation = mapToPokemonNamesDAO(generation.pokemon_species)
+        response.push(...generation)
+    }
+
+    return response
 }

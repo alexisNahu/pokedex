@@ -63,10 +63,20 @@ export async function fetchPokemonTypeWeaknesses(pokemonTypeUrl: string) {
 
 export async function fetchPokemonNames() {
     try {
-        const res = await fetch("https://pokeapi.co/api/v2/pokemon-species?limit=100000&offset=0")
+        const res = await fetch(`${POKEMON_API_URL}/${POKEMON_API_ENDPOINTS.ALL_POKEMONS}`)
         if (!res.ok) throw Error ('Error while fetching names 404')
         return await res.json()
     } catch(e) {
         throw new Error(`Error while fetching: ${e}`)
+    }
+}
+
+export async function fetchGeneration(gen: string) {
+    try {
+        const res = await fetch(`${POKEMON_API_URL}/${POKEMON_API_ENDPOINTS.GENERATION}/${gen}`)
+        if (!res.ok) throw Error ('generation not found 404')
+        return await res.json()
+    } catch(e) {
+        throw Error (`Error while fetching: ${e}`)
     }
 }
