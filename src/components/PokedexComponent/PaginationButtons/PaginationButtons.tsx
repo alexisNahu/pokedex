@@ -1,4 +1,3 @@
-import { usePokedexContext } from '@contexts/pokedex.context'
 import './PaginationButtons.css'
 import { usePokedexPaginationContext } from '@contexts/pokedexPagination.context'
 
@@ -7,14 +6,13 @@ function PaginationButtons() {
 
   return (
     <div className="pagination-container">
-      {currentPage !== 1 && (
-        <button className="pagination-nav-button" onClick={() => setCurrentPage(prev => prev - 1)}>
-          Prev Page
-        </button>
-      )}
+      <button className="pagination-nav-button" onClick={() => setCurrentPage(prev => prev - 1)} style={{visibility: currentPage !== 1 ? 'visible' : 'hidden'}}>
+        Prev Page
+      </button>
 
       <div className="pagination-numbers">
         {Array.from({ length: 4 }).map((_, i) => {
+          console.log(i + 1)
           const val = currentPage - (i + 1)
           if (val > 0) {
             return (
@@ -27,7 +25,7 @@ function PaginationButtons() {
               </button>
             )
           }
-        })}
+        }).reverse()}
 
         <button className="pagination-number current" disabled>
           {currentPage}
@@ -47,11 +45,9 @@ function PaginationButtons() {
         })}
       </div>
 
-      {currentPage !== lastPage && (
-        <button className="pagination-nav-button" onClick={() => setCurrentPage(prev => prev + 1)}>
-          Next Page
-        </button>
-      )}
+      <button className="pagination-nav-button" onClick={() => setCurrentPage(prev => prev + 1)} style={{visibility: currentPage !== lastPage ? 'visible' : 'hidden'}}>
+        Next Page
+      </button>
     </div>
   )
 }

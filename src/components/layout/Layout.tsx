@@ -22,7 +22,7 @@ function Layout({children}:Props) {
             minHeight: '100vh', // Asegura que ocupe toda la altura visible
           }}
         >
-          <div className='d-flex align-items-center justify-content-center flex-column' style={{ width: '100%', maxWidth: '1300px' }}>
+          <div className='d-flex align-items-center justify-content-center flex-column' style={{ width: '100%', maxWidth: '2000px' }}>
             {children}
           </div>
           <ProfileIcon />

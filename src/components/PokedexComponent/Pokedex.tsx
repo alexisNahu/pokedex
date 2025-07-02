@@ -6,6 +6,7 @@ import { usePokedexContext } from '@contexts/pokedex.context'
 import PaginationButtons from './PaginationButtons/PaginationButtons'
 import FilterPokedex from './FilterPokedex/FilterPokedex'
 import { usePokedexPaginationContext } from '@contexts/pokedexPagination.context'
+import TypesFilter from './FilterPokedex/TypesFilter/TypesFilter'
 
 function Pokedex() {
   const {pokemonList} = usePokemonNamesContext()
@@ -30,8 +31,10 @@ function Pokedex() {
   if (pokedexList.length > 0) {
     return (
       <>
-        <div className='pokedex-container col-md-12 p-3' style={{height: '90%'}}>
-          <FilterPokedex />
+        <div className='pokedex-container col-md-12 p-3' style={{height: '90%', overflowY: 'scroll'}}>
+          <div className="col">
+            <FilterPokedex />
+          </div>
             {
               pageObjs.map((obj, index) => {
                 return <Card text={obj} key={index}/>

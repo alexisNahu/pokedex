@@ -7,6 +7,7 @@ import { usePokemonNamesContext } from '@contexts/pokemonNames.context'
 import './FilterPokedex.css'
 import GenerationFilter from './GenerationFilter/GenerationFilter'
 import { usePokedexPaginationContext } from '@contexts/pokedexPagination.context'
+import TypesFilter from './TypesFilter/TypesFilter'
 
 function FilterPokedex() {
     const { setState } = useModalContext()
@@ -44,6 +45,7 @@ function FilterPokedex() {
 
             <Modal>
                 <GenerationFilter generation={generation} setGeneration={setGeneration} />
+                <TypesFilter />
                 <div className="d-flex justify-content-end gap-3">
                     <button
                         className="btn filter-action-btn apply-btn"
