@@ -15,7 +15,7 @@ import { usePokemonNamesContext } from "@contexts/pokemonNames.context";
 import { getPokemonNames } from "@services/pokemonNames.service";
 
 function App() {
-  const {setPokemonList} = usePokemonNamesContext()
+  const {pokemonList, setPokemonList} = usePokemonNamesContext()
 
   useEffect(() => {
     const loadNames = async () => {
@@ -26,7 +26,7 @@ function App() {
         localStorage.setItem('pokemonNames', JSON.stringify(names))
       }
 
-      setPokemonList(names)
+      setPokemonList(new Set(names))
     }
 
     loadNames()
@@ -36,8 +36,9 @@ function App() {
   const userState: User[] = useSelector((state: RootState) => state.user)
   
   useEffect(() => {
-    console.log(userState)
-  }, [userState])
+    console.log('users state', userState)
+    console.log('pokemon list: ', pokemonList, pokemonList.has('charjabug'))
+  }, [userState, pokemonList])
 
  return (
     <RoutesWithNotFound>

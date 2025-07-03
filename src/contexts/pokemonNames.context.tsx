@@ -1,6 +1,6 @@
 import { createContext, useContext, useState } from "react";
 
-type ContextType = [] | string[]
+type ContextType = Set<string> 
 
 interface PokemonNamesContextType {
   pokemonList: ContextType;
@@ -10,7 +10,7 @@ interface PokemonNamesContextType {
 const PokemonNamesContext = createContext<PokemonNamesContextType | undefined>(undefined);
 
 export const PokemonNamesProvider = ({ children }: { children: React.ReactNode }) => {
-  const [pokemonList, setPokemonList] = useState<ContextType>([]);
+  const [pokemonList, setPokemonList] = useState<ContextType>(new Set([]));
 
   return (
     <PokemonNamesContext.Provider value={{ pokemonList, setPokemonList }}>

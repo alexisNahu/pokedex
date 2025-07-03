@@ -46,7 +46,7 @@ export const Modal = ({ children }: Props) => {
       className={`modal ${state ? 'd-flex flex-column justify-content-center h-auto': ''}`}
       onClick={handleContentClick}>
       {children}
-      <button className="close-button" onClick={closeModal}>
+      <button className="close-button" onClick={closeModal} style={{width: 100}}>
         Close
       </button>
     </div>

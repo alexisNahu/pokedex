@@ -18,6 +18,29 @@ export enum POKEMON_TYPES {
     STEEL = 'steel',
     FAIRY = 'fairy'
 }
+
+// Literal union type:
+export type PokemonType =
+  | 'normal'
+  | 'fire'
+  | 'water'
+  | 'electric'
+  | 'grass'
+  | 'ice'
+  | 'fighting'
+  | 'poison'
+  | 'ground'
+  | 'flying'
+  | 'psychic'
+  | 'bug'
+  | 'rock'
+  | 'ghost'
+  | 'dragon'
+  | 'dark'
+  | 'steel'
+  | 'fairy';
+
+
 export interface pokemonWeaknesses {
     x0?: POKEMON_TYPES[] | []; // Inmunidad
     x05?: POKEMON_TYPES[] | []; // Resistencia

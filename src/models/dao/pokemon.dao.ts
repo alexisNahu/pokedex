@@ -62,6 +62,7 @@ export interface TypeDAO {
         half_damage_to: { name: string; url: string }[];
         no_damage_to: { name: string; url: string }[];
     };
+    pokemon: {pokemon: {name: string, url: string}, slot: number}[]
     // Hay más información en el Type de PokéAPI, pero aquí incluimos lo más relevante
 }
 

@@ -1,5 +1,5 @@
 import { AllSpritesDAO } from "./dao";
-import { POKEMON_TYPES, pokemonWeaknesses } from "./pokemonTypes.model"
+import { POKEMON_TYPES, PokemonType, pokemonWeaknesses } from "./pokemonTypes.model"
 
 export interface Stat {
     stat: string,
@@ -68,6 +68,12 @@ export interface EvolutionChainDTO {
   name: string,
   sprite: AllSpritesDAO
 }
+
+export interface PokedexFilters {
+    generationFilter: string[],
+    typesFilter: [PokemonType | null, PokemonType | null]
+}
+
 
 export enum transformToBase10 {
     'I'= 1,

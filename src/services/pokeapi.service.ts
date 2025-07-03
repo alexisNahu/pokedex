@@ -1,5 +1,6 @@
 import { PokemonSpeciesDAO, PokemonDAO, PokemonChainEvolutionDAO, AbilityDAO, TypeDAO } from '@models/dao'
 import * as pokemonApi from '../api/pokeapi.api.ts'
+import { PokemonType } from '@models/pokemonTypes.model.ts'
 
 export async function getPokemonByNameOrId(param: string | number): Promise<PokemonDAO> {
     return await pokemonApi.fetchPokemonByIdOrName(param)
@@ -27,4 +28,8 @@ export async function getPokemonGeneration(generation: string) {
 
 export async function getPokemonNamesList() {
     return await pokemonApi.fetchPokemonNames()
+}
+
+export async function getPokemonType(type: PokemonType): Promise<TypeDAO> {
+    return await pokemonApi.fetchPokemonsByType(type)
 }

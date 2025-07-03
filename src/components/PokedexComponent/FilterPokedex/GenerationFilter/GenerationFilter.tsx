@@ -1,13 +1,13 @@
 import React from 'react'
 
 interface Props {
-    generation: string | null,
-    setGeneration: React.Dispatch<React.SetStateAction<string | null>>
+    generation: string[],
+    setGeneration: React.Dispatch<React.SetStateAction<string[]>>
 }
 
 function GenerationFilter({generation, setGeneration}: Props) {
 
-    const handleGenerationsClick = (value: string) => setGeneration((prev => prev === value ? null : value))
+    const handleGenerationsClick = (value: string) => setGeneration(prev => [...prev, value])
 
     return (
         <div>
@@ -19,9 +19,9 @@ function GenerationFilter({generation, setGeneration}: Props) {
                     <button
                         key={index}
                         type="button"
-                        className={`btn generation-btn ${generation === gen ? 'active' : 'btn-outline-light'}`}
+                        className={`btn generation-btn ${generation.includes(gen) ? 'active' : 'btn-outline-light'}`}
                         onClick={() => handleGenerationsClick(gen)}
-                        aria-pressed={generation === gen}
+                        aria-pressed={generation.includes(gen)}
                     >
                         {gen}
                     </button>

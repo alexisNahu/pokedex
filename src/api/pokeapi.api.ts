@@ -1,5 +1,6 @@
 import { PokemonChainEvolutionDAO, PokemonDAO, PokemonSpeciesDAO } from "@models/dao";
 import { POKEMON_API_ENDPOINTS, POKEMON_API_URL } from "../config/pokeapi.endpoints";
+import { PokemonType } from "@models/pokemonTypes.model";
 
 export async function fetchPokemonByIdOrName(id: number | string): Promise<PokemonDAO> {
     try {
@@ -78,5 +79,15 @@ export async function fetchGeneration(gen: string) {
         return await res.json()
     } catch(e) {
         throw Error (`Error while fetching: ${e}`)
+    }
+}
+
+export async function fetchPokemonsByType(type: PokemonType) {
+    try {
+        const response = await fetch(`${POKEMON_API_URL}/${POKEMON_API_ENDPOINTS.TYPE}/${type}`)
+        if (!response.ok) throw new Error(`Pokemon type not found: ${response.status}`)
+        return response.json()
+    } catch(error) {
+        throw Error (`Error while fetching: ${error}`)
     }
 }
