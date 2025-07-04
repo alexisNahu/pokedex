@@ -18,6 +18,14 @@ export interface EffectEntries {
     }
   }
 
+export interface AllAbilitiesDAO {
+  count: number,
+  results: {
+    name: string,
+    url: string
+  }[]
+}
+
 export interface AbilityDAO {
   id: number;
   name: string;
@@ -65,6 +73,7 @@ export interface TypeDAO {
     pokemon: {pokemon: {name: string, url: string}, slot: number}[]
     // Hay más información en el Type de PokéAPI, pero aquí incluimos lo más relevante
 }
+
 
 
 export interface Stat {

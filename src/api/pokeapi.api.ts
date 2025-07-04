@@ -38,9 +38,22 @@ export async function fetchPokemonChanEvolution(pokemonChainUrl: string): Promis
     }
 }
 
-export async function fetchPokemonAbility(pokemonAbilityUrl: string) {
+export async function fetchAllAbilities() {
     try {
-        const response = await fetch(pokemonAbilityUrl)
+        const response = await fetch(`${POKEMON_API_URL}/${POKEMON_API_ENDPOINTS.ALL_ABILITIES}`)
+        
+        if (!response.ok) throw new Error(`All abilities not found`)
+
+        return await response.json()
+    } catch (error) {
+        throw new Error(`Error while fetching: ${error}`)
+    }
+}
+
+export async function fetchPokemonAbility(abilityName: string) {
+    try {
+        const response = await fetch(`${POKEMON_API_URL}/${POKEMON_API_ENDPOINTS.ABILITY}/${abilityName}`)
+        console.log(`${POKEMON_API_URL}/${POKEMON_API_ENDPOINTS.ABILITY}/${abilityName}`)
 
         if (!response.ok) throw new Error(`Pokemon ability not found: ${response.status}`)
 

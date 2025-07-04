@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 interface Props {
     generation: string[],
@@ -6,8 +6,14 @@ interface Props {
 }
 
 function GenerationFilter({generation, setGeneration}: Props) {
-
-    const handleGenerationsClick = (value: string) => setGeneration(prev => [...prev, value])
+    const handleGenerationsClick = (value: string) => {
+        if (!generation.includes(value)) {
+            setGeneration(prev => [...prev, value])
+            return
+        }
+        const updatedGenerationArray = generation.filter(gen => gen !== value)
+        setGeneration(updatedGenerationArray)
+    }
 
     return (
         <div>

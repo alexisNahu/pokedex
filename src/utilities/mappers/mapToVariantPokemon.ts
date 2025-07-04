@@ -11,7 +11,7 @@ export async function mapToVariantPokemonDTO(variant: PokemonDAO, type: Possible
   async function getAbilities () {
     const abilitiesPromises: Promise<AbilityDAO>[] = variant.abilities.map(async (ability) => {
       try {
-        return await pokeApiService.getPokemonAbility(ability.ability.url);
+        return await pokeApiService.getPokemonAbility(ability.ability.name);
       } catch (e) {
         throw new Error('error fetching ability');
       }

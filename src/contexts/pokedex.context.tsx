@@ -1,6 +1,5 @@
 import { createContext, useContext, useState } from "react";
 
-type ContextType = number;
 
 interface PokedexContextType {
   pokedexList: string[] | []

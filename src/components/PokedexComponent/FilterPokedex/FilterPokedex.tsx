@@ -10,34 +10,39 @@ import { usePokedexPaginationContext } from '@contexts/pokedexPagination.context
 import TypesFilter from './TypesFilter/TypesFilter'
 import { PokedexFilters } from '@models/pokemon.model'
 import { PokemonType } from '@models/pokemonTypes.model'
+import AbilityFilter from './AbilityFilter/AbilityFilter'
 
 function FilterPokedex() {
 
     const { setState } = useModalContext()
     const { pokemonList } = usePokemonNamesContext()
     const {setCurrentPage} = usePokedexPaginationContext()
-    const { pokedexList, setPokedexList } = usePokedexContext()
+    const { setPokedexList } = usePokedexContext()
 
     const [generation, setGeneration] = useState<string[]>([])
     const [types, setTypes] = useState<[PokemonType | null, PokemonType | null]>([null, null]) 
-    const [ filters, setFilters ] = useState<PokedexFilters>()
+    const [selectedAbilities, setSelectedAbilities] = useState<Set<string>>(new Set([]))
 
-    useEffect(() => {
-        console.log(types)
-    }, [types])
+    const [ filters, setFilters ] = useState<PokedexFilters>()
 
     useEffect(() => {
         setFilters({
             generationFilter: generation,
             typesFilter: types,
+            abilitiesFilter: [...selectedAbilities],
         })
-    }, [generation, types])
+    }, [generation, types, selectedAbilities])
 
     const applyFilters = async () => {
         const filter = async () => {
             console.log(filters)
-            const filteredList = filters ? await filterPokemonList(filters, pokemonList) : pokedexList
-            console.log(filteredList,': filtered list')
+            const filteredList = filters ? await filterPokemonList(filters, pokemonList) : null
+
+            if (!filteredList?.size) {
+                alert('Not a result for these filters')
+                return
+            }
+
             setCurrentPage(1)
             setPokedexList([...filteredList])
             setState(false)
@@ -63,8 +68,11 @@ function FilterPokedex() {
 
             <Modal>
                 <div className='filter' style={{width: 1000}}>
+                    {/* filters */}
                     <GenerationFilter generation={generation} setGeneration={setGeneration} />
                     <TypesFilter types={types} setTypes={setTypes} />
+                    <AbilityFilter selectedAbilities={selectedAbilities} setSelectedAbilities={setSelectedAbilities} />
+
                     <div className="d-flex justify-content-center gap-3">
                         <button
                             className="btn filter-action-btn apply-btn"

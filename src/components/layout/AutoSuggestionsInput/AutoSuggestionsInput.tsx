@@ -28,7 +28,7 @@ function AutoSuggestionsInput() {
         
         if (inputRef.current) {
             const value = inputRef.current.value.trim().toLowerCase().replace('-','')
-            const suggestions = pokemonList.filter(name => name.includes(value)).slice(0,7)
+            const suggestions = [...pokemonList].filter(name => name.includes(value)).slice(0,7)
             setSuggestionsList(suggestions)            
         }
     }

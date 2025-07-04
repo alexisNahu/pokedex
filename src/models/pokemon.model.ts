@@ -71,7 +71,8 @@ export interface EvolutionChainDTO {
 
 export interface PokedexFilters {
     generationFilter: string[],
-    typesFilter: [PokemonType | null, PokemonType | null]
+    typesFilter: [PokemonType | null, PokemonType | null],
+    abilitiesFilter: string[],
 }
 
 

@@ -33,8 +33,8 @@ function Pokedex() {
   if ([...pokedexList].length > 0) {
     return (
       <>
-        <div className='pokedex-container col-md-12 p-3' style={{height: '90%', overflowY: 'scroll'}}>
-          <div className="col">
+        <div className='pokedex-container col-md-11 p-3' style={{height: '90%', overflowY: 'scroll'}}>
+          <div className="col-md-1">
             <FilterPokedex />
           </div>
             {
