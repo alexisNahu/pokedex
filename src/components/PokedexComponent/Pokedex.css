@@ -1,7 +1,13 @@
 .pokedex-container {
   background-color: rgba(13, 110, 253, 0.8); /* 50% de opacidad */
-  flex-wrap: wrap;
   display: flex;
+  flex-direction: column;
   justify-content: start;
   height: 80%;
+}
+
+.pokemon-card-container {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
 }/*# sourceMappingURL=Pokedex.css.map */

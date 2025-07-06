@@ -5,7 +5,6 @@ import * as spritesService from '@services/index'
 import { mapToPokemonDTO } from '../utilities/mappers/mapToPokemonDTO';
 import { filterRegionalPokemon, filterGigamaxPokemon, filterMegaPokemon } from '@utilities/filters';
 import { mapToPokemonNamesDAO } from '@utilities/mappers/mapToPokemonNames';
-import { intersection } from 'zod/v4-mini';
 
 export async function getPokemonDTOByNameOrId(name: string): Promise<PokemonDTO | null> {
     const pokemon: PokemonDAO = await pokeApiService.getPokemonByNameOrId(name)
@@ -99,16 +98,17 @@ export async function filterPokemonList(
         results.push(new Set(filteredAbilities))
     }
 
-    // 3. Si hay varios filtros aplicados, hacemos la intersección
     
-   const activeFilters = results.filter((filter) => filter.size > 0)
+    const activeFilters = results.filter((filter) => filter.size > 0)
 
+    // If there are no any active filters, returns null
     if (activeFilters.length === 0) return null
 
-    const finalResult = activeFilters.reduce((acc, curr) => {
-        return new Set([...acc].filter(poke => curr.has(poke)))
-    })
+    //  Mixes all the responses for each filter 
+    const finalResult = activeFilters.reduce((acc, curr) =>  new Set([...acc].filter(poke => curr.has(poke))))
 
-
-    return finalResult
+    // Filters with the pokemon list (the api may throw troublesome variants like megas, the pokemonList doesnt include them)
+    const filteredResults = new Set([...finalResult].filter(poke => pokemonList.has(poke)))
+    
+    return filteredResults
 }

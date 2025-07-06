@@ -3,11 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { mapToPokemonNamesDAO } from '@utilities/mappers/mapToPokemonNames'
 import { usePokedexContext } from '@contexts/pokedex.context'
 import { PokedexFilters } from '@models/pokemon.model'
-
-interface Props {
-  selectedAbilities: Set<string>
-  setSelectedAbilities: React.Dispatch<React.SetStateAction<Set<string>>>
-}
+import SuggestionInput from '@components/layout/AutoSuggestionsInput/SuggestionInput'
 
 function AbilityFilter() {
   const {filters, setFilters} = usePokedexContext()
@@ -21,6 +17,11 @@ function AbilityFilter() {
     setFilters(updatedFilter)  
   }, [selectedAbilities])
 
+  useEffect(() => {
+    if (!allAbilities.size) loadAbilities()
+      setSearchContext([...allAbilities])
+  }, [allAbilities])
+
   const loadAbilities = async () => {
     try {
       const response = await getAllPokemonAbilities()
@@ -32,48 +33,39 @@ function AbilityFilter() {
     }
   }
 
-  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedOptions = [...e.target.selectedOptions]
-    const updatedState = selectedOptions.map((option => option.value)).flat()
-    setSelectedAbilities(new Set(updatedState))
-  }
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const inputValue = e.target.value.toLowerCase()
-    const filtered = [...allAbilities].filter(ab => ab.toLowerCase().includes(inputValue))
-    const results: Set<string> = new Set<string>([[...selectedAbilities], filtered].flat())
-    setSearchContext(filtered.length ? [...results] : [...allAbilities])
-  }
-
-  useEffect(() => {
-    if (!allAbilities.size) loadAbilities()
-      setSearchContext([...allAbilities])
-  }, [allAbilities])
-
-
 
   return (
-    <div className="mb-3 w-25">
-      <label htmlFor="abilities" className="form-label fw-bold">
-        Abilities
-      </label>
-      <input type="text" className='form-control mb-3' onChange={(e) => handleInputChange(e)} placeholder='Search for an ability here..'/>
-      <select
-        multiple
-        name="abilities"
-        id="abilities"
-        className="form-select"
-        onChange={(e) => handleChange(e)}
-        size={10} // Muestra hasta 10 opciones visibles sin scroll
-      >
-        {searchContext?.map((ability, index) => (
-          <option key={index} value={ability}>
-            {ability}
-          </option>
-        ))}
-      </select>
+    <div className='d-flex'>
+      <div className="mb-3 mx-3 w-25 d-flex flex-column">
+        <label htmlFor="abilities" className="form-label fw-bold">
+          Abilities
+        </label>
+        <SuggestionInput 
+          completeList={[...searchContext]}
+          handleSuggestionsClick={(name: string) => setSelectedAbilities(new Set([[...selectedAbilities], name].flat()))}
+          handleSuggestionRender={(name: string) => {
+            return <div>{name}</div>
+          }}
+          maxSuggestion={5}
+        />
+      </div>
+       <div>
+        <h6 className="mb-2 mx-2">Selected Abilities: </h6>
+        <div className="d-flex flex-wrap gap-2">
+          {[...selectedAbilities].map((ab) => (
+           <div style={{ width: 'fit-content', padding: '10px' }}>
+            <span className="rounded bg-primary text-white fs-5 d-flex align-items-center gap-2 px-3 py-2">
+              <p className="mb-0">{ab}</p>
+              <i className="bi bi-x-circle fs-6 text-red" style={{ cursor: 'pointer' }} onClick={() => setSelectedAbilities(new Set([...selectedAbilities].filter(abi => abi !== ab)))}></i>
+            </span>
+          </div>
+          ))}
+        </div>
+      </ div>
+
+    
     </div>
   )
 }
-
 export default AbilityFilter
+

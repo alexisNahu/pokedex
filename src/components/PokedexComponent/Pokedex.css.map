@@ -1,1 +1,1 @@
-{"version":3,"sources":["Pokedex.scss","Pokedex.css"],"names":[],"mappings":"AAAA;EACI,yCAAA,EAAA,oBAAA;EACA,eAAA;EACA,aAAA;EACA,sBAAA;EACA,WAAA;ACCJ","file":"Pokedex.css"}
+{"version":3,"sources":["Pokedex.scss","Pokedex.css"],"names":[],"mappings":"AAAA;EACI,yCAAA,EAAA,oBAAA;EACA,aAAA;EACA,sBAAA;EACA,sBAAA;EACA,WAAA;ACCJ;;ADEA;EACI,aAAA;EACA,eAAA;EACA,mBAAA;ACCJ","file":"Pokedex.css"}
