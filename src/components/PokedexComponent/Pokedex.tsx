@@ -6,7 +6,6 @@ import { usePokedexContext } from '@contexts/pokedex.context'
 import PaginationButtons from './PaginationButtons/PaginationButtons'
 import FilterPokedex from './FilterPokedex/FilterPokedex'
 import { usePokedexPaginationContext } from '@contexts/pokedexPagination.context'
-import TypesFilter from './FilterPokedex/TypesFilter/TypesFilter'
 
 function Pokedex() {
   const {pokemonList} = usePokemonNamesContext()
@@ -18,22 +17,23 @@ function Pokedex() {
   const itemsPerPage: number = 50 
 
   useEffect(() => {
-    if (![...pokedexList].length) {
+    if (!pokedexList.length) {
       setPokedexList([...pokemonList])
       return
     }
     const firstPositionIndex = (currentPage -  1) * itemsPerPage
     const lastPositionIndex = firstPositionIndex + itemsPerPage
-    setLastPage(Math.ceil([...pokedexList].length / itemsPerPage))
+    setLastPage(Math.ceil(pokedexList.length / itemsPerPage))
     
-    if (pokedexList) setPageObjs([...pokedexList].slice(firstPositionIndex, lastPositionIndex))
+    if (pokedexList) setPageObjs(pokedexList.slice(firstPositionIndex, lastPositionIndex))
   }, [currentPage, pokemonList, pokedexList])  
   
 
-  if ([...pokedexList].length > 0) {
+  if (pokedexList.length > 0) {
     return (
       <>
         <div className='pokedex-container col-md-11 p-3' style={{height: '90%', overflowY: 'scroll'}}>
+        
           <div className="col-md-1">
             <FilterPokedex />
           </div>

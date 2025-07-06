@@ -5,6 +5,7 @@ import * as spritesService from '@services/index'
 import { mapToPokemonDTO } from '../utilities/mappers/mapToPokemonDTO';
 import { filterRegionalPokemon, filterGigamaxPokemon, filterMegaPokemon } from '@utilities/filters';
 import { mapToPokemonNamesDAO } from '@utilities/mappers/mapToPokemonNames';
+import { intersection } from 'zod/v4-mini';
 
 export async function getPokemonDTOByNameOrId(name: string): Promise<PokemonDTO | null> {
     const pokemon: PokemonDAO = await pokeApiService.getPokemonByNameOrId(name)
@@ -99,23 +100,15 @@ export async function filterPokemonList(
     }
 
     // 3. Si hay varios filtros aplicados, hacemos la intersección
-    let finalResult: Set<string> | null
-    console.log(results)
+    
+   const activeFilters = results.filter((filter) => filter.size > 0)
 
-    if (results.length === 0) {
-        finalResult = null // si no hay filtros, usar todo
-        return finalResult
-    } else {
-        // empezamos desde el primer conjunto y vamos intersectando
-        console.log('aaaa')
-        finalResult = new Set(results[0])
-        for (let i = 1; i < results.length; i++) {
-            finalResult = new Set([...finalResult].filter(poke => results[i].has(poke)))
-        }
-    }
+    if (activeFilters.length === 0) return null
 
-    // 4. Finalmente, filtrar con los Pokémon existentes
-    const filteredFinal = new Set([...finalResult].filter(name => pokemonList.has(name)))
-    console.log(finalResult)
-    return filteredFinal
+    const finalResult = activeFilters.reduce((acc, curr) => {
+        return new Set([...acc].filter(poke => curr.has(poke)))
+    })
+
+
+    return finalResult
 }

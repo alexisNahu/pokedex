@@ -1,18 +1,19 @@
 import { PokeTypes } from '@components/index'
+import { usePokedexContext } from '@contexts/pokedex.context'
+import { PokedexFilters } from '@models/pokemon.model'
 import { POKEMON_TYPES, PokemonType } from '@models/pokemonTypes.model'
 import React, { useEffect, useState } from 'react'
 
-interface Props {
-    types: [] | [PokemonType | null, PokemonType | null],
-    setTypes:  React.Dispatch<React.SetStateAction<[PokemonType |null, PokemonType | null]>>   
-}
 
-function TypesFilter({types, setTypes}: Props) {
+function TypesFilter() {
+  const {filters, setFilters} = usePokedexContext()
+
   const [firstType, setFirstType] = useState<null | PokemonType>(null)
   const [secondType, setSecondType] = useState<null | PokemonType>(null)
   
   useEffect(() => {
-    setTypes([firstType, secondType])
+    const updatedFilter: PokedexFilters = {...filters, typesFilter: [firstType, secondType]}
+    setFilters(updatedFilter)
   }, [firstType, secondType])
   
   const allPokemonTypes = (Object.values(POKEMON_TYPES))

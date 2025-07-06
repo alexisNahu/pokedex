@@ -1,16 +1,25 @@
 import { getAllPokemonAbilities } from '@services/pokeapi.service'
 import React, { useEffect, useState } from 'react'
 import { mapToPokemonNamesDAO } from '@utilities/mappers/mapToPokemonNames'
+import { usePokedexContext } from '@contexts/pokedex.context'
+import { PokedexFilters } from '@models/pokemon.model'
 
 interface Props {
   selectedAbilities: Set<string>
   setSelectedAbilities: React.Dispatch<React.SetStateAction<Set<string>>>
 }
 
-function AbilityFilter({ selectedAbilities, setSelectedAbilities }: Props) {
+function AbilityFilter() {
+  const {filters, setFilters} = usePokedexContext()
 
   const [allAbilities, setAllAbilities] = useState<Set<string>>(new Set([])) 
   const [searchContext, setSearchContext] = useState<string[]>([])
+  const [selectedAbilities, setSelectedAbilities] = useState<Set<string>>(new Set())
+
+  useEffect(() => {
+    const updatedFilter: PokedexFilters = {...filters, abilitiesFilter: [...selectedAbilities] }
+    setFilters(updatedFilter)  
+  }, [selectedAbilities])
 
   const loadAbilities = async () => {
     try {
@@ -41,10 +50,7 @@ function AbilityFilter({ selectedAbilities, setSelectedAbilities }: Props) {
       setSearchContext([...allAbilities])
   }, [allAbilities])
 
-  useEffect(() => {
-    console.log(allAbilities, 'all abilities')
-    console.log(selectedAbilities, 'selected abilities')
-  }, [allAbilities, selectedAbilities])
+
 
   return (
     <div className="mb-3 w-25">

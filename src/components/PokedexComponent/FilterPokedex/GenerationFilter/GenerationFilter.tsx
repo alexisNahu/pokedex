@@ -1,11 +1,22 @@
-import React, { useEffect } from 'react'
+import { usePokedexContext } from '@contexts/pokedex.context'
+import { PokedexFilters } from '@models/pokemon.model'
+import React, { useEffect, useState } from 'react'
 
 interface Props {
     generation: string[],
     setGeneration: React.Dispatch<React.SetStateAction<string[]>>
 }
 
-function GenerationFilter({generation, setGeneration}: Props) {
+function GenerationFilter() {
+    const {filters, setFilters} = usePokedexContext()
+
+    const [generation, setGeneration] = useState<string[]>([])
+
+    useEffect(() => {
+        const updatedFilter: PokedexFilters = {...filters, generationFilter: generation}
+        setFilters(updatedFilter)
+    }, [generation])
+
     const handleGenerationsClick = (value: string) => {
         if (!generation.includes(value)) {
             setGeneration(prev => [...prev, value])
