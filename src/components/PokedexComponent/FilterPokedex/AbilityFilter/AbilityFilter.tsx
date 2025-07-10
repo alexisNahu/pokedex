@@ -9,7 +9,6 @@ function AbilityFilter() {
   const {filters, setFilters} = usePokedexContext()
 
   const [allAbilities, setAllAbilities] = useState<Set<string>>(new Set([])) 
-  const [searchContext, setSearchContext] = useState<string[]>([])
   const [selectedAbilities, setSelectedAbilities] = useState<Set<string>>(new Set())
 
   useEffect(() => {
@@ -19,7 +18,6 @@ function AbilityFilter() {
 
   useEffect(() => {
     if (!allAbilities.size) loadAbilities()
-      setSearchContext([...allAbilities])
   }, [allAbilities])
 
   const loadAbilities = async () => {
@@ -27,7 +25,6 @@ function AbilityFilter() {
       const response = await getAllPokemonAbilities()
       const abilitiesNames = mapToPokemonNamesDAO(response.results)
       setAllAbilities(new Set<string>(abilitiesNames))
-      setSearchContext(abilitiesNames)
     } catch (e) {
       console.error(`Error while fetching abilities: ${e}`)
     }
@@ -41,8 +38,8 @@ function AbilityFilter() {
           Abilities
         </label>
         <SuggestionInput 
-          completeList={[...searchContext]}
-          handleSuggestionsClick={(name: string) => setSelectedAbilities(new Set([[...selectedAbilities], name].flat()))}
+          completeList={[...allAbilities]}
+          handleSuggestionsClick={(name: string) => setSelectedAbilities(new Set(selectedAbilities).add(name))}
           handleSuggestionRender={(name: string) => {
             return <div>{name}</div>
           }}

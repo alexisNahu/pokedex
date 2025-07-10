@@ -8,6 +8,7 @@ export enum PUBLIC {
 export enum PRIVATE {
   PRIVATE = 'private',
   POKEDEX = 'pokedex',
+  COMPARE = 'compare'
 }
 
 export enum PROTECTED {

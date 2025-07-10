@@ -2,9 +2,15 @@ import { AllSpritesDAO } from "./dao";
 import { POKEMON_TYPES, PokemonType, pokemonWeaknesses } from "./pokemonTypes.model"
 
 export interface Stat {
-    stat: string,
-    value: number,
+  stat: string,
+  value: number,
 }
+
+export interface ModelData<T> {
+  column: string
+  data: ((item: T) => React.ReactNode)
+}
+
 
 export enum RegionalVariants {
   ALOLA = "alola",

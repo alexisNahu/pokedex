@@ -46,6 +46,7 @@ function Pokedex() {
           </div>
     }
   if (pokedexList.length > 0) {
+
     return (
       <>
         <div className='pokedex-container col-md-11 p-3' style={{height: '90%', overflowY: 'scroll'}}>

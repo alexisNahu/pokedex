@@ -17,9 +17,9 @@ export const sidebarItems: SidebarItemsType = [
     icon: 'charizard',
     bootstrapIcon: 'bi-journal-bookmark',
     items: [
-      { text: 'Todos los Pokémon', url: `/private/${PRIVATE.POKEDEX}` },
-      { text: 'Por tipo' },
-      { text: 'Favoritos' },
+      { text: 'Complete Pokedex', url: `/private/${PRIVATE.POKEDEX}` },
+      { text: 'Compare Pokemons', url: `/private/${PRIVATE.COMPARE}` },
+      { text: 'Saved' },
     ],
     type: 'accordeon'
   },

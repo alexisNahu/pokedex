@@ -65,7 +65,7 @@ function SingleCard({ pokedexNumber }: { pokedexNumber: string }) {
           </div>
 
           <PokedexEntrySlider pokemon={pokemon} />
-          <button className='btn bg-poke-blue mt-4 mb-4 text-white h-75' onClick={() => navigator(`/${Routes.PUBLIC.DESCRIPTION}/${pokemon.name}`)}>See more about him</button>
+          <button className='btn bg-poke-blue mt-4 mb-4 text-white' onClick={() => navigator(`/${Routes.PUBLIC.DESCRIPTION}/${pokemon.name}`)}>See more about him</button>
         </div>
       </div>
     )
