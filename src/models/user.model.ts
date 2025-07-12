@@ -1,8 +1,10 @@
 export interface User {
-    name: string
+    id: number
+    username: string
     password: string
     email: string
-    rol: Rol
+    rol: Rol,
+    favorites: string[]
 }
 
 export enum Rol {

@@ -1,5 +1,5 @@
 import { Rol, User } from "@models/user.model"
-import { emptyUserState } from "../redux/slices/User"
+import { emptyUserState } from "../redux/slices/user/User"
 
 export function initializeLocalStorageUser(initialState: User[]) {
     localStorage.setItem('user', JSON.stringify(initialState))

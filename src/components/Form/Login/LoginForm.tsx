@@ -10,7 +10,7 @@ import { useModalContext } from "@components/Modal/context/UseModalContext"
 import * as authService from "@services/auth.service"
 import { useDispatch, useSelector } from "react-redux"
 import { AppDispatch, RootState } from "src/redux/store"
-import { UsersState } from "../../../redux/slices/User"
+import { UsersState } from "../../../redux/slices/user/reducers/user.reducer"
 
 function LoginForm() {
     const dispatch = useDispatch<AppDispatch>();

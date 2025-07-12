@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { RootState, AppDispatch } from "../../redux/store"
-import { logoutUser } from "../../redux/slices/User"
+import { logoutUser } from "../../redux/slices/user/User"
 
 function Logout() {
   const dispatch = useDispatch<AppDispatch>();

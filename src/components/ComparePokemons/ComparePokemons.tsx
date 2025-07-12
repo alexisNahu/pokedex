@@ -109,7 +109,7 @@ function ComparingPage() {
             { column: 'Sp. Attack', data: (p: PokemonDTO) => p.stats.find(v => v.stat === 'special-attack')?.value },
             { column: 'Sp. Defense', data: (p: PokemonDTO) => p.stats.find(v => v.stat === 'special-defense')?.value },
             { column: 'Speed', data: (p: PokemonDTO) => p.stats.find(v => v.stat === 'speed')?.value },
-            { column: 'Abilities', data: (p :PokemonDTO) => p.abilities.map(a => a.en.map(v => <button onClick={() => handleAbilityClick(v)}>{v.name}</button>))},
+            { column: 'Abilities', data: (p :PokemonDTO) => p.abilities.map(a => a.en.map(v => <button className=' my-2 btn btn-outline-light' onClick={() => handleAbilityClick(v)}>{v.name}</button>))},
             { column: '', data: (p: PokemonDTO) => <i className="bi bi-x-square fs-1" onClick={() => deleteAndUpdateListState(p.name)}></i>},
           ]}
         />

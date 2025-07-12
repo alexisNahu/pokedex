@@ -13,6 +13,7 @@ import LoginForm from "@components/Form/Login/LoginForm";
 import Logout from "@components/Form/Logout";
 import { usePokemonNamesContext } from "@contexts/pokemonNames.context";
 import { getPokemonNames } from "@services/pokemonNames.service";
+import { UsersState } from "@redux/slices/user/reducers/user.reducer";
 
 function App() {
   const {pokemonList, setPokemonList} = usePokemonNamesContext()
@@ -33,11 +34,12 @@ function App() {
   }, [])
 
 
-  const userState: User[] = useSelector((state: RootState) => state.user)
+  const userState: UsersState = useSelector((state: RootState) => state.user)
   
   useEffect(() => {
     console.log('users state', userState)
     console.log('pokemon list: ', pokemonList, pokemonList.has('charjabug'))
+    console.log('favorites: ', userState.activeUser?.favorites)
   }, [userState, pokemonList])
 
  return (

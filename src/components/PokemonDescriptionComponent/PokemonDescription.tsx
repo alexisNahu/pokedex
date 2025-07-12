@@ -5,11 +5,13 @@ import { useParams } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
 import PokemonStatsComponent from '@components/PokemonStatsComponent/PokemonStatsComponent';
 import { useDescriptionContext } from '../../contexts/description.context';
-import { PossibleVariants } from '@models/pokemon.model';
 import PokemonDetails from '@components/PokemonDetailsComponent/PokemonDetails';
 import PokemonImage from '@components/PokemonImage/PokemonImage';
 
+import SavePokemons from '@components/SavePokemons/SavePokemons';
+
 function PokemonDescription() {
+
     const { pokemonName } = useParams<{ pokemonName: string }>();
 
     if (!pokemonName) return <div>no params sent</div>;
@@ -19,6 +21,7 @@ function PokemonDescription() {
     const { loading, pokemon, errors } = useFetch({ nameOrId: pokemonName });
 
     const [isShiny, setIsShiny] = useState<boolean>(false);
+
     const starRef = useRef<HTMLIFrameElement | null>(null);
 
     useEffect(() => {
@@ -47,7 +50,11 @@ function PokemonDescription() {
                     {poke.name}
                 </h5>
             </div>
+            
             <div className='d-flex flex-row' style={{gap: '2rem'}}>
+                <div>
+                    <SavePokemons pokemonName={pokemon.name} />
+                </div>
                 <div
                     className="pokemon-sprite-container d-flex flex-column align-items-center"
                     style={{ gap:'1rem' }}

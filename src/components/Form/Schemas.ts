@@ -5,7 +5,6 @@ export const RegisterUserScheme = z.object({
     password: z.string().min(3, 'The password must have at least 3 characters'),
     confirmPassword: z.string().min(8),
     email: z.string().email('Invalid email'),
-    logUser: z.boolean()
 }).refine((data) => data.password === data.confirmPassword, {
     message: 'Passwords must be the same',
     path: ['confirmPassword']

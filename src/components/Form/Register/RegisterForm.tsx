@@ -11,12 +11,12 @@ import '../Form.css'
 import { useModalContext } from "@components/Modal/context/UseModalContext"
 import { Modal } from "@components/Modal/CustomModal"
 import * as authService from "@services/auth.service"
-import { UsersState } from "../../../redux/slices/User"
+import { UsersState } from "../../../redux/slices/user/reducers/user.reducer"
 
 function RegisterForm() {
     const dispatch = useDispatch<AppDispatch>();
-    const navigator = useNavigate()
     const usersState: UsersState = useSelector((store: RootState) => store.user)
+    const navigator = useNavigate()
     const {state, setState} = useModalContext()
     
     const {control, handleSubmit, formState: { errors }} = useForm<RegisterUserType>({
@@ -25,13 +25,15 @@ function RegisterForm() {
 
     const onSubmit: SubmitHandler<RegisterUserType>= (data) => {
         const newUser: User = {
-            name: data.username,
+            id: usersState.users.length + 1,
+            username: data.username,
             password: data.password,
             email: data.email,
-            rol: Rol.USER
+            favorites: [],
+            rol: Rol.USER,
         }
 
-        if (!authService.register(newUser, data.logUser, dispatch, usersState)) {
+        if (!authService.register(newUser, dispatch, usersState)) {
             setState(true)
             return
         }
@@ -48,7 +50,6 @@ function RegisterForm() {
             <CustomInput name="password" control={control} label="Password" type="password" placeholderIcon="🗝" error={errors.password}/>
             <CustomInput name="confirmPassword" control={control} label="Confirm password" placeholderIcon="🗝" type="password" error={errors.confirmPassword}/>
             <CustomInput name="email" control={control} label="Email" type="email" placeholderIcon="🖂" error={errors.email}/>
-            <CustomInput name="logUser" control={control} label="logUser" text="Do you want to be logged when registered?" type="checkbox" />
             <button type="submit" className="btn btn-outline-light col-md-9 mx-auto">Register</button>
             <Modal>
                 <p>That username is already choosen</p>
