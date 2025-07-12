@@ -5,7 +5,7 @@ import { initialState } from "../User"
 
 export interface UsersState {
     users: User[],
-    activeUser: User | null,
+    activeUser: number | null,
 }
 
 
@@ -14,14 +14,14 @@ export const userReducers = {
         clearLocalStorage()
         return initialState
     },
-    loginUser: (userState: UsersState, action: PayloadAction<User>) => {
+    loginUser: (userState: UsersState, action: PayloadAction<number>) => {
         const updatedUsersState = {users: userState.users, activeUser: action.payload} 
         persistLocalStorageUser(updatedUsersState)
         return updatedUsersState
     },
     registerUser: (userState: UsersState, action: PayloadAction<User>) => {
         const user = action.payload
-        const updatedUsersState = {users: [...userState.users, user], activeUser: user}
+        const updatedUsersState = {users: [...userState.users, user], activeUser: user.id}
         persistLocalStorageUser(updatedUsersState)
         return updatedUsersState
     },
@@ -30,4 +30,5 @@ export const userReducers = {
         persistLocalStorageUser(updatedUsersState)
         return updatedUsersState
     },
+
 } 

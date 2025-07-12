@@ -5,13 +5,16 @@ import { UsersState } from '../../redux/slices/user/reducers/user.reducer'
 import * as ROUTES from "@models/routes/routes";
 import * as favoritesService from '@services/favorites.service'
 import { useNavigate } from 'react-router-dom'
+import * as userService from '@services/user.service'
 
 function SavePokemons({pokemonName}: {pokemonName: string}) {
     const dispatch = useDispatch<AppDispatch>();
     const usersState: UsersState = useSelector((store: RootState) => store.user)
     const navigator = useNavigate()
 
-    const [isPokemonSaved, setIsPokemonSaved] = useState<boolean>(usersState.activeUser?.favorites.includes(pokemonName) as boolean)
+    const loggedUser = userService.getActiveUser(usersState)
+
+    const [isPokemonSaved, setIsPokemonSaved] = useState<boolean>(loggedUser?.favorites.includes(pokemonName) ? true : false)
     
     const handleClick = () => {
         if (isPokemonSaved) {
@@ -20,7 +23,7 @@ function SavePokemons({pokemonName}: {pokemonName: string}) {
         } else if (!isPokemonSaved) {
             const isSaved = favoritesService.addFavorite(pokemonName, dispatch, usersState)
             if (isSaved) setIsPokemonSaved(true)
-            if (isSaved === null) navigator(`${ROUTES.PUBLIC.LOGIN}`)
+            if (isSaved === null) navigator(`/${ROUTES.PUBLIC.LOGIN}`)
         }
     }
 

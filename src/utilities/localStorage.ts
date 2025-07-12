@@ -6,7 +6,7 @@ export function initializeLocalStorageUser(initialState: User[]) {
     return emptyUserState
 }
 
-export function persistLocalStorageUser(value: {users: User[], activeUser: User | null}) {
+export function persistLocalStorageUser(value: {users: User[], activeUser: number | null}) {
    localStorage.setItem('user', JSON.stringify(value))
 }
 

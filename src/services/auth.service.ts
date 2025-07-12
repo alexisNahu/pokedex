@@ -8,7 +8,7 @@ export const login = (user: {username: string, password: string}, dispatch: AppD
     const foundUser = findUser(user, [...usersState.users])
 
     if (!foundUser) return false
-    dispatch(loginUser(foundUser))
+    dispatch(loginUser(foundUser.id))
     return true
 }
 

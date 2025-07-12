@@ -12,9 +12,9 @@ export const emptyUserState: User = {
     favorites: ['charizard','greninja']
 }
 
-export const initialState: {users: User[], activeUser: User | null} = {
+export const initialState: {users: User[], activeUser: number | null} = {
     users: [emptyUserState],
-    activeUser: emptyUserState
+    activeUser: emptyUserState.id
 } //dejo que este logeado por defecto para evitar la molestia de logearse cada que elimino las cookies
 
 

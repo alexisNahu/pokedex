@@ -5,8 +5,12 @@ import { addItem, removeItem } from "../redux/slices/user/User";
 
 export const addFavorite = (pokemonName: string, dispatch: AppDispatch, usersState: UsersState): boolean | null => {
     if (!usersState.activeUser) return null
+    
+    const activeUser = usersState.users.find(user => user.id === usersState.activeUser)
 
-    if (usersState.activeUser.favorites.includes(pokemonName)) return false
+    if (!activeUser) return null
+
+    if (activeUser.favorites.includes(pokemonName)) return false
 
     dispatch(addItem(pokemonName))
 
@@ -15,8 +19,12 @@ export const addFavorite = (pokemonName: string, dispatch: AppDispatch, usersSta
 
 export const deleteFavorite = (pokemonName: string, dispatch: AppDispatch, usersState: UsersState): boolean | null => {
     if (!usersState.activeUser) return null
+    
+    const activeUser = usersState.users.find(user => user.id === usersState.activeUser)
 
-    const foundItem = usersState.activeUser.favorites.filter(value => value === pokemonName)
+    if (!activeUser) return null
+
+    const foundItem = activeUser.favorites.filter(value => value === pokemonName)
 
     if (!foundItem) return false
 
