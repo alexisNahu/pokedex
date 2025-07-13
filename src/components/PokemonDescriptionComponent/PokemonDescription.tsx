@@ -83,6 +83,7 @@ function PokemonDescription() {
                         regional_versions={pokemon.variants}
                         basePokemon={pokemon}
                         gmaxs={pokemon.gigamax}
+                        handleClick={(poke) => setPokemon(poke)}
                     />
                 </div>
                 <PokemonDetails />

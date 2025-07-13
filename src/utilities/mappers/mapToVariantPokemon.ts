@@ -32,6 +32,6 @@ export async function mapToVariantPokemonDTO(variant: PokemonDAO, type: Possible
     height: `${variant.height/10}m`,
     weight: `${variant.weight/10}kg`,
     weaknesses: await getPokemonWeaknesses(variant.types),
-    variant_type: type
+    variant_type: type,
   };
 }

@@ -5,12 +5,15 @@ export interface Stat {
   stat: string,
   value: number,
 }
-
-export interface ModelData<T> {
-  column: string
-  data: ((item: T) => React.ReactNode)
+export interface CardData {
+  variant: PokemonDTO | VariantPokemonDTO;
+  original: PokemonDTO;
 }
 
+export interface ModelData<T extends PokemonDTO | VariantPokemonDTO, U extends PokemonDTO> {
+  column: string;
+  data: (item: {variant: T, original: U}) => React.ReactNode;
+}
 
 export enum RegionalVariants {
   ALOLA = "alola",

@@ -1,23 +1,22 @@
-import React, { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import './ComparePokemons.css'
 import SuggestionInput from '@components/layout/AutoSuggestionsInput/SuggestionInput'
 import { usePokemonNamesContext } from '@contexts/pokemonNames.context'
 import { getStatic3dSprite } from '@services/pokemonSprites.service'
-import { ModelData, PokemonDTO } from '@models/pokemon.model'
+import { CardData, PokemonDTO, VariantPokemonDTO } from '@models/pokemon.model'
 import { getPokemonDTOByNameOrId } from '@services/index'
-import PokeTypes from '@components/PokeTypesComponent/PokeTypes'
 import PokemonImage from '@components/PokemonImage/PokemonImage'
 import { Modal } from '@components/Modal/CustomModal'
-import { Ability } from '@models/dao'
 import { useModalContext } from '@components/Modal/context/UseModalContext'
-import { Button } from 'react-bootstrap'
 import Cards from './Cards/Cards'
+import PokemonVariants from '@components/PokemonVariantsComponent/PokemonVariants'
+import PokeTypes from '@components/PokeTypesComponent/PokeTypes'
 
 function ComparingPage() {
   const {pokemonList} = usePokemonNamesContext()
   const {setState} = useModalContext()
 
-  const [comparingList, setComparingList] = useState<Map<string, PokemonDTO | null>>(new Map([]))
+  const [comparingList, setComparingList] = useState<Map<string, {value: PokemonDTO | VariantPokemonDTO | null, original: PokemonDTO | null}>>(new Map([]))
 
   const [showingAbility, setShowingAbility] = useState<{
           name: string,
@@ -54,11 +53,10 @@ function ComparingPage() {
     return await getPokemonDTOByNameOrId(name, controllerRef.current.signal)
   }
 
-  const onSubmitFn = async (value: string) => {
-    console.log('sssaa')
-    if (pokemonList.has(value)) {
-      const newPokemon = await getPokemonDTO(value)
-      if (newPokemon) setComparingList(new Map([...comparingList, [value as string, newPokemon] ]))
+  const onSubmitFn = async (name: string) => {
+    if (pokemonList.has(name)) {
+      const newPokemon = await getPokemonDTO(name)
+      if (newPokemon) setComparingList(new Map([...comparingList, [name as string, {value: newPokemon, original: newPokemon}] ]))
     }
   }
 
@@ -84,6 +82,17 @@ function ComparingPage() {
     })
   }
 
+  const handleVariantChange = (variant: PokemonDTO | VariantPokemonDTO, original: PokemonDTO) => {
+    setComparingList((prev) => {
+      const newMap = new Map(prev)
+      newMap.set(original.name, {
+        value: variant,
+        original: original,
+      })
+      return newMap
+    })
+  }
+
   return (
     <div className='comparing-page-container col-md-11 p-3' style={{height: '800px'}}>
       <div className='col-md-4 mx-auto position-sticky top-0 z-3 bg-poke-blue'>
@@ -98,19 +107,27 @@ function ComparingPage() {
           />
       </div>
       <div>
-        <Cards 
-          data={[...comparingList.values()].filter((v): v is PokemonDTO => v !== null)} 
+       <Cards 
+          data={[...comparingList.values()]
+                .filter(v => v.value !== null && v.original !== null)
+                .map(v => ({
+                  variant: v.value!,
+                  original: v.original!
+                }))}           
           columns={[
-            { column: '', data: (p: PokemonDTO) => <PokemonImage isShiny={false} poke={p} imgWidth={100} />},
-            { column: 'Types', data: (p: PokemonDTO) => <PokeTypes pokemonTypes={p.types} /> },
-            { column: 'HP', data: (p: PokemonDTO) => p.stats.find(v => v.stat === 'hp')?.value ?? ''},
-            { column: 'Attack', data: (p: PokemonDTO) => p.stats.find(v => v.stat === 'attack')?.value },
-            { column: 'Defense', data: (p: PokemonDTO) => p.stats.find(v => v.stat === 'defense')?.value },
-            { column: 'Sp. Attack', data: (p: PokemonDTO) => p.stats.find(v => v.stat === 'special-attack')?.value },
-            { column: 'Sp. Defense', data: (p: PokemonDTO) => p.stats.find(v => v.stat === 'special-defense')?.value },
-            { column: 'Speed', data: (p: PokemonDTO) => p.stats.find(v => v.stat === 'speed')?.value },
-            { column: 'Abilities', data: (p :PokemonDTO) => p.abilities.map(a => a.en.map(v => <button className=' my-2 btn btn-outline-light' onClick={() => handleAbilityClick(v)}>{v.name}</button>))},
-            { column: '', data: (p: PokemonDTO) => <i className="bi bi-x-square fs-1" onClick={() => deleteAndUpdateListState(p.name)}></i>},
+            { column: '', data: (p: CardData) => <PokemonVariants megas={p.original.megas} regional_versions={p.original.variants} 
+                                                                  basePokemon={p.original} gmaxs={p.original.gigamax} 
+                                                                  handleClick={newVariant => handleVariantChange(newVariant, p.original)} minimizedVersion={true} />, width: '200px'},
+            { column: '', data: (p: CardData) => <PokemonImage isShiny={false} poke={p.variant} imgWidth={100} />, width: 'auto'},
+            { column: 'Types', data: (p: CardData) => <PokeTypes pokemonTypes={p.variant.types} />},
+            { column: 'HP', data: (p: CardData) => p.variant.stats.find(v => v.stat === 'hp')?.value ?? '', width: 'auto'},
+            { column: 'Attack', data: (p: CardData) => p.variant.stats.find(v => v.stat === 'attack')?.value, width: 'auto'},
+            { column: 'Defense', data: (p: CardData) => p.variant.stats.find(v => v.stat === 'defense')?.value, width: 'auto'},
+            { column: 'Sp. Attack', data: (p: CardData) => p.variant.stats.find(v => v.stat === 'special-attack')?.value, width: 'auto' },
+            { column: 'Sp. Defense', data: (p: CardData) => p.variant.stats.find(v => v.stat === 'special-defense')?.value, width: 'auto' },
+            { column: 'Speed', data: (p: CardData) => p.variant.stats.find(v => v.stat === 'speed')?.value, width: 'auto' },
+            { column: 'Abilities', data: (p :CardData) => p.variant.abilities.map(a => a.en.map(v => <button className=' my-2 btn btn-outline-light' onClick={() => handleAbilityClick(v)}>{v.name}</button>)), width: 'auto'},
+            { column: '', data: (p: CardData) => <i className="bi bi-x-square fs-1" onClick={() => deleteAndUpdateListState(p.original.name)}></i>, width: 'auto'},
           ]}
         />
         
