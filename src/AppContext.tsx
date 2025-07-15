@@ -15,6 +15,7 @@ function AppContext({children}: Props) {
   return (
     <BrowserRouter>
         <Provider store={store}>
+            
             <SidebarProvider>
                 <PokemonNamesProvider>
                     <ModalProvider>

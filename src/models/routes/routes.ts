@@ -3,12 +3,15 @@ export enum PUBLIC {
   DESCRIPTION = 'description',
   LOGIN = 'auth/login',
   REGISTER = 'auth/register',
+  POKEDEX_ALL = 'pokedex/all',
 }
 
+const PRIVATE_BASE = 'private'
+
 export enum PRIVATE {
-  PRIVATE = 'private',
-  POKEDEX = 'pokedex',
-  COMPARE = 'compare'
+  PRIVATE = `${PRIVATE_BASE}`,
+  COMPARE = `compare`,
+  POKEDEX_FAVORITES = `pokedex/favorites`
 }
 
 export enum PROTECTED {

@@ -8,12 +8,15 @@ import GenerationFilter from './GenerationFilter/GenerationFilter'
 import { usePokedexPaginationContext } from '@contexts/pokedexPagination.context'
 import TypesFilter from './TypesFilter/TypesFilter'
 import AbilityFilter from './AbilityFilter/AbilityFilter'
+import { SetURLSearchParams, useNavigate } from 'react-router-dom'
 
-function FilterPokedex({ dataFont }: { dataFont: Set<string> }) {
+function FilterPokedex({ dataFont}: { dataFont: Set<string>}) {
 
     const { setState } = useModalContext()
     const { setCurrentPage } = usePokedexPaginationContext()
     const { setPokedexList, filters, setFilters } = usePokedexContext()
+
+    const navigate = useNavigate()
 
     const applyFilters = async () => {
         console.log(filters)
@@ -41,16 +44,26 @@ function FilterPokedex({ dataFont }: { dataFont: Set<string> }) {
             typesFilter: [null, null],
             abilitiesFilter: []
         })
+        navigate(window.location.pathname, { replace: true });
     }
 
     return (
         <>
-            <i
-                className="bi bi-filter-square-fill filter-icon"
-                onClick={() => setState(true)}
-                style={{color: 'black'}}
-                title="Filter Pokémon"
-            ></i>
+            <div className='filter-buttons d-flex align-content-center'>
+                <button
+                    className="btn btn-outline-dark align-self-center"
+                    onClick={resetFilter}
+                >
+                    Show all
+                </button>
+                <i
+                    className="bi bi-filter-square-fill filter-icon mx-3"
+                    onClick={() => setState(true)}
+                    style={{color: 'black'}}
+                    title="Filter Pokémon"
+                ></i>
+
+            </div>
 
             <Modal>
                 <div className='filter' style={{width: 1000}}>
@@ -67,12 +80,7 @@ function FilterPokedex({ dataFont }: { dataFont: Set<string> }) {
                         >
                             Apply
                         </button>
-                        <button
-                            className="btn filter-action-btn reset-btn"
-                            onClick={resetFilter}
-                        >
-                            Reset Filter
-                        </button>
+                        
                     </div>
                 </div>
             </Modal>

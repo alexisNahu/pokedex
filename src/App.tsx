@@ -15,6 +15,7 @@ import { usePokemonNamesContext } from "@contexts/pokemonNames.context";
 import { getPokemonNames } from "@services/pokemonNames.service";
 import { UsersState } from "@redux/slices/user/reducers/user.reducer";
 import * as userService from '@services/user.service'
+import PokedexPage from "@pages/private/PokedexPage/PokedexPage";
 
 function App() {
   const {pokemonList, setPokemonList} = usePokemonNamesContext()
@@ -51,7 +52,8 @@ function App() {
       {/* Rutas públicas accesibles siempre */}
       <Route path={ROUTES.PUBLIC.LANDING_PAGE} element={<LandingPage />} />
       <Route path={`${ROUTES.PUBLIC.DESCRIPTION}/:pokemonName`} element={<DescriptionPage />} />
-      
+      <Route path={`${ROUTES.PUBLIC.POKEDEX_ALL}`} element={<PokedexPage list="all"/>} />
+
       {/* Rutas solo para NO autenticados */}
       <Route element={<AuthGuard isPrivate={false} />}>
         <Route path={ROUTES.PUBLIC.LOGIN} element={<LoginForm />} />

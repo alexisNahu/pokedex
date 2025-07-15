@@ -17,20 +17,18 @@ export const sidebarItems: SidebarItemsType = [
     icon: 'charizard',
     bootstrapIcon: 'bi-journal-bookmark',
     items: [
-      { text: 'Complete Pokedex', url: `/private/${PRIVATE.POKEDEX}?list=all` },
+      { text: 'Complete Pokedex', url: `${PUBLIC.POKEDEX_ALL}` },
       { text: 'Compare Pokemons', url: `/private/${PRIVATE.COMPARE}` },
-      { text: 'Favorites', url: `/private/${PRIVATE.POKEDEX}?list=favorites` },
+      { text: 'Favorites', url: `/private/${PRIVATE.POKEDEX_FAVORITES}` },
     ],
     type: 'accordeon'
   },
   {
-    text: 'Entrenadores',
+    text: 'Combat',
     icon: 'tyranitar',
     bootstrapIcon: 'bi-person-lines-fill',
     items: [
-      { text: 'Mis Pokémon' },
-      { text: 'Medallas' },
-      { text: 'Registro de combates' },
+      { text: 'Teams' },
     ],
     type: 'accordeon'
   },

@@ -1,7 +1,7 @@
 import type { SingleItem } from '@models/sidebar.model'
 import { useSidebarContext } from '../../sidebar.context'
 import { getHidingTransition } from '../../Sidebar'
-import { useNavigate } from 'react-router-dom'
+import { redirect, useNavigate } from 'react-router-dom'
 import SuggestionInput from '@components/layout/AutoSuggestionsInput/SuggestionInput'
 import { usePokemonNamesContext } from '@contexts/pokemonNames.context'
 import { PUBLIC } from '@models/routes/routes'
@@ -32,12 +32,22 @@ function SingleComponent({item}: {item: SingleItem}) {
               </div>
     }
 
+    const handleSubmit = (value: string) => {
+      if (pokemonList.has(value)) {
+        navigator(`${PUBLIC.DESCRIPTION}/${value}`)
+        return
+      }
+
+      navigator(`${PUBLIC.POKEDEX_ALL}?search=${value}`)
+    }
+
+
 
     return <div style={getHidingTransition(activo)}>
       <SuggestionInput 
         completeList={[...pokemonList]} 
         handleSuggestionsClick={(name: string) => navigator(`${PUBLIC.DESCRIPTION}/${name}`)} 
-        onSubmit={(value: string) => navigator(`${PUBLIC.DESCRIPTION}/${value}`)} 
+        onSubmit={handleSubmit} 
         handleSuggestionRender={handleSuggestionRender} 
         placeholder='Search for a pokemon here...'
         maxSuggestion={5}

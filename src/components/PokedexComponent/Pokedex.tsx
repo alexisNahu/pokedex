@@ -1,6 +1,5 @@
 import { usePokemonNamesContext } from '@contexts/pokemonNames.context'
 import React, { useEffect, useMemo, useState } from 'react'
-import './Pokedex.css'
 import  Card  from '@components/PokedexComponent/Card/Card'
 import { usePokedexContext } from '@contexts/pokedex.context'
 import PaginationButtons from './PaginationButtons/PaginationButtons'
@@ -8,21 +7,24 @@ import FilterPokedex from './FilterPokedex/FilterPokedex'
 import { usePokedexPaginationContext } from '@contexts/pokedexPagination.context'
 import SuggestionInput from '@components/layout/AutoSuggestionsInput/SuggestionInput'
 import { getStatic3dSprite } from '@services/pokemonSprites.service'
-import { useSearchParams } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { UsersState } from '@redux/slices/user/reducers/user.reducer'
 import { RootState } from '@redux/store'
 import { useSelector } from 'react-redux'
 import { getActiveUser } from '@services/user.service'
+import { PUBLIC } from '@models/routes/routes'
 
+import './Pokedex.css'
 
-function Pokedex() {
+function Pokedex({ list }: { list : 'all' | 'favorites' }) {
 
-  const [searchParams] = useSearchParams()
-  const paramList = searchParams.get('list')
+  const [pageParams] = useSearchParams()
+  const searchParam = pageParams.get('search')
+
   const usersState: UsersState = useSelector((store: RootState) => store.user)
+  const navigator = useNavigate()
 
-  if (!usersState.activeUser) return <div>No active user</div>
-  if (!paramList) return <div>No params sent</div>
+  if (!list) return <div>No params sent</div>
 
   const activeUserFavorites = getActiveUser(usersState)?.favorites
 
@@ -31,27 +33,35 @@ function Pokedex() {
   const {currentPage, setLastPage} = usePokedexPaginationContext()
 
   const dataFont = useMemo(() => {
-    if (paramList === 'all') return new Set(pokemonList);
-    if (paramList === 'favorites') return new Set(activeUserFavorites);
+    if (list === 'all') return new Set(pokemonList);
+    if (list === 'favorites') return new Set(activeUserFavorites);
     return new Set<string>();
-  }, [paramList, pokemonList, activeUserFavorites]);
+  }, [list, pokemonList, activeUserFavorites]);
 
   const [pageObjs, setPageObjs] = useState<string[] | []>([])
 
   const itemsPerPage: number = 50 
 
   useEffect(() => {
+    if (searchParam) {
+      setPokedexList([...dataFont].filter(data => data.includes(searchParam)))
+      return
+    }
     setPokedexList([...dataFont]);
-  }, [dataFont]);
+  }, [dataFont, searchParam]);
 
   useEffect(() => {
     const firstIndex = (currentPage - 1) * itemsPerPage;
     const lastIndex = firstIndex + itemsPerPage;
 
+    if (!usersState.activeUser && list !== 'all') {
+      navigator(`/${PUBLIC.LOGIN}`)
+      return
+    }
+
     setLastPage(Math.ceil(pokedexList.length / itemsPerPage));
     setPageObjs(pokedexList.slice(firstIndex, lastIndex));
-  }, [pokedexList, currentPage, setLastPage]);
-
+  }, [pokedexList, currentPage, setLastPage, usersState]);
 
   const handleSuggestionRender = (name: string) => {
     return <div className='d-flex flex-row justify-content-center'>
