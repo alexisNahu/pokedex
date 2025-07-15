@@ -11,6 +11,7 @@ import { useModalContext } from '@components/Modal/context/UseModalContext'
 import Cards from './Cards/Cards'
 import PokemonVariants from '@components/PokemonVariantsComponent/PokemonVariants'
 import PokeTypes from '@components/PokeTypesComponent/PokeTypes'
+import PokemonAbilities from '@components/PokemonAbilities/PokemonAbilities'
 
 function ComparingPage() {
   const {pokemonList} = usePokemonNamesContext()
@@ -115,18 +116,18 @@ function ComparingPage() {
                   original: v.original!
                 }))}           
           columns={[
-            { column: '', data: (p: CardData) => <PokemonVariants megas={p.original.megas} regional_versions={p.original.variants} 
+            { column: 'Variants', data: (p: CardData) => <PokemonVariants megas={p.original.megas} regional_versions={p.original.variants} 
                                                                   basePokemon={p.original} gmaxs={p.original.gigamax} 
-                                                                  handleClick={newVariant => handleVariantChange(newVariant, p.original)} minimizedVersion={true} />, width: '200px'},
-            { column: '', data: (p: CardData) => <PokemonImage isShiny={false} poke={p.variant} imgWidth={100} />, width: 'auto'},
-            { column: 'Types', data: (p: CardData) => <PokeTypes pokemonTypes={p.variant.types} />},
+                                                                  handleClick={newVariant => handleVariantChange(newVariant, p.original)} minimizedVersion={true} />, width: '250px'},
+            { column: 'Sprite', data: (p: CardData) => <PokemonImage isShiny={false} poke={p.variant} imgWidth={100} />, width: 'auto'},
+            { column: 'Types', data: (p: CardData) => <PokeTypes pokemonTypes={p.variant.types} />, width: '150px'},
             { column: 'HP', data: (p: CardData) => p.variant.stats.find(v => v.stat === 'hp')?.value ?? '', width: 'auto'},
             { column: 'Attack', data: (p: CardData) => p.variant.stats.find(v => v.stat === 'attack')?.value, width: 'auto'},
             { column: 'Defense', data: (p: CardData) => p.variant.stats.find(v => v.stat === 'defense')?.value, width: 'auto'},
             { column: 'Sp. Attack', data: (p: CardData) => p.variant.stats.find(v => v.stat === 'special-attack')?.value, width: 'auto' },
             { column: 'Sp. Defense', data: (p: CardData) => p.variant.stats.find(v => v.stat === 'special-defense')?.value, width: 'auto' },
             { column: 'Speed', data: (p: CardData) => p.variant.stats.find(v => v.stat === 'speed')?.value, width: 'auto' },
-            { column: 'Abilities', data: (p :CardData) => p.variant.abilities.map(a => a.en.map(v => <button className=' my-2 btn btn-outline-light' onClick={() => handleAbilityClick(v)}>{v.name}</button>)), width: 'auto'},
+            { column: 'Abilities', data: (p :CardData) => <PokemonAbilities poke={p.variant} handleClick={handleAbilityClick} minimizedVersion />, width: '200px'},
             { column: '', data: (p: CardData) => <i className="bi bi-x-square fs-1" onClick={() => deleteAndUpdateListState(p.original.name)}></i>, width: 'auto'},
           ]}
         />

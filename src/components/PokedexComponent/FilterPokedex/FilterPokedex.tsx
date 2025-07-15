@@ -9,16 +9,15 @@ import { usePokedexPaginationContext } from '@contexts/pokedexPagination.context
 import TypesFilter from './TypesFilter/TypesFilter'
 import AbilityFilter from './AbilityFilter/AbilityFilter'
 
-function FilterPokedex() {
+function FilterPokedex({ dataFont }: { dataFont: Set<string> }) {
 
     const { setState } = useModalContext()
-    const { pokemonList } = usePokemonNamesContext()
     const { setCurrentPage } = usePokedexPaginationContext()
     const { setPokedexList, filters, setFilters } = usePokedexContext()
 
     const applyFilters = async () => {
         console.log(filters)
-        const filteredList = filters ? await filterPokemonList(filters, pokemonList) : null
+        const filteredList = filters ? await filterPokemonList(filters, dataFont) : null
 
         if (!filteredList?.size) {
             alert('Not a result for these filters')
@@ -36,7 +35,7 @@ function FilterPokedex() {
     }
 
     const resetFilter = () => {
-        setPokedexList([...pokemonList])
+        setPokedexList([...dataFont])
         setFilters({
             generationFilter: [],
             typesFilter: [null, null],

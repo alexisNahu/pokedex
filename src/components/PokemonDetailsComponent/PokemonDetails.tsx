@@ -3,6 +3,7 @@ import { useDescriptionContext } from '../../contexts/description.context'
 import { Modal } from '@components/Modal/CustomModal'
 import { useState } from 'react'
 import PokeTypes from '@components/PokeTypesComponent/PokeTypes'
+import PokemonAbilities from '@components/PokemonAbilities/PokemonAbilities'
 
 function PokemonDetails() {
     const { poke } = useDescriptionContext()
@@ -35,22 +36,7 @@ function PokemonDetails() {
                     </span>
                 </div>
                 <div className="col">
-                    <span className='d-flex flex-column mb-3'>
-                        <h5 className='mb-0'>Abilities:</h5> <p className='mb-0'>
-                            {poke?.abilities?.map(((ability, i) => (
-                                <span key={i}>
-                                   {ability.en?.map((entry, a) => (
-                                      <button
-                                         key={a}
-                                         className='btn btn-outline-light m-1'
-                                         onClick={() => handleClick(entry)}
-                                      >
-                                         {entry.name}
-                                      </button>
-                                   ))}
-                                </span>
-                            )))}
-                        </p></span>
+                    { poke && <PokemonAbilities poke={poke} handleClick={handleClick} />}
                 </div>
             </div>
             <div className='row'>

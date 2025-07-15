@@ -47,7 +47,6 @@ function AbilityFilter() {
         />
       </div>
        <div>
-        <h6 className="mb-2 mx-2">Selected Abilities: </h6>
         <div className="d-flex flex-wrap gap-2">
           {[...selectedAbilities].map((ab) => (
            <div style={{ width: 'fit-content', padding: '10px' }}>
