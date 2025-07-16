@@ -83,7 +83,7 @@ function Pokedex({ list }: { list : 'all' | 'favorites' }) {
 
     return (
       <>
-        <div className='pokedex-container col-md-11 p-3' style={{height: '90%', overflowY: 'scroll'}}>
+        <div className='pokedex-container col-md-11 p-3' style={{height: '90%', overflowY: 'auto'}}>
           <div className='d-flex justify-content-center align-items-center'>
             <div className='mx-3'>
               <FilterPokedex dataFont={dataFont} />

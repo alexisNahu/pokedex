@@ -5,6 +5,15 @@ export interface Stat {
   stat: string,
   value: number,
 }
+
+export interface Team {
+    id: number,
+    name: string,
+    count: number,
+    pokemons: string[]
+}
+
+
 export interface CardData {
   variant: PokemonDTO | VariantPokemonDTO;
   original: PokemonDTO;

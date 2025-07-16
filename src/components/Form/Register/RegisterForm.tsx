@@ -30,6 +30,7 @@ function RegisterForm() {
             password: data.password,
             email: data.email,
             favorites: [],
+            teams: [],
             rol: Rol.USER,
         }
 

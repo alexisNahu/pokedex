@@ -9,7 +9,7 @@ export interface UsersState {
 }
 
 
-export const userReducers = {
+export const authReducers = {
     removeUser: () => {
         clearLocalStorage()
         return initialState
@@ -30,5 +30,4 @@ export const userReducers = {
         persistLocalStorageUser(updatedUsersState)
         return updatedUsersState
     },
-
 } 

@@ -11,7 +11,8 @@ const PRIVATE_BASE = 'private'
 export enum PRIVATE {
   PRIVATE = `${PRIVATE_BASE}`,
   COMPARE = `compare`,
-  POKEDEX_FAVORITES = `pokedex/favorites`
+  POKEDEX_FAVORITES = 'pokedex/favorites',
+  TEAMS = 'teams'
 }
 
 export enum PROTECTED {

@@ -42,6 +42,7 @@ function App() {
     console.log('users state', userState)
     console.log('pokemon list: ', pokemonList, pokemonList.has('charjabug'))
     console.log('favorites: ', userService.getActiveUser(userState)?.favorites)
+    console.log('main team', userService.getActiveUserTeams(userState)?.[0].pokemons)
   }, [userState, pokemonList])
 
  return (

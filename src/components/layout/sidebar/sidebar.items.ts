@@ -28,7 +28,7 @@ export const sidebarItems: SidebarItemsType = [
     icon: 'tyranitar',
     bootstrapIcon: 'bi-person-lines-fill',
     items: [
-      { text: 'Teams' },
+      { text: 'Teams', url: `/private/${PRIVATE.TEAMS}` },
     ],
     type: 'accordeon'
   },
