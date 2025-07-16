@@ -1,4 +1,4 @@
-import { CardData, ModelData, PokemonDTO, VariantPokemonDTO } from '@models/pokemon.model';
+import { CardData } from '@models/pokemon.model';
 import React from 'react';
 
 
@@ -7,9 +7,10 @@ function Cards({ data, columns }: {
   columns: Array<{
     column: string;
     data: (item: CardData) => React.ReactNode;
-    width?: string; // Nueva propiedad opcional
+    width?: string;
   }>;
 }) {
+
   return (
     <div className="container py-4">
       {/* Encabezados */}
@@ -48,7 +49,7 @@ function Cards({ data, columns }: {
                       whiteSpace: 'nowrap'
                     }}
                   >
-                    {col.data({variant: pokemon.variant, original: pokemon.original})}
+                    {col.data({ variant: pokemon.variant, original: pokemon.original })}
                   </div>
                 ))}
               </div>

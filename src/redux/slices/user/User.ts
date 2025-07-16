@@ -3,7 +3,6 @@ import { createSlice } from "@reduxjs/toolkit";
 import { authReducers } from "./reducers/user.reducer";
 import { favoritesReducers } from "./reducers/favorites.reducer";
 import { teamsReducer } from "./reducers/teams.reducer";
-import {type Team} from '@models/pokemon.model'
 export const emptyUserState: User = {
     id: 1,
     username: 'alexis',
@@ -15,7 +14,17 @@ export const emptyUserState: User = {
         id: 1,
         name: "main",
         count: 2,
-        pokemons: ['charizard','greninja']
+        pokemons: ['charizard','greninja',null,null,null,null]
+    },{
+        id: 2,
+        name: 'saeloo',
+        count: 2,
+        pokemons: ['squirtle','eevee', null, null, null,null]
+    },{
+        id: 3,
+        name: 'saeloo',
+        count: 2,
+        pokemons: ['squirtle','eevee', null, null, null,null]
     }]
 }
 
@@ -35,5 +44,5 @@ export const userSlice = createSlice({
     }   
 })
 
-export const {removeUser, loginUser, registerUser, logoutUser, addItem, removeItem, addTeam, setTeam} = userSlice.actions
+export const {removeUser, loginUser, registerUser, logoutUser, addItem, removeItem, addTeam, updateTeam, updateTeamName} = userSlice.actions
 export default userSlice.reducer

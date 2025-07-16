@@ -18,11 +18,7 @@ import { AppDispatch, RootState } from '@redux/store'
 import { useDispatch, useSelector } from 'react-redux'
 import * as userService from '@services/user.service'
 
-interface Props {
-  onRemoveClick: (name: string) => void
-}
-
-function ComparingPage({ onRemoveClick }: Props) {
+function ComparingPage() {
   const [pageParams] = useSearchParams()
   const teamParam = pageParams.get('team')
   
@@ -32,7 +28,7 @@ function ComparingPage({ onRemoveClick }: Props) {
   const usersState: UsersState = useSelector((store: RootState) => store.user)
   const dispatch = useDispatch<AppDispatch>();
 
-  
+
   const [comparingList, setComparingList] = useState<Map<string, {value: PokemonDTO | VariantPokemonDTO | null, original: PokemonDTO | null}>>(new Map([]))
 
   useEffect(() => {
@@ -40,7 +36,7 @@ function ComparingPage({ onRemoveClick }: Props) {
       const activeUserTeam = userService.getActiveUserTeam(usersState, teamParam.toString())
       
       if (activeUserTeam) {
-        const teamPokemonsDTO = await Promise.all(activeUserTeam.pokemons.map(poke => getPokemonDTO(poke)))
+        const teamPokemonsDTO = await Promise.all(activeUserTeam.pokemons.filter(poke => poke !== null).map(poke => getPokemonDTO(poke)))
         if (!teamPokemonsDTO.some(val => val === null)) {
           const newMap = new Map<string, {value: PokemonDTO | VariantPokemonDTO | null, original: PokemonDTO | null}>()
           teamPokemonsDTO.forEach(poke => {
@@ -95,7 +91,7 @@ function ComparingPage({ onRemoveClick }: Props) {
   }
 
   const onSubmitFn = async (name: string) => {
-    if (pokemonList.has(name)) {
+    if (pokemonList.has(name) && comparingList.size < 6) {
       const newPokemon = await getPokemonDTO(name)
       if (newPokemon) setComparingList(new Map([...comparingList, [name as string, {value: newPokemon, original: newPokemon}] ]))
     }

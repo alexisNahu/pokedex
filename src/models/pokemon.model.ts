@@ -10,8 +10,10 @@ export interface Team {
     id: number,
     name: string,
     count: number,
-    pokemons: string[]
+    pokemons: PokemonTeamList
 }
+
+export type PokemonTeamList = [string | null, string | null,string | null,string | null,string | null,string | null]
 
 
 export interface CardData {
