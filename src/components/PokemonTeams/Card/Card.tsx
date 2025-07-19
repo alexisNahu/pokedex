@@ -1,15 +1,13 @@
-import { useDebounce } from '@hooks/useDebounce'
-import { Team } from '@models/pokemon.model'
-import { UsersState } from '@redux/slices/user/reducers/user.reducer'
-import { RootState, AppDispatch } from '@redux/store'
-import { getStatic3dSprite } from '@services/pokemonSprites.service'
-import { changeTeamName } from '@services/user.service'
+import { useDebounce } from '@hooks'
+import { Team } from '@models'
+import { RootState, AppDispatch, UsersState } from '@redux'
+import { getStatic3dSprite, changeTeamName } from '@services'
 import React, { ChangeEvent, useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
 interface Props {
     team: Team
-    handleClick: () => void
+    handleClick: (e: React.MouseEvent<HTMLDivElement>, teamId: string) => void
 }
 
 function Card({ team, handleClick }: Props) {
@@ -34,18 +32,27 @@ function Card({ team, handleClick }: Props) {
             <div className='d-flex justify-content-center'>
                 <input type="text" maxLength={20} className='bg-transparent fs-4 text-center border-0 shadow-none' value={inputValue} onChange={(e) => handleChange(e, `${team.id}`)}/>
             </div>
-            <div className='d-flex justify-content-center w-100'  onClick={handleClick} >
-            {team.pokemons.map((pokemon, idx) => (
-                <div 
-                key={idx}
-                className='d-inline-flex align-items-center justify-content-center m-3'
-                style={{ width: '60px', height: '100px' }}
-                >
-                {pokemon 
-                    ? <img src={getStatic3dSprite(pokemon, false)} width={90} /> 
-                    : <i className='bi bi-plus-circle fs-1 text-white'></i>}
-                </div>
-            ))}
+            <div className='d-flex justify-content-center w-100'  onClick={(e) => handleClick(e, `${team.id}`)} >
+            {
+                <>
+                    {
+                        team.pokemons.map((pokemon, idx) => (
+                        <div 
+                        key={idx}
+                        className='d-inline-flex align-items-center justify-content-center m-3'
+                        style={{ width: '60px', height: '100px' }}
+                        >
+                        {pokemon 
+                            ? <img src={getStatic3dSprite(pokemon, false)} width={90} /> 
+                            : <i className='bi bi-plus-circle fs-1 text-white'></i>}
+                        </div>
+                    ))
+                    }
+                    <div className='d-inline-flex align-items-center justify-content-center m-3'>
+                        <i className="bi bi-trash3 fs-1 text-white delete-team"></i>
+                    </div>
+                </>
+            }
             </div>
         </div>
         

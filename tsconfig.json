@@ -2,14 +2,14 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@components/*": ["./src/components/*"],
-      "@models/*": ["./src/models/*"],
-      "@pages/*": ["./src/pages/*"],
-      "@services/*": ["./src/services"],
-      "@utilities/*": ["./src/utilities"],
-      "@hooks/*": ["./src/hooks"],
-      "@contexts/*": ["./src/contexts"],
-      "@redux/*": ["./src/redux"]
+      "@components/*": ["./src/components/index.ts"],
+      "@models/*": ["./src/models/index.ts"],
+      "@pages/*": ["./src/pages/index.ts"],
+      "@services/*": ["./src/services/index.ts"],
+      "@utilities/*": ["./src/utilities/index.ts"],
+      "@hooks/*": ["./src/hooks/index.ts"],
+      "@contexts/*": ["./src/contexts/index.ts"],
+      "@redux/*": ["./src/redux/index.ts"]
     }
   },
   "files": [],

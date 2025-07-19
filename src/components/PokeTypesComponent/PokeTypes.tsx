@@ -1,4 +1,4 @@
-import { POKEMON_TYPES, POKEMON_TYPE_COLORS, type PokemonType } from '@models/pokemonTypes.model'
+import { POKEMON_TYPES, POKEMON_TYPE_COLORS, type PokemonType } from '@models'
 import './PokeTypes.css'
 
 interface Props {

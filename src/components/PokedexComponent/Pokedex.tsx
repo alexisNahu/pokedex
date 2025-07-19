@@ -1,18 +1,17 @@
 import { usePokemonNamesContext } from '@contexts/pokemonNames.context'
 import React, { useEffect, useMemo, useState } from 'react'
-import  Card  from '@components/PokedexComponent/Card/Card'
-import { usePokedexContext } from '@contexts/pokedex.context'
+
+import  Card  from './Card/Card'
 import PaginationButtons from './PaginationButtons/PaginationButtons'
 import FilterPokedex from './FilterPokedex/FilterPokedex'
-import { usePokedexPaginationContext } from '@contexts/pokedexPagination.context'
-import SuggestionInput from '@components/layout/AutoSuggestionsInput/SuggestionInput'
-import { getStatic3dSprite } from '@services/pokemonSprites.service'
-import { useNavigate, useSearchParams } from 'react-router-dom'
-import { UsersState } from '@redux/slices/user/reducers/user.reducer'
-import { RootState } from '@redux/store'
-import { useSelector } from 'react-redux'
-import { getActiveUser } from '@services/user.service'
+
+import { usePokedexContext, usePokedexPaginationContext } from '@contexts'
+import {SuggestionInput} from '@components'
+import { UsersState, RootState } from '@redux'
 import { PUBLIC } from '@models/routes/routes'
+import { getStatic3dSprite, getActiveUser } from '@services'
+import { useNavigate, useSearchParams } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 import './Pokedex.css'
 
@@ -78,9 +77,6 @@ function Pokedex({ list }: { list : 'all' | 'favorites' }) {
             </span>
           </div>
     }
-
-  if (pokedexList.length > 0) {
-
     return (
       <>
         <div className='pokedex-container col-md-11 p-3' style={{height: '90%', overflowY: 'auto'}}>
@@ -101,18 +97,16 @@ function Pokedex({ list }: { list : 'all' | 'favorites' }) {
           </div>
           <div className='pokemon-card-container'>
             {
-              pageObjs.map((obj, index) => {
+              pageObjs.length > 0 ? pageObjs.map((obj, index) => {
                 return <Card text={obj} key={index}/>
-              })
+              }) : <div className='mx-auto'>Nothing yet</div>
             }
           </div>
         </div>
         <PaginationButtons />
       </>
     )
-  } else {
-    return <div>loading...</div>
-  }
+
 
 }
 

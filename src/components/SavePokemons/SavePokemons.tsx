@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { AppDispatch, RootState } from 'src/redux/store'
-import { UsersState } from '../../redux/slices/user/reducers/user.reducer'
+import { AppDispatch, RootState, UsersState } from '@redux'
 import * as ROUTES from "@models/routes/routes";
 import * as favoritesService from '@services/favorites.service'
 import { useNavigate } from 'react-router-dom'

@@ -1,17 +1,15 @@
 import { SubmitHandler, useForm } from "react-hook-form"
 import { RegisterUserScheme, type RegisterUserType } from "../Schemas"
 import { zodResolver } from "@hookform/resolvers/zod"
-import CustomInput from "../CustomInput/CustomInput"
+import {CustomInput} from "@components"
+import { useModalContext, Modal } from "@components/Modal"
 import { useDispatch, useSelector} from "react-redux"
-import { AppDispatch, RootState } from "../../../redux/store"
-import { Rol, User } from "@models/user.model"
-import { useNavigate } from "react-router-dom"
+import { AppDispatch, RootState, UsersState } from "@redux"
+import { Rol, User } from "@models"
 import { PUBLIC } from "@models/routes/routes"
+import { useNavigate } from "react-router-dom"
+import * as authService from "@services"
 import '../Form.css'
-import { useModalContext } from "@components/Modal/context/UseModalContext"
-import { Modal } from "@components/Modal/CustomModal"
-import * as authService from "@services/auth.service"
-import { UsersState } from "../../../redux/slices/user/reducers/user.reducer"
 
 function RegisterForm() {
     const dispatch = useDispatch<AppDispatch>();

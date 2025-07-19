@@ -1,22 +1,15 @@
-import { act, useEffect, useRef, useState } from 'react'
-import './ComparePokemons.css'
-import SuggestionInput from '@components/layout/AutoSuggestionsInput/SuggestionInput'
-import { usePokemonNamesContext } from '@contexts/pokemonNames.context'
-import { getStatic3dSprite } from '@services/pokemonSprites.service'
-import { CardData, PokemonDTO, Team, VariantPokemonDTO } from '@models/pokemon.model'
-import { getPokemonDTOByNameOrId } from '@services/index'
-import PokemonImage from '@components/PokemonImage/PokemonImage'
-import { Modal } from '@components/Modal/CustomModal'
-import { useModalContext } from '@components/Modal/context/UseModalContext'
-import Cards from './Cards/Cards'
-import PokemonVariants from '@components/PokemonVariantsComponent/PokemonVariants'
-import PokeTypes from '@components/PokeTypesComponent/PokeTypes'
-import PokemonAbilities from '@components/PokemonAbilities/PokemonAbilities'
+import { React, useEffect, useRef, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
-import { UsersState } from '@redux/slices/user/reducers/user.reducer'
-import { AppDispatch, RootState } from '@redux/store'
 import { useDispatch, useSelector } from 'react-redux'
-import * as userService from '@services/user.service'
+
+import Cards from './Cards/Cards'
+
+import { SuggestionInput, PokemonImage, PokemonVariants, PokeTypes, PokemonAbilities } from '@components'
+import {Modal, useModalContext} from '@components/Modal'
+import { usePokemonNamesContext } from '@contexts'
+import { getStatic3dSprite, getPokemonDTOByNameOrId, getActiveUserTeam, updateActiveUserTeam } from '@services'
+import { CardData, PokemonDTO, Team, VariantPokemonDTO } from '@models'
+import { AppDispatch, RootState, UsersState } from '@redux'
 
 function ComparingPage() {
   const [pageParams] = useSearchParams()
@@ -33,7 +26,7 @@ function ComparingPage() {
 
   useEffect(() => {
     const loadInitialList = async (teamParam: string) => {
-      const activeUserTeam = userService.getActiveUserTeam(usersState, teamParam.toString())
+      const activeUserTeam = getActiveUserTeam(usersState, teamParam.toString())
       
       if (activeUserTeam) {
         const teamPokemonsDTO = await Promise.all(activeUserTeam.pokemons.filter(poke => poke !== null).map(poke => getPokemonDTO(poke)))
@@ -64,7 +57,7 @@ function ComparingPage() {
   const controllerRef = useRef<AbortController>(new AbortController())
 
   useEffect(() => {
-    if (teamParam) userService.updateActiveUserTeam(usersState, [...comparingList.keys()], teamParam, dispatch)
+    if (teamParam) updateActiveUserTeam(usersState, [...comparingList.keys()], teamParam, dispatch)
     
     return () => controllerRef.current.abort()
   }, [comparingList])

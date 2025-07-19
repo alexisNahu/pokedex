@@ -1,9 +1,9 @@
-import { Stat, type PokemonStat } from '@models/pokemon.model'
+import { StatDTO, type PokemonStat } from '@models'
 import { ProgressBar } from 'react-bootstrap'
 import PokemonStatBar from './PokemonStatBar'
 
 interface Props {
-    stats: Array<Stat>,
+    stats: Array<StatDTO>,
     maxStat: number
 }
 

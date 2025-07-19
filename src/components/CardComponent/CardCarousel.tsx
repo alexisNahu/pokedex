@@ -2,7 +2,7 @@ import SingleCard from './SingleCard'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation } from 'swiper/modules'
 import 'swiper/swiper-bundle.css';
-import { generateRandomPokedexNumber } from '@utilities/generateRandomPokedexNumber';
+import { generateRandomPokedexNumber } from '@utilities/index';
 
 export const carouselSize = {
   width: '100%',

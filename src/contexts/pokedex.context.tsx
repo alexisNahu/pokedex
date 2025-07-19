@@ -1,4 +1,4 @@
-import { PokedexFilters } from "@models/pokemon.model";
+import { PokedexFilters } from "@models";
 import { createContext, useContext, useState } from "react";
 
 

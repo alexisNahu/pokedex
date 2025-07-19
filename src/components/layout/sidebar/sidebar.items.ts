@@ -33,29 +33,6 @@ export const sidebarItems: SidebarItemsType = [
     type: 'accordeon'
   },
   {
-    text: 'Minijuegos',
-    icon: 'gengar',
-    bootstrapIcon: 'bi bi-controller',
-    items: [
-      { text: 'Adivina el Pokémon' },
-      { text: 'Batalla rápida' },
-      { text: 'Trivia Pokémon' },
-    ],
-    type: 'accordeon'
-  },
-  {
-    text: 'Exploración',
-    icon: 'venusaur',
-    bootstrapIcon: 'bi bi-compass',
-    items: [
-      { text: 'Regiones' },
-      { text: 'Pokémon por región' },
-      { text: 'Avistamientos' },
-    ],
-    type: 'accordeon'
-
-  },
-  {
     text: 'Configuración',
     type: 'single'
   }

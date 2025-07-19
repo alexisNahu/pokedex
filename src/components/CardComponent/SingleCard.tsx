@@ -1,10 +1,9 @@
-import { carouselSize } from "./CardCarousel"
 import { useEffect, useRef, useState } from "react"
-import useFetch from "@hooks/useFetch";
-import PokeTypes from "@components/PokeTypesComponent/PokeTypes";
-import PokedexEntrySlider from "./PokedexEntrySlider/PokedexEntrySlider";
-import { useNavigate } from "react-router-dom";
-import * as Routes from '@models/routes/routes'
+import { useNavigate } from "react-router-dom"
+import { carouselSize } from "./CardCarousel"
+import { PokedexEntrySlider, PokeTypes } from "@components/index"
+import { useFetch } from "@hooks/index"
+import * as Routes from "@models/routes/routes"
 
 function SingleCard({ pokedexNumber }: { pokedexNumber: string }) {
   const { loading, pokemon, errors } = useFetch({ nameOrId: pokedexNumber })

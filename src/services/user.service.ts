@@ -1,6 +1,6 @@
 import { PokemonTeamList, Team } from "@models/pokemon.model"
 import { UsersState } from "@redux/slices/user/reducers/user.reducer"
-import { updateTeam, updateTeamName, userSlice } from "@redux/slices/user/User"
+import { addTeam, deleteTeam, updateTeam, updateTeamName, userSlice } from "@redux/slices/user/User"
 import { AppDispatch } from "@redux/store"
 
 export const getActiveUser = (usersState: UsersState) => {
@@ -20,6 +20,31 @@ export const changeTeamName = (usersState: UsersState, teamId: string, newName: 
     if (!activeUser || isNaN(numberId)) return null
     dispatch(updateTeamName({newName: newName, teamId: numberId}))
 
+}
+
+export const createUserTeam = (usersState: UsersState, dispatch: AppDispatch) => {
+    const activeUser = getActiveUser(usersState)
+    const teams = getActiveUserTeams(usersState)
+    if (!activeUser) return null
+    const newTeam: Team = {
+        id: teams ? teams.filter(poke => poke !== null).length + 1 : 1,
+        name: "New team",
+        count: 0,
+        pokemons: [null, null, null, null, null, null]
+    }
+    dispatch(addTeam(newTeam))
+} 
+
+export const removeUserTeam = (usersState: UsersState, dispatch: AppDispatch, teamId: string) => {
+    const numberId = Number(teamId)
+    const activeUser = getActiveUser(usersState)
+    const teams = getActiveUserTeams(usersState)
+
+    if (!activeUser || isNaN(numberId)) return null
+
+    if (teams?.length && teams.length > 0) {
+        dispatch(deleteTeam(numberId))
+    }
 }
 
 export const getActiveUserTeams = (usersState: UsersState): Team[] | null => {

@@ -1,14 +1,15 @@
-import PokedexEntrySlider from '@components/CardComponent/PokedexEntrySlider/PokedexEntrySlider';
-import { EvolutionChain, PokemonVariants, PokeTypes } from '@components/index';
-import useFetch from '@hooks/useFetch';
+import { PokedexEntrySlider, 
+        PokemonStatsComponent, 
+        EvolutionChain, 
+        PokemonVariants, 
+        PokeTypes, 
+        PokemonDetails, 
+        PokemonImage,
+        SavePokemons } from '@components';
+import {useFetch} from '@hooks';
+import { useDescriptionContext } from '@contexts';
 import { useParams } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
-import PokemonStatsComponent from '@components/PokemonStatsComponent/PokemonStatsComponent';
-import { useDescriptionContext } from '../../contexts/description.context';
-import PokemonDetails from '@components/PokemonDetailsComponent/PokemonDetails';
-import PokemonImage from '@components/PokemonImage/PokemonImage';
-
-import SavePokemons from '@components/SavePokemons/SavePokemons';
 
 function PokemonDescription() {
 

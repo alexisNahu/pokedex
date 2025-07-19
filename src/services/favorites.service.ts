@@ -1,7 +1,4 @@
-import { useDispatch, useSelector } from "react-redux";
-import { UsersState } from "../redux/slices/user/reducers/user.reducer"
-import { AppDispatch, RootState } from "src/redux/store";
-import { addItem, removeItem } from "../redux/slices/user/User";
+import { UsersState, AppDispatch, addItem, removeItem } from "@redux"
 
 export const addFavorite = (pokemonName: string, dispatch: AppDispatch, usersState: UsersState): boolean | null => {
     if (!usersState.activeUser) return null

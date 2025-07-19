@@ -1,9 +1,7 @@
-import { useModalContext } from '@components/Modal/context/UseModalContext'
-import { useDescriptionContext } from '../../contexts/description.context'
-import { Modal } from '@components/Modal/CustomModal'
+import {PokeTypes, PokemonAbilities} from '@components'
+import { useModalContext, Modal } from '@components/Modal'
+import { useDescriptionContext } from '@contexts'
 import { useState } from 'react'
-import PokeTypes from '@components/PokeTypesComponent/PokeTypes'
-import PokemonAbilities from '@components/PokemonAbilities/PokemonAbilities'
 
 function PokemonDetails() {
     const { poke } = useDescriptionContext()

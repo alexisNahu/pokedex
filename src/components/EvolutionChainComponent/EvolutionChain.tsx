@@ -1,4 +1,4 @@
-import { EvolutionChainDTO } from "@models/pokemon.model";
+import { EvolutionChainDTO } from "@models";
 import { PUBLIC } from "@models/routes/routes";
 import { useNavigate } from "react-router-dom";
 

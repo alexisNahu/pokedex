@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { mapToPokemonNamesDAO } from '@utilities/mappers/mapToPokemonNames'
 import { usePokedexContext } from '@contexts/pokedex.context'
 import { PokedexFilters } from '@models/pokemon.model'
-import SuggestionInput from '@components/layout/AutoSuggestionsInput/SuggestionInput'
+import SuggestionInput from '@components/AutoSuggestionsInput/SuggestionInput'
 
 function AbilityFilter() {
   const {filters, setFilters} = usePokedexContext()

@@ -1,5 +1,4 @@
-import { PokemonDTO, VariantPokemonDTO } from '@models/pokemon.model'
-import React from 'react'
+import { PokemonDTO, VariantPokemonDTO } from '@models'
 
 interface Props {
     poke: PokemonDTO | VariantPokemonDTO

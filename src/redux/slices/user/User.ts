@@ -44,5 +44,5 @@ export const userSlice = createSlice({
     }   
 })
 
-export const {removeUser, loginUser, registerUser, logoutUser, addItem, removeItem, addTeam, updateTeam, updateTeamName} = userSlice.actions
+export const {removeUser, loginUser, registerUser, logoutUser, addItem, removeItem, addTeam, updateTeam, updateTeamName, deleteTeam} = userSlice.actions
 export default userSlice.reducer

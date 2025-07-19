@@ -9,7 +9,7 @@ interface Props {
 
 const eventListener = "keydown";
 
-export const Modal = ({ children }: Props) => {
+export function Modal ({ children }: Props) {
   const modalRef = useRef<HTMLDivElement>(null)
   const { state, setState } = useModalContext();
 
@@ -56,3 +56,5 @@ export const Modal = ({ children }: Props) => {
 
 
 }
+
+export default Modal

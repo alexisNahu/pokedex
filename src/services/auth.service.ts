@@ -1,7 +1,5 @@
-import { User } from "@models/user.model";
-import { AppDispatch } from "../redux/store";
-import { loginUser, registerUser } from "../redux/slices/user/User";
-import { UsersState } from "../redux/slices/user/reducers/user.reducer"
+import { User } from "@models";
+import { loginUser, registerUser, UsersState, AppDispatch } from "@redux";
 
 
 export const login = (user: {username: string, password: string}, dispatch: AppDispatch, usersState: UsersState) => {

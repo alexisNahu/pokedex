@@ -32,7 +32,7 @@ export const teamsReducer = {
             const foundTeam = activeUser.teams.find(team => team.id === payload.teamId) 
             if (foundTeam) {
                 foundTeam.pokemons = action.payload.pokemonList
-                foundTeam.count = foundTeam.pokemons.length
+                foundTeam.count = foundTeam.pokemons.filter(poke => poke !== null).length
             }
         }
 

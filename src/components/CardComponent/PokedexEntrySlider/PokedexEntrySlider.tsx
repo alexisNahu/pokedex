@@ -1,4 +1,4 @@
-import { DescriptionLanguages, PokemonDTO } from '@models/pokemon.model';
+import { DescriptionLanguages, PokemonDTO } from '@models/index';
 import { useState } from 'react';
 import { Navigation } from 'swiper/modules';
 import { SwiperSlide, Swiper } from 'swiper/react';
