@@ -3,14 +3,14 @@ import { useSidebarContext } from '../../sidebar.context'
 import { getHidingTransition } from '../../Sidebar'
 import { redirect, useNavigate } from 'react-router-dom'
 import SuggestionInput from '@components/AutoSuggestionsInput/SuggestionInput'
-import { usePokemonNamesContext } from '@contexts/pokemonNames.context'
 import { PUBLIC } from '@models/routes/routes'
 import { getStatic3dSprite } from '@services/pokemonSprites.service'
+import { useGetAllNames } from '@hooks/useQueries'
 
 function SingleComponent({item}: {item: SingleItem}) {
   const {activo} = useSidebarContext()
 
-  const {pokemonList} = usePokemonNamesContext()
+  const {data: pokemonList, isLoading, error} = useGetAllNames()
 
   const navigator = useNavigate()
 
@@ -33,7 +33,7 @@ function SingleComponent({item}: {item: SingleItem}) {
     }
 
     const handleSubmit = (value: string) => {
-      if (pokemonList.has(value)) {
+      if (pokemonList && pokemonList.has(value)) {
         navigator(`${PUBLIC.DESCRIPTION}/${value}`)
         return
       }
@@ -43,17 +43,23 @@ function SingleComponent({item}: {item: SingleItem}) {
 
 
 
-    return <div style={getHidingTransition(activo)}>
-      <SuggestionInput 
-        completeList={[...pokemonList]} 
-        handleSuggestionsClick={(name: string) => navigator(`${PUBLIC.DESCRIPTION}/${name}`)} 
-        onSubmit={handleSubmit} 
-        handleSuggestionRender={handleSuggestionRender} 
-        placeholder='Search for a pokemon here...'
-        maxSuggestion={5}
-        shouldClearInput={activo}
-        />
-    </div>
+    return (
+      <div style={getHidingTransition(activo)}>
+        {pokemonList ? (
+          <SuggestionInput 
+            completeList={[...pokemonList]} 
+            handleSuggestionsClick={(name: string) => navigator(`${PUBLIC.DESCRIPTION}/${name}`)} 
+            onSubmit={handleSubmit} 
+            handleSuggestionRender={handleSuggestionRender} 
+            placeholder='Search for a pokemon here...'
+            maxSuggestion={5}
+            shouldClearInput={activo}
+          />
+        ) : (
+          <div>Loading...</div>
+        )}
+      </div>
+    )
   }
 
   return (

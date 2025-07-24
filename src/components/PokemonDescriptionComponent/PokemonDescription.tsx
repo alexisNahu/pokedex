@@ -6,7 +6,7 @@ import { PokedexEntrySlider,
         PokemonDetails, 
         PokemonImage,
         SavePokemons } from '@components';
-import {useFetch} from '@hooks';
+import {useFetch, useGetPokemon} from '@hooks';
 import { useDescriptionContext } from '@contexts';
 import { useParams } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
@@ -19,7 +19,7 @@ function PokemonDescription() {
     
     const { poke, setPokemon } = useDescriptionContext();
 
-    const { loading, pokemon, errors } = useFetch({ nameOrId: pokemonName });
+    const { isLoading, data: pokemon, error } = useGetPokemon(pokemonName);
 
     const [isShiny, setIsShiny] = useState<boolean>(false);
 
@@ -33,8 +33,8 @@ function PokemonDescription() {
         starIcon?.classList.toggle('bi-star-fill', isShiny);
     }, [pokemon]);
 
-    if (loading || !pokemon) {
-        return <div>{errors ? errors.message : "Cargando…"}</div>;
+    if (isLoading || !pokemon) {
+        return <div>{error ? error.message : "Cargando…"}</div>;
     }
   
     if (poke) {

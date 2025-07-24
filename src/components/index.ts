@@ -34,5 +34,7 @@ export { default as AccordeonComponent } from './layout/sidebar/SidebarItems/Acc
 export { default as SidebarItem } from './layout/sidebar/SidebarItems/SidebarItem';
 export { default as SingleComponent } from './layout/sidebar/SidebarItems/SingeComponent/SingleComponent';
 export {default as PokemonTeams} from './PokemonTeams/PokemonTeams'
+export {default as LoadingComponent} from './LoadingComponent/Loading'
+
 export * from './layout/sidebar/sidebar.context';
 export * from './layout/sidebar/sidebar.items';

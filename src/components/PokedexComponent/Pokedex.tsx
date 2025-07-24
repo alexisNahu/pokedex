@@ -1,4 +1,3 @@
-import { usePokemonNamesContext } from '@contexts/pokemonNames.context'
 import React, { useEffect, useMemo, useState } from 'react'
 
 import  Card  from './Card/Card'
@@ -14,6 +13,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
 import './Pokedex.css'
+import { useGetAllNames } from '@hooks/useQueries'
 
 function Pokedex({ list }: { list : 'all' | 'favorites' }) {
 
@@ -27,7 +27,8 @@ function Pokedex({ list }: { list : 'all' | 'favorites' }) {
 
   const activeUserFavorites = getActiveUser(usersState)?.favorites
 
-  const {pokemonList} = usePokemonNamesContext()
+  const {data: pokemonList, isLoading, error} = useGetAllNames()
+
   const {pokedexList, setPokedexList} = usePokedexContext()
   const {currentPage, setLastPage} = usePokedexPaginationContext()
 
@@ -77,6 +78,14 @@ function Pokedex({ list }: { list : 'all' | 'favorites' }) {
             </span>
           </div>
     }
+
+    if (isLoading || !pokedexList) {
+        return <div className='pokedex-container col-md-11 p-3' style={{height: '90%', overflowY: 'auto'}}>
+          <div className='d-flex justify-content-center align-items-center'>loading</div></div>
+    }
+
+
+        
     return (
       <>
         <div className='pokedex-container col-md-11 p-3' style={{height: '90%', overflowY: 'auto'}}>

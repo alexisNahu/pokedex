@@ -2,11 +2,11 @@ import { useEffect, useRef, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { carouselSize } from "./CardCarousel"
 import { PokedexEntrySlider, PokeTypes } from "@components/index"
-import { useFetch } from "@hooks/index"
+import { useFetch, useGetPokemon } from "@hooks/index"
 import * as Routes from "@models/routes/routes"
 
 function SingleCard({ pokedexNumber }: { pokedexNumber: string }) {
-  const { loading, pokemon, errors } = useFetch({ nameOrId: pokedexNumber })
+  const {data: pokemon, isLoading, error} = useGetPokemon(pokedexNumber)
 
   const [isShiny, setIsShiny] = useState<boolean>(false)
 
@@ -20,13 +20,13 @@ function SingleCard({ pokedexNumber }: { pokedexNumber: string }) {
     starIcon?.classList.toggle('bi-star-fill',isShiny)
   }, [isShiny])
   
-  if (loading || !pokemon) {
+  if (isLoading || !pokemon) {
     return (
       <div className="card d-flex bg-dark bg-opacity-10" style={carouselSize}>
         <div className="card-body d-flex justify-content-center align-items-center flex-column">
           <div className="spinner-border text-primary" role="status" />
           <h5 className="card-title mt-3 text-dark">
-            {errors ? errors.message : "Cargando..."}
+            {error ? error.message : "Cargando..."}
           </h5>
         </div>
       </div>

@@ -2,13 +2,12 @@ import { useModalContext } from '@components/Modal/context/UseModalContext'
 import { Modal } from '@components/Modal/CustomModal'
 import { usePokedexContext } from '@contexts/pokedex.context'
 import { filterPokemonList } from '@services/index'
-import { usePokemonNamesContext } from '@contexts/pokemonNames.context'
 import './FilterPokedex.css'
 import GenerationFilter from './GenerationFilter/GenerationFilter'
 import { usePokedexPaginationContext } from '@contexts/pokedexPagination.context'
 import TypesFilter from './TypesFilter/TypesFilter'
 import AbilityFilter from './AbilityFilter/AbilityFilter'
-import { SetURLSearchParams, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 function FilterPokedex({ dataFont}: { dataFont: Set<string>}) {
 
@@ -32,7 +31,7 @@ function FilterPokedex({ dataFont}: { dataFont: Set<string>}) {
         setFilters({
             generationFilter: [],
             typesFilter: [null, null],
-            abilitiesFilter: []
+            abilitiesFilter: [],
         })
         setState(false)
     }
@@ -42,7 +41,7 @@ function FilterPokedex({ dataFont}: { dataFont: Set<string>}) {
         setFilters({
             generationFilter: [],
             typesFilter: [null, null],
-            abilitiesFilter: []
+            abilitiesFilter: [],
         })
         navigate(window.location.pathname, { replace: true });
     }
@@ -74,7 +73,7 @@ function FilterPokedex({ dataFont}: { dataFont: Set<string>}) {
 
                     <div className="d-flex justify-content-center gap-3">
                         <button
-                            className="btn filter-action-btn apply-btn"
+                            className="btn filter-action-btn apply-btn text-white"
                             onClick={applyFilters}
                             disabled={!filters}
                         >

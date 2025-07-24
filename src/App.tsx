@@ -5,45 +5,21 @@ import * as ROUTES from "@models/routes/routes";
 import { useEffect } from "react";
 import AuthGuard from "./guards/auth.guard";
 import Private from "@pages/private/Private";
-import {  User } from "@models/user.model";
 import {  useSelector } from "react-redux";
 import {  RootState } from "./redux/store";
-import RegisterForm from "@components/Form/Register/RegisterForm";
-import LoginForm from "@components/Form/Login/LoginForm";
-import Logout from "@components/Form/Logout";
-import { usePokemonNamesContext } from "@contexts/pokemonNames.context";
-import { getPokemonNames } from "@services/pokemonNames.service";
+import {RegisterForm, LoginForm, Logout} from "@components/Form";
 import { UsersState } from "@redux/slices/user/reducers/user.reducer";
 import * as userService from '@services/user.service'
 import PokedexPage from "@pages/private/PokedexPage/PokedexPage";
 
 function App() {
-  const {pokemonList, setPokemonList} = usePokemonNamesContext()
-
-  useEffect(() => {
-    const loadNames = async () => {
-      let names = localStorage.getItem('pokemonNames') ? JSON.parse(localStorage.getItem('pokemonNames') as string) : null
-
-      if (!names) {
-        names = await getPokemonNames()
-        localStorage.setItem('pokemonNames', JSON.stringify(names))
-      }
-
-      setPokemonList(new Set(names))
-    }
-
-    loadNames()
-  }, [])
-
-
   const userState: UsersState = useSelector((state: RootState) => state.user)
   
   useEffect(() => {
     console.log('users state', userState)
-    console.log('pokemon list: ', pokemonList, pokemonList.has('charjabug'))
     console.log('favorites: ', userService.getActiveUser(userState)?.favorites)
     console.log('teams', userService.getActiveUserTeams(userState))
-  }, [userState, pokemonList])
+  }, [userState])
 
  return (
     <RoutesWithNotFound>

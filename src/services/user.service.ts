@@ -1,7 +1,5 @@
-import { PokemonTeamList, Team } from "@models/pokemon.model"
-import { UsersState } from "@redux/slices/user/reducers/user.reducer"
-import { addTeam, deleteTeam, updateTeam, updateTeamName, userSlice } from "@redux/slices/user/User"
-import { AppDispatch } from "@redux/store"
+import { PokemonTeamList, Team } from "@models"
+import { addTeam, deleteTeam, updateTeam, updateTeamName, UsersState, AppDispatch } from "@redux"
 
 export const getActiveUser = (usersState: UsersState) => {
     return usersState.users.find(user => user.id === usersState.activeUser)

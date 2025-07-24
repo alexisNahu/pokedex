@@ -1,10 +1,9 @@
 
 import { PokedexFilters, PokemonDTO } from '@models/pokemon.model'
-import * as pokeApiService from '@services'
-import * as spritesService from '@services'
-import { mapToPokemonDTO } from '@utilities/mappers'
+import * as pokeApiService from '@services/pokeapi.service'
+import * as spritesService from '@services/pokemonSprites.service'
+import { mapToPokemonDTO, mapToPokemonNamesDAO } from '@utilities/mappers'
 import { filterRegionalPokemon, filterGigamaxPokemon, filterMegaPokemon } from '@utilities/filters'
-import { mapToPokemonNamesDAO } from '@utilities/mappers/mapToPokemonNames'
 
 export const getPokemonDTOByNameOrId = async (name: string, signal?: AbortSignal): Promise<PokemonDTO | null> => {
   try {
@@ -84,9 +83,10 @@ export const filterPokemonList = async (
       const abilitiesData = await Promise.all(
         request.abilitiesFilter.map(ability => pokeApiService.getPokemonAbility(ability, signal))
       )
-      const abilitiesPokemons = abilitiesData.map((data) => data.pokemon)
+      let abilitiesPokemons = abilitiesData.map((data) => data.pokemon)
       const names = abilitiesPokemons.flatMap((data) => data.map((poke) => poke.pokemon.name))
       const filteredAbilities = names.filter(name => pokemonList.has(name))
+      
       results.push(new Set(filteredAbilities))
     }
 
