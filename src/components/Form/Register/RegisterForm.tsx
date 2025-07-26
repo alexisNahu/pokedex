@@ -10,12 +10,14 @@ import { PUBLIC } from "@models/routes/routes"
 import { useNavigate } from "react-router-dom"
 import * as authService from "@services"
 import '../Form.css'
+import { useMobileContext } from "@contexts/isMobile.context"
 
 function RegisterForm() {
     const dispatch = useDispatch<AppDispatch>();
     const usersState: UsersState = useSelector((store: RootState) => store.user)
     const navigator = useNavigate()
     const {state, setState} = useModalContext()
+    const {isMobile} = useMobileContext()
     
     const {control, handleSubmit, formState: { errors }} = useForm<RegisterUserType>({
         resolver: zodResolver(RegisterUserScheme),
@@ -41,7 +43,7 @@ function RegisterForm() {
     }
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className="auth-form col-md-6 mx-auto">
+        <form onSubmit={handleSubmit(onSubmit)} className={`auth-form mx-auto ${isMobile ? 'w-100' : 'w-60'}`}>
             <div style={{ width: '100%', height: '100px' }} className="d-flex align-items-center justify-content-center">
                 <i className="bi bi-person-circle text-blue" style={{ fontSize: '80px' }}></i>
             </div>

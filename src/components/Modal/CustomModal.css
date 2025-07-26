@@ -1,39 +1,44 @@
 .overlay {
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background:rgba(0, 0, 0, 0.5);
-    z-index: 1000;
-    color: #ffffff;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  max-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  color: #ffffff;
 }
 
 .modal {
-    background: blue;
-    padding: 24px;
-    border-radius: 12px;
-    min-width: 250px;
-    max-width: 1000px;
-    position: relative;
-    text-align: center;
+  background: blue;
+  border-radius: 12px;
+  min-width: 250px;
+  max-width: 1000px;
+  width: 90%;             /* Responsivo */
+  max-height: 600px;
+  overflow-y: auto;       /* Agrega scroll si es necesario */
+  padding: 24px;          /* Espacio interno */
+  position: relative;
+  text-align: center;
+  box-sizing: border-box;
 }
 
+
 .close-button {
-    margin-top: 20px;
-    padding: 8px 16px;
-    background: #ff4d4d;
-    color: #ffffff;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: background 0.3s ease;
+  margin-top: 20px;
+  padding: 8px 16px;
+  background: #ff4d4d;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s ease;
 }
 
 .close-button:hover {
-    background: #ff1a1a;
+  background: #ff1a1a;
 }

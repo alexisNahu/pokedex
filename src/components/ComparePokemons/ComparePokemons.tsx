@@ -8,6 +8,7 @@ import { getStatic3dSprite, getPokemonDTOByNameOrId, getActiveUserTeam, updateAc
 import { CardData, PokemonDTO, Team, VariantPokemonDTO } from '@models'
 import { AppDispatch, RootState, UsersState } from '@redux'
 import { useGetAllNames } from '@hooks/useQueries'
+import { useMobileContext } from '@contexts/isMobile.context'
 
 function ComparingPage() {
   const [pageParams] = useSearchParams()
@@ -19,6 +20,8 @@ function ComparingPage() {
 
   const usersState: UsersState = useSelector((store: RootState) => store.user)
   const dispatch = useDispatch<AppDispatch>();
+
+  const {isMobile} = useMobileContext()
 
   const [comparingList, setComparingList] = useState<Map<string, {
     value: PokemonDTO | VariantPokemonDTO | null, 
@@ -194,7 +197,7 @@ function ComparingPage() {
       className='comparing-page-container col-md-11 p-3'
       style={{ height: '800px', backgroundColor: 'rgba(0, 123, 255, 0.7)' }}
     >
-      <div className="container-fluid h-100 d-flex flex-column">
+      <div className={`container-fluid h-100 d-flex flex-column`}>
         
         {/* 🔍 Suggestion input (barra de búsqueda) */}
         <div className='row mb-3'>
@@ -214,7 +217,7 @@ function ComparingPage() {
         {/* 📊 Cards grid */}
         <div className='row flex-grow-1 overflow-auto'>
           <div className='col-12'>
-            <div className="table-responsive">
+            <div className={`table-responsive`}>
               <Cards 
                 data={[...comparingList.values()]
                   .filter(v => v.value !== null && v.original !== null)
@@ -231,8 +234,8 @@ function ComparingPage() {
                   { column: 'HP', data: (p: CardData) => p.variant.stats.find(v => v.stat === 'hp')?.value ?? '', width: 'auto'},
                   { column: 'Attack', data: (p: CardData) => p.variant.stats.find(v => v.stat === 'attack')?.value, width: 'auto'},
                   { column: 'Defense', data: (p: CardData) => p.variant.stats.find(v => v.stat === 'defense')?.value, width: 'auto'},
-                  { column: 'Sp. Attack', data: (p: CardData) => p.variant.stats.find(v => v.stat === 'special-attack')?.value, width: 'auto' },
-                  { column: 'Sp. Defense', data: (p: CardData) => p.variant.stats.find(v => v.stat === 'special-defense')?.value, width: 'auto' },
+                  { column: 'Special Attack', data: (p: CardData) => p.variant.stats.find(v => v.stat === 'special-attack')?.value, width: 'auto' },
+                  { column: 'Special Defense', data: (p: CardData) => p.variant.stats.find(v => v.stat === 'special-defense')?.value, width: 'auto' },
                   { column: 'Speed', data: (p: CardData) => p.variant.stats.find(v => v.stat === 'speed')?.value, width: 'auto' },
                   { column: 'Abilities', data: (p :CardData) => <PokemonAbilities poke={p.variant} handleClick={handleAbilityClick} minimizedVersion />, width: '200px'},
                   { column: '', data: (p: CardData) => <i className="bi bi-x-square fs-1" onClick={() => deleteAndUpdateListState(p.original.name)}></i>, width: 'auto'},

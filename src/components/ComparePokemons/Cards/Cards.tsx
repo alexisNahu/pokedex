@@ -1,5 +1,6 @@
-import { CardData } from '@models/pokemon.model';
+import { CardData, PokemonStat } from '@models/pokemon.model';
 import React from 'react';
+import { useMobileContext } from '@contexts/isMobile.context';
 
 
 function Cards({ data, columns }: { 
@@ -10,15 +11,26 @@ function Cards({ data, columns }: {
     width?: string;
   }>;
 }) {
+  const {isMobile} = useMobileContext()
+
+  const PokemonStats: PokemonStat[] = [
+  'hp',
+  'attack',
+  'defense',
+  'specialattack',
+  'specialdefense',
+  'speed',
+];
+
 
   return (
-    <div className="container py-4">
+    <div className={`container ${isMobile ? '' : 'py-4'}`}>
       {/* Encabezados */}
-      <div className="row fw-bold border-bottom pb-2 mb-3 text-center">
+      <div className={`fw-bold border-bottom pb-2 mb-3 text-center ${isMobile ? 'd-flex flex-column' : 'row'}`}>
         {columns.map((col, index) => (
           <div 
             key={index} 
-            className="col"
+            className={`col ${isMobile ? 'd-flex flex-column' : ''}`}
             style={{ 
               width: col.width || 'auto',
               minWidth: col.width || 'auto',
@@ -32,15 +44,15 @@ function Cards({ data, columns }: {
       </div>
       
       {/* Filas de datos */}
-      <div className='pokemon-list overflow-y-auto overflow-x-hidden' style={{height: '600px'}}>
+      <div className={`pokemon-list overflow-y-auto overflow-x-hidden ${isMobile ? 'w-100' : ''}`} style={{height: '600px'}}>
         {data.length > 0 ? (
           data.map((pokemon, i) => (
             <div key={`${pokemon.variant.name}-${i}`}>
-              <div className="row align-items-center text-center py-2 mb-3 shadow-sm rounded bg-poke-blue text-white">
+              <div className={`row align-items-center text-center py-2 mb-3 shadow-sm rounded bg-poke-blue text-white ${isMobile ? 'd-flex flex-column' : ''}`}>
                 {columns.map((col, j) => (
                   <div 
                     key={j} 
-                    className="col"
+                    className={`${isMobile ? 'd-flex flex-column' : 'col'}`}
                     style={{
                       width: col.width || 'auto',
                       minWidth: col.width || 'auto',
@@ -49,7 +61,12 @@ function Cards({ data, columns }: {
                       whiteSpace: 'nowrap'
                     }}
                   >
-                    {col.data({ variant: pokemon.variant, original: pokemon.original })}
+                    <div className="d-flex" style={{ gap: '1rem' }}>
+                      <p style={{ margin:'0 2px' }}>
+                        {(isMobile && PokemonStats.includes(col.column.toLowerCase().replace(' ','') as PokemonStat)) ? col.column : ''}
+                      </p>
+                      {col.data({ variant: pokemon.variant, original: pokemon.original })}
+                    </div>
                   </div>
                 ))}
               </div>

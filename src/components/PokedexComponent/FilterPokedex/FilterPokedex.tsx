@@ -65,7 +65,7 @@ function FilterPokedex({ dataFont}: { dataFont: Set<string>}) {
             </div>
 
             <Modal>
-                <div className='filter' style={{width: 1000}}>
+                <div className='filter' style={{maxWidth: 1000}}>
                     {/* filters */}
                     <GenerationFilter />
                     <TypesFilter  />

@@ -20,8 +20,8 @@ function PokemonStatsComponent({stats, maxStat}: Props) {
 
 
   return (
-        <ProgressBar className='d-flex flex-column bg-transparent' 
-          style={{minWidth: '500px', overflow: 'visible', flexShrink: 0}}
+        <ProgressBar className='d-flex flex-column bg-transparent w-100' 
+          style={{overflow: 'visible', flexShrink: 0}}
           >
             {
               stats.map((stat, i) => <div key={stat.stat}>

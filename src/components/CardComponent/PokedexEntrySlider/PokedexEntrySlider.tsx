@@ -1,3 +1,4 @@
+import { useMobileContext } from '@contexts/isMobile.context';
 import { DescriptionLanguages, PokemonDTO } from '@models/index';
 import { useState } from 'react';
 import { Navigation } from 'swiper/modules';
@@ -8,7 +9,7 @@ interface Props {
 }
 
 function PokedexEntrySlider({ pokemon }: Props) {
-
+  const {isMobile} = useMobileContext()
   const [languageState, setLanguageState] = useState<DescriptionLanguages>('en');
 
   const descriptions = {
@@ -45,7 +46,7 @@ function PokedexEntrySlider({ pokemon }: Props) {
       >
         {descriptions[languageState]?.map((entry, index) => (
           <SwiperSlide key={index} className="p-2 w-100 d-flex justify-content-center">
-            <div className="content w-50">
+            <div className={`content w-50 ${isMobile ? 'w-100' : 'w-50'}`}>
               <div className="bg-white bg-opacity-50 rounded-3 p-3 text-center">
                 <span className="game-name d-block fw-bold text-primary mb-2">
                   {entry.game}

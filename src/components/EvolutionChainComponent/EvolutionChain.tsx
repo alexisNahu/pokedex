@@ -11,11 +11,11 @@ function EvolutionChain({evolutionChain}: Props) {
   const navigator = useNavigate()
 
   return (
-    <div className="d-flex flex-row">
+    <div className="d-flex flex-row flex-wrap justify-content-center">
       {evolutionChain.map((evo) => (
         <span
           key={evo.name}
-          className="mx-4 d-flex justify-content-center align-items-center flex-column"
+          className="mx-4 d-flex justify-content-center align-items-center flex-column "
           onClick={() => {navigator(`/${PUBLIC.DESCRIPTION}/${evo.name}`)}}
           style={{cursor: 'pointer'}}
         >
@@ -23,7 +23,7 @@ function EvolutionChain({evolutionChain}: Props) {
             src={evo.sprite.animated.normal.d2.front} 
             alt={`${evo.name}-sprite`}
             className="evolution-img"
-            style={{width: '100px'}}
+            style={{minWidth: '4vw', width: '100px'}}
             onError={(e) => {
               const img = e.currentTarget;
               img.src = `${evo.sprite.static.normal.d3}`

@@ -49,7 +49,7 @@ function TypesFilter() {
             {secondType ? secondType : 'any'}
           </div>
         </div>
-        <div className="col-md-9 pokemon-types d-flex flex-wrap" style={{width: '600px'}}>
+        <div className="col-md-9 pokemon-types d-flex flex-wrap" style={{maxWidth: '600px'}}>
           {
               allPokemonTypes.map((entry, i) => {
                 return <div key={i} draggable onDragStart={(e) => handleOnDragStart(e, entry)}>

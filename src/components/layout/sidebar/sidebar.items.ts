@@ -1,5 +1,5 @@
 import type { SidebarItemsType } from "@models/sidebar.model";
-import { PUBLIC, PRIVATE } from "@models/routes/routes";
+import { PUBLIC, PRIVATE, PROTECTED } from "@models/routes/routes";
 
 export const sidebarItems: SidebarItemsType = [
   {
@@ -33,7 +33,15 @@ export const sidebarItems: SidebarItemsType = [
     type: 'accordeon'
   },
   {
-    text: 'Configuración',
-    type: 'single'
+    text: 'Account',
+    icon: 'pikachu',
+    bootstrapIcon: 'bi-person',
+    items: [
+      { text: 'Login', url: `/${PUBLIC.LOGIN}` },
+      { text: 'Register', url: `/${PUBLIC.REGISTER}` },
+      { text: 'Logout', url: `/${PROTECTED.LOGOUT}` }
+    ],
+    type: 'accordeon'
   }
+
 ]

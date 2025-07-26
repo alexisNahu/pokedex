@@ -14,11 +14,15 @@ import { useSelector } from 'react-redux'
 
 import './Pokedex.css'
 import { useGetAllNames } from '@hooks/useQueries'
+import { useMobileContext } from '@contexts/isMobile.context'
 
 function Pokedex({ list }: { list : 'all' | 'favorites' }) {
 
   const [pageParams] = useSearchParams()
   const searchParam = pageParams.get('search')
+
+  const {isMobile} = useMobileContext()
+  const [itemsPerPage, setItemsPerPage] = useState<number>(isMobile ? 10 : 50)
 
   const usersState: UsersState = useSelector((store: RootState) => store.user)
   const navigator = useNavigate()
@@ -40,7 +44,10 @@ function Pokedex({ list }: { list : 'all' | 'favorites' }) {
 
   const [pageObjs, setPageObjs] = useState<string[] | []>([])
 
-  const itemsPerPage: number = 50 
+  useEffect(() => {
+    setItemsPerPage(isMobile ? 10 : 50)
+  }, [isMobile])
+
 
   useEffect(() => {
     if (searchParam) {
@@ -61,7 +68,7 @@ function Pokedex({ list }: { list : 'all' | 'favorites' }) {
 
     setLastPage(Math.ceil(pokedexList.length / itemsPerPage));
     setPageObjs(pokedexList.slice(firstIndex, lastIndex));
-  }, [pokedexList, currentPage, setLastPage, usersState]);
+  }, [pokedexList, currentPage, setLastPage, usersState, itemsPerPage]);
 
   const handleSuggestionRender = (name: string) => {
     return <div className='d-flex flex-row justify-content-center'>

@@ -1,10 +1,10 @@
 import { getActiveUser, createUserTeam, removeUserTeam } from '@services'
 import { AppDispatch, RootState, UsersState } from '@redux'
-import { PRIVATE } from '@models/routes/routes'
-import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { PRIVATE } from '@models/routes/routes'
 import { useNavigate } from 'react-router-dom'
 import Card from './Card/Card'
+import React from 'react'
 
 function PokemonTeams() {
   const usersState: UsersState = useSelector((store: RootState) => store.user)
@@ -28,11 +28,11 @@ function PokemonTeams() {
       <h1 className='mx-auto text-white'>Teams</h1>
      <div className='pokedex-container col-md-11 p-3' style={{height: '800px', overflowY: 'auto'}}>
       {
-        activeUserTeams ? <div className='d-flex flex-row flex-wrap justify-content-around'>
-        {activeUserTeams.map(team => <Card team={team} handleClick={(e) => onTeamClick(e,`${team.id}`)}/>)}
-        <div className='rounded-pill bg-poke-blue col-5 d-flex flex-column justify-content-center align-items-center' onClick={() => createUserTeam(usersState, dispatch)}>
-            <i className='bi bi-plus-circle fs-1 text-white'></i>
-        </div>
+          activeUserTeams ? <div className='d-flex flex-row flex-wrap justify-content-around'>
+          {activeUserTeams.map(team => <Card team={team} handleClick={(e) => onTeamClick(e,`${team.id}`)}/> )}
+          <div className='rounded-pill bg-poke-blue d-flex flex-column justify-content-center align-items-center' style={{ minWidth: '200px' }} onClick={() => createUserTeam(usersState, dispatch)}>
+              <i className='bi bi-plus-circle fs-1 text-white'></i>
+          </div>
         </div> 
         : <div>Nothing yet</div>
       }

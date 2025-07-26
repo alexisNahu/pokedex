@@ -28,22 +28,22 @@ function Card({ team, handleClick }: Props) {
     }, [debouncedValue])
 
     return (<>
-        <div className='rounded-pill bg-poke-blue col-5 d-flex flex-column my-2'>
+            <div className='rounded-pill bg-poke-blue d-flex flex-column p-3 my-2 w-75 mx-auto shadow'>
             <div className='d-flex justify-content-center'>
                 <input type="text" maxLength={20} className='bg-transparent fs-4 text-center border-0 shadow-none' value={inputValue} onChange={(e) => handleChange(e, `${team.id}`)}/>
             </div>
-            <div className='d-flex justify-content-center w-100'  onClick={(e) => handleClick(e, `${team.id}`)} >
+            <div className='d-flex justify-content-center w-100 flex-wrap'  onClick={(e) => handleClick(e, `${team.id}`)} >
             {
                 <>
                     {
                         team.pokemons.map((pokemon, idx) => (
                         <div 
                         key={idx}
-                        className='d-inline-flex align-items-center justify-content-center m-3'
+                        className='d-inline-flex align-items-center justify-content-center'
                         style={{ width: '60px', height: '100px' }}
                         >
                         {pokemon 
-                            ? <img src={getStatic3dSprite(pokemon, false)} width={90} /> 
+                            ? <div style={{minWidth: '4vw', width: '100px'}}><img src={getStatic3dSprite(pokemon, false)} width={'100%'} /></div> 
                             : <i className='bi bi-plus-circle fs-1 text-white'></i>}
                         </div>
                     ))

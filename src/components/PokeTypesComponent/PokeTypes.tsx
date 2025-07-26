@@ -12,7 +12,7 @@ function PokeTypes({pokemonTypes}: Props) {
                 </div>
     }
     return (
-        <div className='pokemon-types d-flex flex-wrap'>
+        <div className='pokemon-types d-flex flex-wrap justify-content-center'>
             {
                 pokemonTypes.map((type, i) => {
                     return (

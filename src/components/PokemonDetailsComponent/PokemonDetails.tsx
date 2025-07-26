@@ -23,7 +23,7 @@ function PokemonDetails() {
     }
 
     return (
-        <div className='details py-1 container bg-poke-red rounded text-white bold' style={{width: 500}}>
+        <div className='details py-1 container bg-poke-red rounded text-white bold' style={{maxWidth: 500}}>
             <div className="row p-3">
                 <div className="col">
                     <span className='d-flex flex-column mb-3'>
