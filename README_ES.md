@@ -47,6 +47,7 @@ Incluye logeo, registro y deslogeo de usuarios
     { id: 2, name: "saeloo", pokemons: ['squirtle', 'eevee'] }
   ]
 }
+```
 ---
 ## 🌟 INSTALACION Y USO
 ### PREREQUISITOS
