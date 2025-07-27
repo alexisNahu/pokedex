@@ -1,5 +1,4 @@
-Pokédex App / Pokédex Application
-https://via.placeholder.com/1200x400?text=Pok%C3%A9dex+App (Reemplazar con imagen real)
+
 
 
 
