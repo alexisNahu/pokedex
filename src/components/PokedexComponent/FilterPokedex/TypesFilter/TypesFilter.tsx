@@ -35,6 +35,20 @@ function TypesFilter() {
     if (slot === 2) setSecondType(type as PokemonType | null)    
   }
 
+  const handleTypeClick = (type: PokemonType | null) => {
+    if (!firstType) {
+      setFirstType(type)
+      return
+    }
+
+    if (firstType == type || !type) {
+      setFirstType(null)
+      return
+    }
+
+    setSecondType(type)
+  }
+
   
   return (
     <div>
@@ -52,12 +66,12 @@ function TypesFilter() {
         <div className="col-md-9 pokemon-types d-flex flex-wrap" style={{maxWidth: '600px'}}>
           {
               allPokemonTypes.map((entry, i) => {
-                return <div key={i} draggable onDragStart={(e) => handleOnDragStart(e, entry)}>
+                return <div key={i} draggable onDragStart={(e) => handleOnDragStart(e, entry)} onClick={() => handleTypeClick(entry)}>
                   <PokeTypes pokemonTypes={entry}/>
                 </div>
               })            
           }
-          <div className='pokemon-type justify-content-center align-items-center d-flex' draggable onDragStart={(e) => handleOnDragStart(e, null)} style={{width: '100px', height: '50px', backgroundColor:'black'}}>
+          <div className='pokemon-type justify-content-center align-items-center d-flex' draggable onDragStart={(e) => handleOnDragStart(e, null)} onClick={() => handleTypeClick(null)} style={{width: '100px', height: '50px', backgroundColor:'black'}}>
               {'any'.toUpperCase()}
           </div>
         </div>

@@ -4,9 +4,12 @@ import { mapToPokemonNamesDAO } from '@utilities/mappers/mapToPokemonNames'
 import { usePokedexContext } from '@contexts/pokedex.context'
 import { PokedexFilters } from '@models/pokemon.model'
 import SuggestionInput from '@components/AutoSuggestionsInput/SuggestionInput'
+import { useMobileContext } from '@contexts/isMobile.context'
 
 function AbilityFilter() {
   const {filters, setFilters} = usePokedexContext()
+
+  const {isMobile} = useMobileContext()
 
   const [allAbilities, setAllAbilities] = useState<Set<string>>(new Set([])) 
   const [selectedAbilities, setSelectedAbilities] = useState<Set<string>>(new Set())
@@ -33,7 +36,7 @@ function AbilityFilter() {
 
   return (
     <div className='d-flex'>
-      <div className="mb-3 mx-3 w-25 d-flex flex-column">
+      <div className={`mb-3 mx-3 ${isMobile ? 'w-100' : 'w-50'} d-flex flex-column`}>
         <label htmlFor="abilities" className="form-label fw-bold">
           Abilities
         </label>

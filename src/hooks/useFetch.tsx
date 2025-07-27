@@ -49,7 +49,6 @@ function useFetch({ nameOrId }: Props): Response {
     getPokemon()
 
     // cleanup: cancela la solicitud si nameOrId cambia o se desmonta
-    return () => controller.abort()
   }, [nameOrId])
 
   return { loading, pokemon, errors }

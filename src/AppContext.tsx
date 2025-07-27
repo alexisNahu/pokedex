@@ -1,12 +1,12 @@
 import React, { ReactNode } from 'react'
-import { SidebarProvider } from './components/layout/sidebar/sidebar.context'
-import { Layout } from './components'
+import { SidebarProvider, Layout } from '@components'
 import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
-import { ModalProvider } from '@components/Modal/context/ModalContext'
-import { store } from './redux/store'
+import { ModalProvider } from '@components/Modal'
+import { store } from '@redux'
 import ReactQueryProvider from '@components/ReactQueryProvider'
 import { MobileProvider } from '@contexts/isMobile.context'
+
 
 interface Props {
     children: ReactNode

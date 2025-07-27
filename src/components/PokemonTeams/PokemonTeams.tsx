@@ -28,15 +28,13 @@ function PokemonTeams() {
       <h1 className='mx-auto text-white'>Teams</h1>
      <div className='pokedex-container col-md-11 p-3' style={{height: '800px', overflowY: 'auto'}}>
       {
-          activeUserTeams ? <div className='d-flex flex-row flex-wrap justify-content-around'>
+        activeUserTeams && <div className='d-flex flex-row flex-wrap justify-content-around'>
           {activeUserTeams.map(team => <Card team={team} handleClick={(e) => onTeamClick(e,`${team.id}`)}/> )}
-          <div className='rounded-pill bg-poke-blue d-flex flex-column justify-content-center align-items-center' style={{ minWidth: '200px' }} onClick={() => createUserTeam(usersState, dispatch)}>
-              <i className='bi bi-plus-circle fs-1 text-white'></i>
-          </div>
         </div> 
-        : <div>Nothing yet</div>
       }
-     
+      <div className='rounded-pill bg-poke-blue d-flex flex-column justify-content-center align-items-center' style={{ minWidth: '200px' }} onClick={() => createUserTeam(usersState, dispatch)}>
+          <i className='bi bi-plus-circle fs-1 text-white'></i>
+      </div>
     </div>
   </>)
 }

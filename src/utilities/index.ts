@@ -1,5 +1,4 @@
 export * from './RoutesWIthNotFound';
-export * from './auth';
 export * from './filters';
 export * from './generateRandomPokedexNumber';
 export * from './getPokemonWeaknesses';

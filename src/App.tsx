@@ -1,16 +1,14 @@
 import {  Navigate, Route } from "react-router-dom";
-import { RoutesWithNotFound } from "./utilities/RoutesWIthNotFound";
+import { RoutesWithNotFound } from "@utilities";
 import {DescriptionPage, LandingPage} from "@pages/public"; // Asegúrate de importar este componente
+import {PokedexPage, Private} from "@pages/private";
 import * as ROUTES from "@models/routes/routes";
 import { useEffect } from "react";
 import AuthGuard from "./guards/auth.guard";
-import Private from "@pages/private/Private";
 import {  useSelector } from "react-redux";
-import {  RootState } from "./redux/store";
 import {RegisterForm, LoginForm, Logout} from "@components/Form";
-import { UsersState } from "@redux/slices/user/reducers/user.reducer";
-import * as userService from '@services/user.service'
-import PokedexPage from "@pages/private/PokedexPage/PokedexPage";
+import { UsersState, RootState } from "@redux";
+import * as userService from '@services'
 
 function App() {
   const userState: UsersState = useSelector((state: RootState) => state.user)

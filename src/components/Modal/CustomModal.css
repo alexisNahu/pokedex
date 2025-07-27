@@ -1,44 +1,55 @@
+/* Overlay: más suave, difuminado opcional */
 .overlay {
   position: fixed;
-  left: 0;
-  top: 0;
-  width: 100vw;
-  max-height: 100vh;
+  inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.6); /* un poco más opaco */
+  backdrop-filter: blur(4px); /* opcional: efecto de desenfoque */
   z-index: 1000;
-  color: #ffffff;
 }
 
+/* Modal: estilo más limpio y profesional */
 .modal {
-  background: blue;
-  border-radius: 12px;
-  min-width: 250px;
-  max-width: 1000px;
-  width: 90%;             /* Responsivo */
-  max-height: 600px;
-  overflow-y: auto;       /* Agrega scroll si es necesario */
-  padding: 24px;          /* Espacio interno */
+  background: rgba(255, 255, 255, 0.4); /* Fondo claro y semitransparente */;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+  width: 90%;
+  max-width: 600px;
+  padding: 32px;
+  color: #333;
+  text-align: left;
   position: relative;
-  text-align: center;
-  box-sizing: border-box;
+  animation: fadeIn 0.3s ease;
 }
 
-
+/* Botón de cierre con mejor contraste y estilo */
 .close-button {
-  margin-top: 20px;
-  padding: 8px 16px;
-  background: #ff4d4d;
-  color: #ffffff;
+  margin-top: 24px;
+  padding: 10px 20px;
+  background: #e74c3c;
+  color: #fff;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
-  font-weight: bold;
+  font-weight: 600;
+  font-size: 0.95rem;
   transition: background 0.3s ease;
 }
 
 .close-button:hover {
-  background: #ff1a1a;
+  background: #c0392b;
+}
+
+/* Animación */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

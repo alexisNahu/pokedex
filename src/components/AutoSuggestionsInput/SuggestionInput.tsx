@@ -115,7 +115,7 @@ function SuggestionInput({
       {suggestionsList.length > 0 && (
         <ul
           className="suggestion-list list-group mt-2 z-3 position-absolute mx-auto"
-          style={{ maxHeight: 200, overflowY: 'auto', width: '100%' }}
+          style={{  overflowY: 'auto', width: '100%' }}
         >
           {suggestionsList.slice(0, maxSuggestion).map((name) => (
             <li

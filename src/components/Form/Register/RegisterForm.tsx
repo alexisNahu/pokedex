@@ -43,7 +43,7 @@ function RegisterForm() {
     }
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className={`auth-form mx-auto ${isMobile ? 'w-100' : 'w-60'}`}>
+        <form onSubmit={handleSubmit(onSubmit)} className={`auth-form mx-auto ${isMobile ? 'w-100' : 'w-75'}`}>
             <div style={{ width: '100%', height: '100px' }} className="d-flex align-items-center justify-content-center">
                 <i className="bi bi-person-circle text-blue" style={{ fontSize: '80px' }}></i>
             </div>
