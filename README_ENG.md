@@ -55,8 +55,14 @@ npm or yarn
 ### INSTALLATION
 ---
 git clone https://github.com/alexisNahu/pokedex.git
+
+
 cd pokedex
+
+
 npm install
+
+
 npm run dev
 
 ### PROJECT STRUCTURE
