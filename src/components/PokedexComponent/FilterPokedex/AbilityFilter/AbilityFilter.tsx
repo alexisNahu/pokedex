@@ -3,10 +3,13 @@ import React, { useEffect, useState } from 'react'
 import { mapToPokemonNamesDAO } from '@utilities/mappers/mapToPokemonNames'
 import { usePokedexContext } from '@contexts/pokedex.context'
 import { PokedexFilters } from '@models/pokemon.model'
-import SuggestionInput from '@components/layout/AutoSuggestionsInput/SuggestionInput'
+import SuggestionInput from '@components/AutoSuggestionsInput/SuggestionInput'
+import { useMobileContext } from '@contexts/isMobile.context'
 
 function AbilityFilter() {
   const {filters, setFilters} = usePokedexContext()
+
+  const {isMobile} = useMobileContext()
 
   const [allAbilities, setAllAbilities] = useState<Set<string>>(new Set([])) 
   const [selectedAbilities, setSelectedAbilities] = useState<Set<string>>(new Set())
@@ -33,7 +36,7 @@ function AbilityFilter() {
 
   return (
     <div className='d-flex'>
-      <div className="mb-3 mx-3 w-25 d-flex flex-column">
+      <div className={`mb-3 mx-3 ${isMobile ? 'w-100' : 'w-50'} d-flex flex-column`}>
         <label htmlFor="abilities" className="form-label fw-bold">
           Abilities
         </label>
@@ -47,7 +50,6 @@ function AbilityFilter() {
         />
       </div>
        <div>
-        <h6 className="mb-2 mx-2">Selected Abilities: </h6>
         <div className="d-flex flex-wrap gap-2">
           {[...selectedAbilities].map((ab) => (
            <div style={{ width: 'fit-content', padding: '10px' }}>

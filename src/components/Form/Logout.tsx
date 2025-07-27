@@ -1,9 +1,8 @@
 import { PUBLIC } from '@models/routes/routes';
 import React, { useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { RootState, AppDispatch } from "../../redux/store"
-import { logoutUser } from "../../redux/slices/user/User"
+import { AppDispatch, logoutUser } from "@redux"
 
 function Logout() {
   const dispatch = useDispatch<AppDispatch>();

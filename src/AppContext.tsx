@@ -5,7 +5,8 @@ import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import { ModalProvider } from '@components/Modal/context/ModalContext'
 import { store } from './redux/store'
-import { PokemonNamesProvider } from '@contexts/pokemonNames.context'
+import ReactQueryProvider from '@components/ReactQueryProvider'
+import { MobileProvider } from '@contexts/isMobile.context'
 
 interface Props {
     children: ReactNode
@@ -15,15 +16,18 @@ function AppContext({children}: Props) {
   return (
     <BrowserRouter>
         <Provider store={store}>
-            <SidebarProvider>
-                <PokemonNamesProvider>
-                    <ModalProvider>
-                        <Layout>
-                            {children}
-                        </Layout>
-                    </ModalProvider>
-                </PokemonNamesProvider>
-            </SidebarProvider>
+            <MobileProvider>
+                <ReactQueryProvider>
+                    <SidebarProvider>
+                            <ModalProvider>
+                                <Layout>
+                                    {children}
+                                </Layout>
+                            </ModalProvider>
+                    </SidebarProvider>
+                </ReactQueryProvider>
+
+            </MobileProvider>
         </Provider>
     </BrowserRouter>
 )

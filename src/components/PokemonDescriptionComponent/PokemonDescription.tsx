@@ -1,99 +1,122 @@
-import PokedexEntrySlider from '@components/CardComponent/PokedexEntrySlider/PokedexEntrySlider';
-import { EvolutionChain, PokemonVariants, PokeTypes } from '@components/index';
-import useFetch from '@hooks/useFetch';
+import { PokedexEntrySlider, 
+        PokemonStatsComponent, 
+        EvolutionChain, 
+        PokemonVariants, 
+        PokeTypes, 
+        PokemonDetails, 
+        PokemonImage,
+        SavePokemons } from '@components';
+import {useFetch, useGetPokemon} from '@hooks';
+import { useDescriptionContext } from '@contexts';
 import { useParams } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
-import PokemonStatsComponent from '@components/PokemonStatsComponent/PokemonStatsComponent';
-import { useDescriptionContext } from '../../contexts/description.context';
-import PokemonDetails from '@components/PokemonDetailsComponent/PokemonDetails';
-import PokemonImage from '@components/PokemonImage/PokemonImage';
+import { useMobileContext } from '@contexts/isMobile.context';
 
-import SavePokemons from '@components/SavePokemons/SavePokemons';
+import './PokemonDescription.css'
 
 function PokemonDescription() {
+  const { pokemonName } = useParams<{ pokemonName: string }>();
 
-    const { pokemonName } = useParams<{ pokemonName: string }>();
+  if (!pokemonName) return <div>no params sent</div>;
 
-    if (!pokemonName) return <div>no params sent</div>;
-    
-    const { poke, setPokemon } = useDescriptionContext();
+  const { poke, setPokemon } = useDescriptionContext();
 
-    const { loading, pokemon, errors } = useFetch({ nameOrId: pokemonName });
+  const { isLoading, data: pokemon, error } = useGetPokemon(pokemonName);
 
-    const [isShiny, setIsShiny] = useState<boolean>(false);
+  const [isShiny, setIsShiny] = useState<boolean>(false);
 
-    const starRef = useRef<HTMLIFrameElement | null>(null);
+  const starRef = useRef<HTMLIFrameElement | null>(null);
 
-    useEffect(() => {
-        if (pokemon) setPokemon(pokemon);
-        
-        const starIcon = starRef.current;
-        starIcon?.classList.toggle('bi-star', !isShiny);
-        starIcon?.classList.toggle('bi-star-fill', isShiny);
-    }, [pokemon]);
+  const {isMobile} = useMobileContext()
 
-    if (loading || !pokemon) {
-        return <div>{errors ? errors.message : "Cargando…"}</div>;
-    }
-  
-    if (poke) {
-        return (
-    <div
-        className="card d-flex bg-white bg-opacity-50 border-0 shadow-sm z-index-0"
-        style={{ width: '90%', height: 'auto' }}
-    >
+  useEffect(() => {
+    if (pokemon) setPokemon(pokemon);
 
-        {/* Header first */}
+    const starIcon = starRef.current;
+    starIcon?.classList.toggle('bi-star', !isShiny);
+    starIcon?.classList.toggle('bi-star-fill', isShiny);
+  }, [pokemon, isShiny]);
+
+  if (isLoading || !pokemon) {
+    return <div>{error ? error.message : "Cargando…"}</div>;
+  }
+
+  if (poke) {
+    return (
+      <div
+        className="card d-flex bg-white bg-opacity-50 border-0 shadow-sm z-index-0 mx-auto"
+        style={{ 
+          width: isMobile ? '100%': '90%', 
+          height: 'auto',
+          padding: isMobile ? 0: '1rem'
+        }}
+      >
+        {/* Header */}
         <div className="card-body d-flex flex-column align-items-center p-3 bg-transparent g-3 w-100 h-auto">
-            <div className="card-header bg-primary bg-opacity-75 text-center border-0 w-100">
-                <h5 className="card-title text-white text-uppercase mb-0 fw-bold">
-                    {poke.name}
-                </h5>
-            </div>
-            
-            <div className='d-flex flex-row' style={{gap: '2rem'}}>
-                <div>
-                    <SavePokemons pokemonName={pokemon.name} />
-                </div>
-                <div
-                    className="pokemon-sprite-container d-flex flex-column align-items-center"
-                    style={{ gap:'1rem' }}
-                >
 
-                    <i
-                        ref={starRef}
-                        onClick={() => setIsShiny((prevState) => !prevState)}
-                        className={`bi fs-2 text-poke-yellow ${
-                            isShiny ? 'bi-star-fill' : 'bi-star'
-                        }`}
-                        style={{ cursor:'pointer' }}
-                    ></i>
+          <div className="card-header bg-primary bg-opacity-75 text-center border-0 w-100">
+            <h5 className="card-title text-white text-uppercase mb-0 fw-bold">
+              {poke.name}
+            </h5>
+          </div>
 
-                    <PokemonImage isShiny={isShiny} poke={poke} imgWidth={200}/>
+          {/* Contenedor que cambia flex-direction en mobile */}
+          <div 
+            className='d-flex flex-row flex-wrap justify-content-center'
+            style={{ gap: '2rem' }}
+          >
+            <div>
+              <SavePokemons pokemonName={pokemon.name} />
+            </div>
+            <div
+              className="pokemon-sprite-container d-flex flex-column align-items-center"
+              style={{ gap:'1rem' }}
+            >
+              <i
+                ref={starRef}
+                onClick={() => setIsShiny(prev => !prev)}
+                className={`bi fs-2 text-poke-yellow ${
+                  isShiny ? 'bi-star-fill' : 'bi-star'
+                }`}
+                style={{ cursor:'pointer' }}
+              ></i>
 
-                    <PokeTypes pokemonTypes={poke.types} />
-                </div>
-                <PokemonStatsComponent stats={poke.stats} maxStat={255}/>
+              <PokemonImage isShiny={isShiny} poke={poke} imgWidth={200} />
+
+              <PokeTypes pokemonTypes={poke.types} />
             </div>
-            <PokedexEntrySlider pokemon={pokemon} />
-            <div className='d-flex flex-row mb-3 mt-3' style={{gap: '1rem'}}>
-                <div>
-                    <PokemonVariants
-                        megas={pokemon.megas}
-                        regional_versions={pokemon.variants}
-                        basePokemon={pokemon}
-                        gmaxs={pokemon.gigamax}
-                        handleClick={(poke) => setPokemon(poke)}
-                    />
-                </div>
-                <PokemonDetails />
+            <div className="pokemon-stats-container w-100" style={{height: '300px'}} >
+              <PokemonStatsComponent stats={poke.stats} maxStat={255} />
             </div>
+          </div>
+          
+          <PokedexEntrySlider pokemon={pokemon} />
+
+          {/* Otro contenedor flexible responsivo */}
+          <div
+            className='d-flex flex-row flex-wrap justify-content-center mb-3 mt-3'
+            style={{ gap: '1rem' }}
+          >
+            <div>
+              <PokemonVariants
+                megas={pokemon.megas}
+                regional_versions={pokemon.variants}
+                basePokemon={pokemon}
+                gmaxs={pokemon.gigamax}
+                handleClick={(poke) => setPokemon(poke)}
+              />
+            </div>
+            <div>
+              <PokemonDetails />
+            </div>
+          </div>
+          <div style={{maxWidth: '70%'}}>
             <EvolutionChain evolutionChain={pokemon.evolutionChain} />
+          </div>
         </div>
-    </div>
-);
-
-    }
+      </div>
+    );
+  }
 }
 
 export default PokemonDescription;

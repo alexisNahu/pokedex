@@ -1,5 +1,4 @@
-import { PokemonDTO, PossibleVariants, VariantPokemonDTO } from '@models/pokemon.model';
-import React from 'react'
+import { PokemonDTO, PossibleVariants, VariantPokemonDTO } from '@models';
 
 interface Props {
     isShiny: boolean

@@ -9,6 +9,7 @@ import SidebarItem from '../SidebarItem';
 import { useEffect, useRef, useState } from 'react';
 import { useSidebarContext } from '../../sidebar.context';
 import { getHidingTransition } from '../../Sidebar';
+import { useMobileContext } from '@contexts/isMobile.context';
 
 function AccordeonComponent({ item }: { item: DropdownItem }) {
   const safeId = generateSafeId(item.text).toLowerCase();
@@ -16,6 +17,7 @@ function AccordeonComponent({ item }: { item: DropdownItem }) {
   const animatedSprite = spriteService.getAnimatedFrontwardsSprite(item.icon, false)
 
   const {activo} = useSidebarContext()
+  const {isMobile} = useMobileContext()
   const [clicked, setClickedState] = useState<boolean>(false)
   const [hoveredState, setHoveredState] = useState<boolean>(false)
 
@@ -60,14 +62,23 @@ function AccordeonComponent({ item }: { item: DropdownItem }) {
              ref = {navLinkRef}
              >
             <div className="row d-flex justify-content-center flex-row">
-              <div className='col-md-4 d-flex justify-content-center align-items-center'>
+              <div className={`col d-flex align-items-center ${isMobile ? 'justify-content-start' : 'justify-content-center'}`} style={getHidingTransition(activo)}>
                 <i className={`${item.bootstrapIcon} fs-3`}></i>
               </div>
-              <div className='col-md d-flex justify-content-between align-items-center' style={getHidingTransition(activo)}>
+              <div
+                className={`col d-flex justify-content-between align-items-center`}
+                style={getHidingTransition(activo)}
+              >
                 <span className='fw-bold'>{item.text}</span>
-                <img src={animatedSprite} className={`${clicked ? 'bouncing' : 'not-bouncing'}`} alt="item" width={70}  />
+                <img
+                  src={animatedSprite}
+                  className={`${clicked ? 'bouncing' : 'not-bouncing'}`}
+                  alt="item"
+                  width={70}
+                />
               </div>
             </div>
+
           </a>
           <div className="collapse" id={safeId} ref = {collapseRef}>
             {item.items.map((s_item, i) => (

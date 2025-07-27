@@ -1,34 +1,74 @@
-import { usePokemonNamesContext } from '@contexts/pokemonNames.context'
-import React, { useEffect, useState } from 'react'
-import './Pokedex.css'
-import  Card  from '@components/PokedexComponent/Card/Card'
-import { usePokedexContext } from '@contexts/pokedex.context'
+import React, { useEffect, useMemo, useState } from 'react'
+
+import  Card  from './Card/Card'
 import PaginationButtons from './PaginationButtons/PaginationButtons'
 import FilterPokedex from './FilterPokedex/FilterPokedex'
-import { usePokedexPaginationContext } from '@contexts/pokedexPagination.context'
-import SuggestionInput from '@components/layout/AutoSuggestionsInput/SuggestionInput'
-import { getStatic3dSprite } from '@services/pokemonSprites.service'
 
-function Pokedex() {
-  const {pokemonList} = usePokemonNamesContext()
+import { usePokedexContext, usePokedexPaginationContext } from '@contexts'
+import {SuggestionInput} from '@components'
+import { UsersState, RootState } from '@redux'
+import { PUBLIC } from '@models/routes/routes'
+import { getStatic3dSprite, getActiveUser } from '@services'
+import { useNavigate, useSearchParams } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+
+import './Pokedex.css'
+import { useGetAllNames } from '@hooks/useQueries'
+import { useMobileContext } from '@contexts/isMobile.context'
+
+function Pokedex({ list }: { list : 'all' | 'favorites' }) {
+
+  const [pageParams] = useSearchParams()
+  const searchParam = pageParams.get('search')
+
+  const {isMobile} = useMobileContext()
+  const [itemsPerPage, setItemsPerPage] = useState<number>(isMobile ? 10 : 50)
+
+  const usersState: UsersState = useSelector((store: RootState) => store.user)
+  const navigator = useNavigate()
+
+  if (!list) return <div>No params sent</div>
+
+  const activeUserFavorites = getActiveUser(usersState)?.favorites
+
+  const {data: pokemonList, isLoading, error} = useGetAllNames()
+
   const {pokedexList, setPokedexList} = usePokedexContext()
   const {currentPage, setLastPage} = usePokedexPaginationContext()
-  
+
+  const dataFont = useMemo(() => {
+    if (list === 'all') return new Set(pokemonList);
+    if (list === 'favorites') return new Set(activeUserFavorites);
+    return new Set<string>();
+  }, [list, pokemonList, activeUserFavorites]);
+
   const [pageObjs, setPageObjs] = useState<string[] | []>([])
 
-  const itemsPerPage: number = 50 
+  useEffect(() => {
+    setItemsPerPage(isMobile ? 10 : 50)
+  }, [isMobile])
+
 
   useEffect(() => {
-    if (!pokedexList.length) {
-      setPokedexList([...pokemonList])
+    if (searchParam) {
+      setPokedexList([...dataFont].filter(data => data.includes(searchParam)))
       return
     }
-    const firstPositionIndex = (currentPage -  1) * itemsPerPage
-    const lastPositionIndex = firstPositionIndex + itemsPerPage
-    setLastPage(Math.ceil(pokedexList.length / itemsPerPage))
-    setPageObjs(pokedexList.slice(firstPositionIndex, lastPositionIndex))
-  }, [currentPage, pokemonList, pokedexList])  
-  
+    setPokedexList([...dataFont]);
+  }, [dataFont, searchParam]);
+
+  useEffect(() => {
+    const firstIndex = (currentPage - 1) * itemsPerPage;
+    const lastIndex = firstIndex + itemsPerPage;
+
+    if (!usersState.activeUser && list !== 'all') {
+      navigator(`/${PUBLIC.LOGIN}`)
+      return
+    }
+
+    setLastPage(Math.ceil(pokedexList.length / itemsPerPage));
+    setPageObjs(pokedexList.slice(firstIndex, lastIndex));
+  }, [pokedexList, currentPage, setLastPage, usersState, itemsPerPage]);
 
   const handleSuggestionRender = (name: string) => {
     return <div className='d-flex flex-row justify-content-center'>
@@ -45,20 +85,26 @@ function Pokedex() {
             </span>
           </div>
     }
-  if (pokedexList.length > 0) {
 
+    if (isLoading || !pokedexList) {
+        return <div className='pokedex-container col-md-11 p-3' style={{height: '90%', overflowY: 'auto'}}>
+          <div className='d-flex justify-content-center align-items-center'>loading</div></div>
+    }
+
+
+        
     return (
       <>
-        <div className='pokedex-container col-md-11 p-3' style={{height: '90%', overflowY: 'scroll'}}>
+        <div className='pokedex-container col-md-11 p-3' style={{height: '90%', overflowY: 'auto'}}>
           <div className='d-flex justify-content-center align-items-center'>
             <div className='mx-3'>
-              <FilterPokedex />
+              <FilterPokedex dataFont={dataFont} />
             </div>
             <div className='col-md-9'>
               <SuggestionInput 
-                completeList={[...pokemonList]} 
-                handleSuggestionsClick={(name: string) => setPokedexList([...pokemonList].filter(pname => pname.includes(name)))} 
-                onSubmit={(value: string) => setPokedexList([...pokemonList].filter(pname => pname.includes(value)))} 
+                completeList={[...dataFont]} 
+                handleSuggestionsClick={(name: string) => setPokedexList([...dataFont].filter(pname => pname.includes(name)))} 
+                onSubmit={(value: string) => setPokedexList([...dataFont].filter(pname => pname.includes(value)))} 
                 handleSuggestionRender={handleSuggestionRender} 
                 placeholder='Search for a pokemon here...'
                 maxSuggestion={5}
@@ -67,18 +113,16 @@ function Pokedex() {
           </div>
           <div className='pokemon-card-container'>
             {
-              pageObjs.map((obj, index) => {
+              pageObjs.length > 0 ? pageObjs.map((obj, index) => {
                 return <Card text={obj} key={index}/>
-              })
+              }) : <div className='mx-auto'>Nothing yet</div>
             }
           </div>
         </div>
         <PaginationButtons />
       </>
     )
-  } else {
-    return <div>loading...</div>
-  }
+
 
 }
 

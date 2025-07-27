@@ -1,9 +1,11 @@
 export function generateRandomPokedexNumber(limit: number, howMany: number): Array<number> {
-    const randomPokedexNumbers: Array<number> = []
+    const randomPokedexNumbers = new Set<number>();
     
-    for (let index = 0; index < howMany; index++) {
-        randomPokedexNumbers.push(Math.floor(Math.random() * (limit+1)))
+    while (randomPokedexNumbers.size < howMany) {
+        // Genera números entre 1 y limit (ambos incluidos)
+        const randomNum = Math.floor(Math.random() * limit) + 1;
+        randomPokedexNumbers.add(randomNum);
     }
 
-    return randomPokedexNumbers
+    return Array.from(randomPokedexNumbers);
 }

@@ -1,23 +1,23 @@
 import { SubmitHandler, useForm } from "react-hook-form"
 import { RegisterUserScheme, type RegisterUserType } from "../Schemas"
 import { zodResolver } from "@hookform/resolvers/zod"
-import CustomInput from "../CustomInput/CustomInput"
+import {CustomInput} from "@components"
+import { useModalContext, Modal } from "@components/Modal"
 import { useDispatch, useSelector} from "react-redux"
-import { AppDispatch, RootState } from "../../../redux/store"
-import { Rol, User } from "@models/user.model"
-import { useNavigate } from "react-router-dom"
+import { AppDispatch, RootState, UsersState } from "@redux"
+import { Rol, User } from "@models"
 import { PUBLIC } from "@models/routes/routes"
+import { useNavigate } from "react-router-dom"
+import * as authService from "@services"
 import '../Form.css'
-import { useModalContext } from "@components/Modal/context/UseModalContext"
-import { Modal } from "@components/Modal/CustomModal"
-import * as authService from "@services/auth.service"
-import { UsersState } from "../../../redux/slices/user/reducers/user.reducer"
+import { useMobileContext } from "@contexts/isMobile.context"
 
 function RegisterForm() {
     const dispatch = useDispatch<AppDispatch>();
     const usersState: UsersState = useSelector((store: RootState) => store.user)
     const navigator = useNavigate()
     const {state, setState} = useModalContext()
+    const {isMobile} = useMobileContext()
     
     const {control, handleSubmit, formState: { errors }} = useForm<RegisterUserType>({
         resolver: zodResolver(RegisterUserScheme),
@@ -30,6 +30,7 @@ function RegisterForm() {
             password: data.password,
             email: data.email,
             favorites: [],
+            teams: [],
             rol: Rol.USER,
         }
 
@@ -42,7 +43,7 @@ function RegisterForm() {
     }
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className="auth-form col-md-6 mx-auto">
+        <form onSubmit={handleSubmit(onSubmit)} className={`auth-form mx-auto ${isMobile ? 'w-100' : 'w-75'}`}>
             <div style={{ width: '100%', height: '100px' }} className="d-flex align-items-center justify-content-center">
                 <i className="bi bi-person-circle text-blue" style={{ fontSize: '80px' }}></i>
             </div>

@@ -1,10 +1,21 @@
-import { AllSpritesDAO } from "./dao";
+import { AllSpritesDAO } from './dao';
 import { POKEMON_TYPES, PokemonType, pokemonWeaknesses } from "./pokemonTypes.model"
 
-export interface Stat {
+export interface StatDTO {
   stat: string,
   value: number,
 }
+
+export interface Team {
+    id: number,
+    name: string,
+    count: number,
+    pokemons: PokemonTeamList
+}
+
+export type PokemonTeamList = [string | null, string | null,string | null,string | null,string | null,string | null]
+
+
 export interface CardData {
   variant: PokemonDTO | VariantPokemonDTO;
   original: PokemonDTO;
@@ -35,7 +46,7 @@ export interface VariantPokemonDTO {
   name: string;
   types: POKEMON_TYPES[]
   abilities: AbilityDTO[] | []
-  stats: Stat[]
+  stats: StatDTO[]
   sprites: AllSpritesDAO
   variant_type: PossibleVariants
   height: string,
@@ -107,7 +118,7 @@ export interface PokemonDTO {
     abilities: AbilityDTO[] | []
     isLegendary: boolean
     isMythical: boolean
-    stats: Array<Stat>
+    stats: Array<StatDTO>
     megas: VariantPokemonDTO[]
     variants: VariantPokemonDTO[]
     gigamax: VariantPokemonDTO[]

@@ -2,11 +2,6 @@ import { usePokedexContext } from '@contexts/pokedex.context'
 import { PokedexFilters } from '@models/pokemon.model'
 import React, { useEffect, useState } from 'react'
 
-interface Props {
-    generation: string[],
-    setGeneration: React.Dispatch<React.SetStateAction<string[]>>
-}
-
 function GenerationFilter() {
     const {filters, setFilters} = usePokedexContext()
 
@@ -27,7 +22,6 @@ function GenerationFilter() {
     }
 
     return (
-        <div>
             <div className="generation-buttons" role="group" aria-label="Generation Selection">
                 <span className="generation-label">Generation:</span>
                 {Array.from({ length: 9 }).map((_, index) => {
@@ -45,8 +39,6 @@ function GenerationFilter() {
                     )
                 })}
                 </div>
-
-        </div>
     )
 }
 

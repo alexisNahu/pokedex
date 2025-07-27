@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from "react";
-import { PokemonDTO, VariantPokemonDTO } from "@models/pokemon.model";
+import { PokemonDTO, VariantPokemonDTO } from "@models";
 
 type ContextType = null | VariantPokemonDTO | PokemonDTO
 

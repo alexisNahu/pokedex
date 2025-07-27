@@ -1,3 +1,5 @@
+import { Team } from "./pokemon.model"
+
 export interface User {
     id: number
     username: string
@@ -5,6 +7,7 @@ export interface User {
     email: string
     rol: Rol,
     favorites: string[]
+    teams: Team[]
 }
 
 export enum Rol {

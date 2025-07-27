@@ -1,9 +1,40 @@
-export {default as PokemonStatsComponent} from './PokemonStatsComponent/PokemonStatsComponent'
-export {default as PokemonDescription} from './PokemonDescriptionComponent/PokemonDescription'
-export {default as EvolutionChain} from './EvolutionChainComponent/EvolutionChain'
-export {default as PokemonMegas} from './PokemonMegasComponent/PokemonMegas'
-export {default as CardCarousel} from './CardComponent/CardCarousel'
-export {default as PokeTypes} from './PokeTypesComponent/PokeTypes'
-export {default as PokemonVariants} from './PokemonVariantsComponent/PokemonVariants'
+export { default as SuggestionInput } from './AutoSuggestionsInput/SuggestionInput';
+export { default as CardCarousel } from './CardComponent/CardCarousel';
+export { default as PokedexEntrySlider } from './CardComponent/PokedexEntrySlider/PokedexEntrySlider';
+export { default as SingleCard } from './CardComponent/SingleCard';
+export { default as CompareCards } from './ComparePokemons/Cards/Cards';
+export { default as ComparePokemons } from './ComparePokemons/ComparePokemons';
+export { default as EvolutionChain } from './EvolutionChainComponent/EvolutionChain';
+export { default as CustomInput } from './Form/CustomInput/CustomInput';
+export { default as LoginForm } from './Form/Login/LoginForm';
+export { default as Logout } from './Form/Logout';
+export { default as RegisterForm } from './Form/Register/RegisterForm';
+export { default as PokeTypes } from './PokeTypesComponent/PokeTypes';
+export { default as Card } from './PokedexComponent/Card/Card';
+export { default as AbilityFilter } from './PokedexComponent/FilterPokedex/AbilityFilter/AbilityFilter';
+export { default as FilterPokedex } from './PokedexComponent/FilterPokedex/FilterPokedex';
+export { default as GenerationFilter } from './PokedexComponent/FilterPokedex/GenerationFilter/GenerationFilter';
+export { default as TypesFilter } from './PokedexComponent/FilterPokedex/TypesFilter/TypesFilter';
+export { default as TypesFilterWithSingle } from './PokedexComponent/FilterPokedex/TypesFilter/TypesFilterWithSingle';
+export { default as PaginationButtons } from './PokedexComponent/PaginationButtons/PaginationButtons';
+export { default as Pokedex } from './PokedexComponent/Pokedex';
+export { default as PokemonAbilities } from './PokemonAbilities/PokemonAbilities';
+export { default as PokemonDescription } from './PokemonDescriptionComponent/PokemonDescription';
+export { default as PokemonDetails } from './PokemonDetailsComponent/PokemonDetails';
+export { default as PokemonImage } from './PokemonImage/PokemonImage';
+export { default as PokemonMegas } from './PokemonMegasComponent/PokemonMegas';
+export { default as PokemonStatBar } from './PokemonStatsComponent/PokemonStatBar';
+export { default as PokemonStatsComponent } from './PokemonStatsComponent/PokemonStatsComponent';
+export { default as PokemonVariants } from './PokemonVariantsComponent/PokemonVariants';
+export { default as SavePokemons } from './SavePokemons/SavePokemons';
+export { default as Layout } from './layout/Layout';
+export { default as ProfileIcon } from './layout/ProfileIcon/ProfileIcon';
+export { default as Sidebar } from './layout/sidebar/Sidebar';
+export { default as AccordeonComponent } from './layout/sidebar/SidebarItems/AccordeonComponent/AccordeonComponent';
+export { default as SidebarItem } from './layout/sidebar/SidebarItems/SidebarItem';
+export { default as SingleComponent } from './layout/sidebar/SidebarItems/SingeComponent/SingleComponent';
+export {default as PokemonTeams} from './PokemonTeams/PokemonTeams'
+export {default as LoadingComponent} from './LoadingComponent/Loading'
 
-export * from './layout';
+export * from './layout/sidebar/sidebar.context';
+export * from './layout/sidebar/sidebar.items';

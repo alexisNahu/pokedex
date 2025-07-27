@@ -16,7 +16,7 @@ const PokedexPaginationContext = createContext<PokedexPaginationContextType | un
 
 export const PokedexPaginationProvider = ({ children }: { children: React.ReactNode }) => {
   const {pokedexList} = usePokedexContext()
-  const itemsPerPage: number = 10
+  const itemsPerPage: number = 50
   
   const [currentPage, setCurrentPage] = useState<PageNumber>(1);
   const [lastPage, setLastPage] = useState<PageNumber>(Math.ceil(pokedexList.length / itemsPerPage));

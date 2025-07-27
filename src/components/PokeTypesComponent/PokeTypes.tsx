@@ -1,4 +1,4 @@
-import { POKEMON_TYPES, POKEMON_TYPE_COLORS, type PokemonType } from '@models/pokemonTypes.model'
+import { POKEMON_TYPES, POKEMON_TYPE_COLORS, type PokemonType } from '@models'
 import './PokeTypes.css'
 
 interface Props {
@@ -12,7 +12,7 @@ function PokeTypes({pokemonTypes}: Props) {
                 </div>
     }
     return (
-        <div className='pokemon-types d-flex flex-wrap'>
+        <div className='pokemon-types d-flex flex-wrap justify-content-center'>
             {
                 pokemonTypes.map((type, i) => {
                     return (

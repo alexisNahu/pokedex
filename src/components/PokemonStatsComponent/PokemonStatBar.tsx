@@ -1,8 +1,8 @@
-import { Stat } from '@models/pokemon.model'
+import { StatDTO } from '@models'
 import {ProgressBar} from 'react-progressbar-fancy'
 
 interface Props {
-  stat: Stat,
+  stat: StatDTO,
   maxStat: number,
   primaryColor: string,
   secondaryColor: string, 

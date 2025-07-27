@@ -1,7 +1,7 @@
 // guards/auth.guard.tsx
 import { useSelector } from 'react-redux';
 import { Navigate, Outlet } from 'react-router-dom';
-import { RootState } from '../redux/store';
+import { RootState } from '@redux';
 import { PUBLIC } from '@models/routes/routes';
 
 interface AuthGuardProps {

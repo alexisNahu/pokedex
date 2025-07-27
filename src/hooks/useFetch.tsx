@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import * as pokemonService from '@services/pokemon.service'
-import { PokemonDTO } from '@models/pokemon.model'
+import { PokemonDTO } from '@models'
+import { getPokemonDTOByNameOrId } from '@services'
 
 interface Props {
   nameOrId: string
@@ -28,7 +28,7 @@ function useFetch({ nameOrId }: Props): Response {
       setErrors(null)
 
       try {
-        const pokemon = await pokemonService.getPokemonDTOByNameOrId(nameOrId, signal)
+        const pokemon = await getPokemonDTOByNameOrId(nameOrId, signal)
         setPokemon(pokemon)
       } catch (error) {
         if (error === 'Aborted') {

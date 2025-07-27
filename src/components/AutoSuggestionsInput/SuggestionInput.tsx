@@ -7,8 +7,9 @@ interface Props {
   handleSuggestionRender: (name: string) => React.ReactNode
   placeholder?: string
   shouldClearInput?: boolean
-  clearWhenSubmitted?: boolean
-  maxSuggestion: number
+  clearWhenSubmitted?: boolean,
+  onInvalidInput?: () => void,
+  maxSuggestion: number,
 }
 
 function SuggestionInput({
@@ -18,6 +19,7 @@ function SuggestionInput({
   handleSuggestionRender,
   placeholder,
   shouldClearInput,
+  onInvalidInput,
   clearWhenSubmitted,
   maxSuggestion,
 }: Props) {
@@ -36,7 +38,7 @@ function SuggestionInput({
 
 
         document.addEventListener('mousedown', handleClickContent)
-        document.addEventListener('keydown', handleEscapeKeyPress)
+        document.addEventListener('keydown', handleEscapeKeyPress)  
 
         return () => {
             document.removeEventListener('mousedown', handleClickContent)
@@ -51,12 +53,25 @@ function SuggestionInput({
     }
   }, [shouldClearInput])
 
+
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
-    if (inputRef.current) {
-      if (onSubmit) onSubmit(inputRef.current.value.trim().toLowerCase())
-      if (clearWhenSubmitted) inputRef.current.value = ''
+
+    const input = inputRef.current
+    const value = inputRef.current?.value
+  
+    if (!value || !input) return
+
+    if (clearWhenSubmitted) input.value = ''
+    
+    if (!completeList.some(el => el.includes(value))) {
+      if (!onInvalidInput) {
+        alert('Not a result with this filter')
+        return
+      } 
+      onInvalidInput()
     }
+    if (onSubmit) onSubmit(value.trim().toLowerCase())
     setSuggestionsList([])
   }
 
@@ -100,7 +115,7 @@ function SuggestionInput({
       {suggestionsList.length > 0 && (
         <ul
           className="suggestion-list list-group mt-2 z-3 position-absolute mx-auto"
-          style={{ maxHeight: 200, overflowY: 'auto', width: '100%' }}
+          style={{  overflowY: 'auto', width: '100%' }}
         >
           {suggestionsList.slice(0, maxSuggestion).map((name) => (
             <li

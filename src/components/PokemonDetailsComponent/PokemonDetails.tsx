@@ -1,8 +1,7 @@
-import { useModalContext } from '@components/Modal/context/UseModalContext'
-import { useDescriptionContext } from '../../contexts/description.context'
-import { Modal } from '@components/Modal/CustomModal'
+import {PokeTypes, PokemonAbilities} from '@components'
+import { useModalContext, Modal } from '@components/Modal'
+import { useDescriptionContext } from '@contexts'
 import { useState } from 'react'
-import PokeTypes from '@components/PokeTypesComponent/PokeTypes'
 
 function PokemonDetails() {
     const { poke } = useDescriptionContext()
@@ -24,7 +23,7 @@ function PokemonDetails() {
     }
 
     return (
-        <div className='details py-1 container bg-poke-red rounded text-white bold' style={{width: 500}}>
+        <div className='details py-1 container bg-poke-red rounded text-white bold' style={{maxWidth: 500}}>
             <div className="row p-3">
                 <div className="col">
                     <span className='d-flex flex-column mb-3'>
@@ -35,22 +34,7 @@ function PokemonDetails() {
                     </span>
                 </div>
                 <div className="col">
-                    <span className='d-flex flex-column mb-3'>
-                        <h5 className='mb-0'>Abilities:</h5> <p className='mb-0'>
-                            {poke?.abilities?.map(((ability, i) => (
-                                <span key={i}>
-                                   {ability.en?.map((entry, a) => (
-                                      <button
-                                         key={a}
-                                         className='btn btn-outline-light m-1'
-                                         onClick={() => handleClick(entry)}
-                                      >
-                                         {entry.name}
-                                      </button>
-                                   ))}
-                                </span>
-                            )))}
-                        </p></span>
+                    { poke && <PokemonAbilities poke={poke} handleClick={handleClick} />}
                 </div>
             </div>
             <div className='row'>

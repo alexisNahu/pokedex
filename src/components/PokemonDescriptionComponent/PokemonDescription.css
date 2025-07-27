@@ -1,0 +1,27 @@
+/* Para que el contenedor principal tenga padding en pantallas grandes, y sea full ancho en móvil */
+.card.mx-auto {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (max-width: 768px) {
+  .card.mx-auto {
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+  }
+}
+
+/* Que las imágenes y sprites sean responsivas */
+.pokemon-sprite-container img,
+.pokemon-sprite-container svg {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Evitar que el stats component se salga */
+.pokemon-stats-container {
+  flex-basis: 100%;
+  max-width: 100%;
+  min-width: 0; /* importante en flex */
+  margin-top: 1rem;
+}
